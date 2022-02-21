@@ -1,0 +1,52 @@
+
+<!-- property binding and event binding example  with button click above attribute is false disable -->
+<input value="{{ name }}" disabled="{{ disable }}">
+<br><br>
+<input [value]=name [disabled]=disable>
+<br><br>
+<button (click)="onClick()"> Click to off disable</button>
+
+<!-- event binding practice -->
+<button (click)="getMyName(name)">Show my name</button>
+<br>
+<input (click)="myEvent('this is click event')" placeholder="click">
+<br>
+<input #box1 (keyup)="myEvent(box1.value)" placeholder="keyup"><br>
+<input #box2 (keydown)="myEvent(box2.value)" placeholder="keydown"><br>
+<input #box3 (keyup.space)="myEvent(box3.value)" placeholder="keyup.space"><br>
+<input #box4 (keyup.enter)="myEvent(box4.value)" placeholder="keyup.enter"><br>
+<input #box5 (keydown.space)="myEvent(box5.value)" placeholder="keydown.space"><br>
+<input #box6 (keydown.enter)="myEvent(box6.value)" placeholder="keydown.enter"><br>
+<input (blur)="myEvent('blur event')" placeholder="blur"><br>
+<h1 (mouseover)="myEvent('mouseover')">mouse over</h1>
+<h1 (mouseleave)="myEvent('mouseleave')"> mouse leave</h1>
+
+
+<br><br>
+
+<input (keyup)="changeURL($event)" [value]="imgUrl">
+
+<!-- <img [src]="imgUrl"> -->
+<app-post [img]="imgUrl" (imgSelected)="logImg($event)">
+  <h1>Some content</h1>
+</app-post>
+
+
+<!-- interpolation with pipe -->
+<h1>hello {{ name | titlecase }}</h1>
+<h1>get name with function {{ getName() | titlecase }}</h1>
+
+<h1>{{ 2+3 }}</h1>
+
+
+<!-- parent to child -->
+<div>
+  <h1>parent component</h1>
+  <h2>{{ value }}</h2>
+  <!-- pass data: <input type="text" #data [value]="enterName" (keyup)="changeData(data.value)">
+  <button (click)="transferData()">send</button> -->
+
+  <!-- <app-home [parentData]="parentData" (sendData)="sendData('child component')" ></app-home> -->
+  <app-home (sendData)="sendData($event)"></app-home>
+</div>
+
