@@ -1,0 +1,11 @@
+demo 2 work
+
+<h1>demo 2</h1>
+
+<input type="text" #num>
+<button (click)="addNumber(num.value)">Add Number</button>
+<ol>
+    <li *ngFor="let data of numList2">
+        {{ data }}
+    </li>
+</ol>

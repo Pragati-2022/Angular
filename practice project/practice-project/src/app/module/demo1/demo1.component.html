@@ -1,0 +1,13 @@
+demo 1 work
+
+<h1>demo 1</h1>
+
+<input type="text" #num>
+<input type="text" #name>
+<button (click)="addNumberEvent(num.value, name.value)">Add Number</button>
+
+<ul>
+    <li *ngFor="let data of Student">
+        {{ data.name }} {{ data.num }}
+    </li>
+</ul>

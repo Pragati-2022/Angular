@@ -1,0 +1,44 @@
+  
+<!-- pipe practice -->
+<!-- {{ cost | currency }}
+{{ cost | currency : 'JPY' }}
+{{ price | number : '1.0-0' }}
+{{ price | number : '1.2-5' }}
+{{ pizza | json }}
+{{ title | imageSize }} -->
+
+<!-- directives practice -->
+<!-- <hr> -->
+<!-- example of ngClass and ngStyle -->
+<!-- <button (click)="pinkClass = !pinkClass" [ngClass]="{pink : pinkClass}" [ngStyle]="{'font-size.px' : myFontSize}">Change Color</button> -->
+
+<!--example of ngIf way-1-->
+<!-- <ng-template [ngIf]="pinkClass">
+  <p>button is pink.</p>
+</ng-template> -->
+
+<!-- example of ngIf way-2 -->
+<!-- <p *ngIf="pinkClass; else textChange">only p tag and button is pink.</p> 
+
+<p *ngIf="pinkClass;then text else textChange"></p> 
+<ng-template #text>button is pink.</ng-template>
+<ng-template #textChange>Alternate button is white.</ng-template><br>
+   -->
+<!-- example of ngFor -->
+<!-- <app-test *ngFor = "let image of images, let i = index" [testImg]="imgUrl">
+  <p>{{ i }}This is ngFor directive</p>
+</app-test> -->
+
+<button (click)="toggleComponent()">{{ isDestroyed? 'create': 'destroy' }} component</button>
+<app-test *ngIf="!isDestroyed" [userId]="userId"></app-test>
+
+<!-- <app-shared></app-shared> -->
+
+<hr>
+
+<!-- <app-demo1 *ngIf="showModel"></app-demo1>  -->
+<!-- <app-demo1></app-demo1> 
+<app-demo2></app-demo2> -->
+
+<!-- <h1>{{ msg }}</h1> 
+<h2>{{ name }}</h2>  -->
