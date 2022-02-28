@@ -7,32 +7,19 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 })
 export class StudentInfoComponent implements OnInit {
 
+  //to take data from parent compoent list
   @Input() studentInfo =[ {
-    firstName: 'pragati',
-    lastName: 'sanepara',
-    gender: 'Female',
-    city: 'amreli',
-    institute: 'B.H.Gardi',
-    description: 'I am student.',
+    firstName: '',
+    lastName: '',
+    gender: '',
+    city: '',
+    institute: '',
+    description: '',
   }];
-
-  task = {};
-
-  @Output() studentDetail : EventEmitter<any> = new EventEmitter();
 
   constructor() { }
 
   ngOnInit(): void {
   }
-  
-//   deleteStudent(index: number){
-//     // console.log(this.userInfo[index]);
-//     this.studentInfo.splice(index, 1);
-//   }
-
-//   showData(i : number){
-//     this.task = this.studentInfo[i];
-//     this.studentDetail.emit(this.task);
-//  } 
 
 }
