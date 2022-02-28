@@ -48,7 +48,7 @@ export class StudentListComponent implements OnInit, Student {
   @ViewChild('description') studentDescription!: ElementRef;
 
   studentGender = '';
-
+  deletedIndex!: number;
   // output decorator to pass deatils of student
   @Output() studentDetailInfo: EventEmitter<any> = new EventEmitter();
 
@@ -94,10 +94,13 @@ export class StudentListComponent implements OnInit, Student {
   // to delete particular student detail
   deleteStudent(index: number) {
     this.students.splice(index, 1);
+    if(this.deletedIndex)
+    this.showData(index);
   }
 
   // called when click on info button and it store the details of that student and pass it to main component
   showData(i: number) {
+    this.deletedIndex = i;
     this.task = this.students[i];
     this.studentDetailInfo.emit(this.task);
   }
