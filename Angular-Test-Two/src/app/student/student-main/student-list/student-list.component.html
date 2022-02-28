@@ -1,7 +1,7 @@
 <!-- add student form -->
 <p>Add Student</p>
 
-<form action="">
+<form action="reset()">
   <input type="text" #fname placeholder="First Name" /><br />
 
   <input type="text" #lname placeholder="Last Name" /><br />
@@ -56,10 +56,10 @@
         </td>
         <td>{{ data.institute }}</td>
         <td>{{ data.city }}</td>
-        <!-- delete button to delete particular student details -->
-        <td><button (click)="deleteStudent(i)">Delete</button></td>
         <!-- button for show particlar student details -->
         <td><button (click)="showData(i)">Info</button></td>
+        <!-- delete button to delete particular student details -->
+        <td><button (click)="deleteStudent(i)">Delete</button></td>
       </tr>
     </tbody>
   </table>

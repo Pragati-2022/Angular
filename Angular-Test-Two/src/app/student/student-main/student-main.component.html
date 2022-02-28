@@ -1,14 +1,8 @@
 <app-student-list (studentDetailInfo)="showData($event)"></app-student-list>
 
-<app-student-details> 
-    <!-- loop for show specific student details -->
-    <div *ngFor="let data of studentInfo | keyvalue" >
-       <p *ngIf="data.key=='firstName'">First Name : {{ data.value }}</p>
-       <p *ngIf="data.key=='lastName'">Last Name : {{ data.value }}</p>
-       <p *ngIf="data.key=='gender'">Gender : {{ data.value }}</p>
-       <p *ngIf="data.key=='city'">City : {{ data.value }}</p>
-       <p *ngIf="data.key=='institute'">Institute : {{ data.value }}</p>
-       <p *ngIf="data.key=='description'">Description : {{ data.value }}</p>
-    </div>
+<app-student-details *ngIf="showStudent">
+   Name : {{ studentInfo.gender | prependName }} {{ studentInfo.firstName  + " " + studentInfo.lastName | uppercase}} <br>
+   City : {{ studentInfo.city }}<br>
+   Institute : {{ studentInfo.institute }}<br>
+   Description : {{ studentInfo.description }}
 </app-student-details>
-

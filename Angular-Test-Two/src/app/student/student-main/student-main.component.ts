@@ -1,22 +1,23 @@
+import { JsonPipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-student-main',
   templateUrl: './student-main.component.html',
-  styleUrls: ['./student-main.component.css']
+  styleUrls: ['./student-main.component.css'],
 })
 export class StudentMainComponent implements OnInit {
-
   // to store particular student details
-  studentInfo = {};
+  studentInfo : any;
+
   constructor() { }
 
+  showStudent = false;
   // take details of student from list component
-  showData(data: any){
+  showData(data: any) {
     // assign it to studentInfo object
+    this.showStudent = ! this.showStudent;
     this.studentInfo = data;
   }
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

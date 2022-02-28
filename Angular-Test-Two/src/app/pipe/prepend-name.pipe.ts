@@ -4,8 +4,8 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'prependName',
 })
 export class PrependNamePipe implements PipeTransform {
-  transform(value: string, gender: string): string {
-    if (gender.toLowerCase() == 'male') return 'Mr.' + value.toUpperCase();
-    else return 'Ms.' + value.toUpperCase();
+  transform(gender: string): string {
+    if (gender.toLowerCase() == 'male') return 'Mr.' ;
+    else return 'Ms.' ;
   }
 }
