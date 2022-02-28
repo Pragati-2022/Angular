@@ -1,0 +1,59 @@
+<p>Add Student</p>
+
+<form action="">
+  <input type="text" #fname  placeholder="First Name" /><br />
+  <input type="text" #lname   placeholder="Last Name" /><br />
+
+  <label for="gender">Gender:</label>
+  <input
+    id="male"
+    type="radio"
+    name="gender"
+     #gender 
+  />
+  <label for="male">Male</label>
+
+  <input
+    id="female"
+    type="radio"
+    name="gender"
+    #gender
+  />
+  <label for="female">Female</label><br>
+
+  <input type="text" #institue  placeholder="Institute Name" ><br>
+  <input type="text" #city  placeholder="City"><br>
+  <label for="description">Description</label><br>
+  <textarea type="text" #description id="description"></textarea><br>
+
+  <button (click)="addedSuccessfully()" (click)="$event.preventDefault()">Add student</button>
+</form>
+
+
+  <app-student-info [studentInfo]="students">
+  <p>student List</p>
+  <table>  
+    <thead>  
+        <tr>  
+          <td>First Name</td>            
+          <td>Last Name</td>            
+          <td>Gender</td>            
+          <td>Institute Name</td>            
+          <td>City</td>            
+          <td>Delete</td>            
+          <td>Details</td>            
+        </tr>  
+    </thead>  
+    <tbody>  
+        <tr *ngFor="let data of students; let i = index">  
+            <td>{{ data.firstName }} </td>  
+            <td>{{ data.lastName }} </td>  
+            <td [ngClass]="data.gender == 'Male' ? 'male': 'female'" [ngStyle]="{'background-color' : data.gender=='Male'? 'lightblue': 'lightpink'}">{{ data.gender }} </td>  
+            <td>{{ data.institute }} </td>  
+            <td>{{ data.city }} </td>  
+            <td><button (click)="deleteStudent( i )">Delete</button></td>  
+            <td><button (click)="showData( i )">Info</button></td>  
+        </tr>  
+    </tbody>  
+</table> 
+</app-student-info>

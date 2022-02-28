@@ -1,0 +1,8 @@
+<app-student-list (studentDetailInfo)="showData($event)"></app-student-list>
+
+<app-student-details> 
+    <div *ngFor="let data of studentInfo | keyvalue">
+        {{ data.key }} : {{ data.value }}
+    </div>
+</app-student-details>
+
