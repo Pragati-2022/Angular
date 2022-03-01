@@ -1,7 +1,7 @@
-
-<p>student List</p>
+<div class="container">
+  <h2>Student List</h2>
   <!-- table to show list of students -->
-  <table>
+  <table class="table table-bordered">
     <thead>
       <tr>
         <td>First Name</td>
@@ -15,25 +15,34 @@
     </thead>
     <tbody>
       <!-- loop for show list of students in table -->
-      <tr *ngFor="let data of studentsDetail; let i = index">
+      <tr
+        *ngFor="let data of students; let i = index"
+        [ngClass]="data.gender == 'Male' ? 'male' : 'female'"
+        [ngStyle]="{
+          'background-color': data.gender == 'Male' ? 'lightblue' : 'lightpink'
+        }"
+      >
         <td>{{ data.firstName }}</td>
         <td>{{ data.lastName }}</td>
         <!-- directives for styling gender colomn -->
-        <td
-          [ngClass]="data.gender == 'Male' ? 'male' : 'female'"
-          [ngStyle]="{
-            'background-color':
-              data.gender == 'Male' ? 'lightblue' : 'lightpink'
-          }"
-        >
+        <td>
           {{ data.gender }}
         </td>
         <td>{{ data.institute }}</td>
         <td>{{ data.city }}</td>
         <!-- button for show particlar student details -->
-        <td><button (click)="showStudentDetails(i)">Info</button></td>
+        <td>
+          <button class="btn btn-primary" (click)="showStudentDetails(i)">
+            Info
+          </button>
+        </td>
         <!-- delete button to delete particular student details -->
-        <td><button (click)="deleteStudent(i)">Delete</button></td>
+        <td>
+          <button class="btn btn-primary" (click)="deleteStudent(i)">
+            Delete
+          </button>
+        </td>
       </tr>
     </tbody>
-  </table> 
+  </table>
+</div>

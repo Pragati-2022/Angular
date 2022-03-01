@@ -1,28 +1,102 @@
 <!-- add student form -->
-<p>Add Student</p>
-
-<form action="reset()">
-  <input type="text" #fname placeholder="First Name" /><br />
-
-  <input type="text" #lname placeholder="Last Name" /><br />
-
-  <label for="gender">Gender:</label>
-  <input id="male" type="radio" name="gender" value="Male" #genderm />
+<div class="container"><form class="form text-center">
+  <h1>Add Student</h1>
+  <div class="row">
+    <div class="col-4">
+      <label for="fname" class="sr-only">First Name: </label>
+    </div>
+    <div class="col-6">
+      <input
+        type="text"
+        class="form-control"
+        name="fname"
+        #fname
+        placeholder="First Name"
+      />
+    </div>
+  </div><br>
+  <div class="row">
+    <div class="col-4">
+  <label for="lname">Last Name: </label>
+  </div>
+  <div class="col-6">
+  <input
+    type="text"
+    class="form-control"
+    name="lname"
+    #lname
+    placeholder="Last Name"
+  />
+  </div>
+  </div><br>
+  <div class="row">
+    <div class="col-4">
+  <label for="gender">Gender: </label>
+  </div>
+  <div class="col-2">
+  <input id="male" type="radio" name="gender" value="Male" #genderm checked />
   <label for="male">Male</label>
+  </div>
+  <div class="col-2">
   <input id="female" type="radio" name="gender" value="Female" #genderf />
-  <label for="female">Female</label><br />
-
-  <input type="text" #institue placeholder="Institute Name" /><br />
-
-  <input type="text" #city placeholder="City" /><br />
-
-  <label for="description">Description</label><br />
-  <textarea type="text" #description id="description"></textarea><br />
-
-  <button (click)="addedSuccessfully()" (click)="$event.preventDefault()">
+  <label for="female">Female</label>
+  </div>
+  </div><br>
+  <div class="row">
+    <div class="col-4">
+  <label for="institute">Institute Name: </label>
+  </div>
+  <div class="col-6">
+  <input
+    type="text"
+    class="form-control"
+    name="institute"
+    #institue
+    placeholder="Institute Name"
+  />
+  </div>
+  </div><br>
+  <div class="row">
+    <div class="col-4">
+  <label for="city">City: </label>
+</div>
+<div class="col-6">
+  <input
+    type="text"
+    class="form-control"
+    name="city"
+    #city
+    placeholder="City"
+  />
+  </div>
+  </div> <br>
+  <div class="row">
+    <div class="col-4">
+  <label for="description">Description :</label>
+</div>
+<div class="col-6">
+  <textarea
+    type="text"
+    class="form-control"
+    #description
+    name="description"
+  ></textarea
+  >
+  </div>
+  </div>
+<br>
+  <button
+    class="btn btn-primary"
+    (click)="addedSuccessfully()"
+    (click)="$event.preventDefault()"
+  >
     Add student
   </button>
 </form>
-
-<app-student-info [studentsDetail]="students" (oneStudentDetail)="oneStudentDetails($event)">
+</div>
+<app-student-info
+  *ngIf="studentDetailObj.firstName"
+  [studentsDetail]="studentDetailObj"
+  (oneStudentDetail)="oneStudentDetails($event)"
+>
 </app-student-info>

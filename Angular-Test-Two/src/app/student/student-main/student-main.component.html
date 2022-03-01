@@ -1,8 +1,4 @@
 <app-student-list (oneStudentDetail)="showStudentDetails($event)"></app-student-list>
 
-<app-student-details *ngIf="showStudent">
-   Name : {{ studentDetails.gender | prependName }} {{ studentDetails.firstName  + " " + studentDetails.lastName | uppercase}} <br>
-   City : {{ studentDetails.city }}<br>
-   Institute : {{ studentDetails.institute }}<br>
-   Description : {{ studentDetails.description }}
-</app-student-details>
+<app-student-details [oneStudentDetail]="studentDetails" *ngIf="showStudent">
+   </app-student-details>

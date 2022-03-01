@@ -1,40 +1,32 @@
 import {
   Component,
+  DoCheck,
   ElementRef,
   EventEmitter,
   OnInit,
   Output,
   ViewChild,
 } from '@angular/core';
-
-// interface of student to store all students details
-interface Student {
-  firstName: string;
-  lastName: string;
-  gender: string;
-  city: string;
-  institute: string;
-  description: string;
-}
+import { Student } from '../../student';
 
 @Component({
   selector: 'app-student-list',
   templateUrl: './student-list.component.html',
   styleUrls: ['./student-list.component.css'],
 })
-export class StudentListComponent implements OnInit, Student {
-  // to implement Student interface
-  firstName!: string;
-  lastName!: string;
-  gender!: string;
-  city!: string;
-  institute!: string;
-  description!: string;
-  shoWStudent = false;
+export class StudentListComponent implements OnInit {
 
   // array of students to store different different student's object
-  students: Student[] = [];
+  // students : any = [];
 
+  studentDetailObj : Student = {
+    firstName: '',
+    lastName: '',
+    gender: '',
+    city: '',
+    institute: '',
+    description: ''
+  };
   // viewchild decorators to take value of input fields
   @ViewChild('fname') studentFirstName!: ElementRef;
   @ViewChild('lname') studentLastName!: ElementRef;
@@ -70,15 +62,17 @@ export class StudentListComponent implements OnInit, Student {
       this.studentCity.nativeElement.value &&
       this.studentDescription.nativeElement.value
     ) {
-      //push Student object to students array
-      this.students.push({
+
+      this.studentDetailObj = {
         firstName: this.studentFirstName.nativeElement.value,
         lastName: this.studentLastName.nativeElement.value,
         gender: this.studentGender,
         institute: this.studentInstitue.nativeElement.value,
         city: this.studentCity.nativeElement.value,
         description: this.studentDescription.nativeElement.value,
-      });
+      }
+      //push Student object to students array
+      // this.students.push(this.studentDetailObj);
 
       alert('student added successfully');
       this.reset();
@@ -96,7 +90,7 @@ export class StudentListComponent implements OnInit, Student {
     this.studentFirstName.nativeElement.value = '';
     this.studentLastName.nativeElement.value = '';
     this.studentGenderFemale.nativeElement.checked = false;
-    this.studentGenderMale.nativeElement.checked = false;
+    this.studentGenderMale.nativeElement.checked = true;
     this.studentInstitue.nativeElement.value = '';
     this.studentCity.nativeElement.value = '';
     this.studentDescription.nativeElement.value = '';

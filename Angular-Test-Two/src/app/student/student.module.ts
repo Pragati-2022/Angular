@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { StudentDetailsComponent } from './student-main/student-deatils/student-details.component';
+import { StudentDetailsComponent } from './student-main/student-details/student-details.component';
 import { StudentListComponent } from './student-main/student-list/student-list.component';
 import { StudentInfoComponent } from './student-main/student-list/student-info/student-info.component';
 import { StudentMainComponent } from './student-main/student-main.component';
-import { PrependNamePipe } from '../pipe/prepend-name.pipe';
+import { PrependNamePipe } from '../core/pipe/prepend-name.pipe';
 
 @NgModule({
   declarations: [

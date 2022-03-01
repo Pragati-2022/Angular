@@ -1,0 +1,23 @@
+
+<!-- to show data inside this components selector -->
+<div class="container">
+    <h2>Student Details</h2>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>City</th>
+          <th>Institute</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{ oneStudentDetail.gender | prependName }} {{ oneStudentDetail.firstName  + " " + oneStudentDetail.lastName | uppercase}} </td>
+          <td>{{ oneStudentDetail.city }}</td>
+          <td>{{ oneStudentDetail.institute }}</td>
+          <td>{{ oneStudentDetail.description }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
