@@ -1,6 +1,5 @@
 import {
   Component,
-  DoCheck,
   ElementRef,
   EventEmitter,
   OnInit,
@@ -71,8 +70,6 @@ export class StudentListComponent implements OnInit {
         city: this.studentCity.nativeElement.value,
         description: this.studentDescription.nativeElement.value,
       }
-      //push Student object to students array
-      // this.students.push(this.studentDetailObj);
 
       alert('student added successfully');
       this.reset();

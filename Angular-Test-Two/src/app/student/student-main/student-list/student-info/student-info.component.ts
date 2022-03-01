@@ -23,7 +23,7 @@ export class StudentInfoComponent implements OnInit , OnChanges{
   // output decorator to pass deatils of student
   @Output() oneStudentDetail =   new EventEmitter();
 
-  task =[];
+  storeOneStudentDetail =[];
 
   constructor() {
    }
@@ -46,7 +46,7 @@ export class StudentInfoComponent implements OnInit , OnChanges{
 
   // called when click on info button and it store the details of that student and pass it to main component
   showStudentDetails(index: number) {
-    this.task = this.students[index];
-    this.oneStudentDetail.emit(this.task);
+    this.storeOneStudentDetail = this.students[index];
+    this.oneStudentDetail.emit(this.storeOneStudentDetail);
   }
 }
