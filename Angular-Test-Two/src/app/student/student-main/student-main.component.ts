@@ -1,6 +1,6 @@
 import { JsonPipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { Student } from '../student';
+import { Student } from '../../core/models/student';
 import { StudentModule } from '../student.module';
 
 @Component({
@@ -10,14 +10,7 @@ import { StudentModule } from '../student.module';
 })
 export class StudentMainComponent implements OnInit {
   // to store particular student details
-  studentDetails : Student={
-    firstName: '',
-    lastName: '',
-    gender: '',
-    city: '',
-    institute: '',
-    description: ''
-  };
+  studentDetails! : Student;
 
   constructor() { }
 

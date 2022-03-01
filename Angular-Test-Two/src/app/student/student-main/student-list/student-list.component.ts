@@ -6,7 +6,7 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
-import { Student } from '../../student';
+import { Student } from '../../../core/models/student';
 
 @Component({
   selector: 'app-student-list',
@@ -14,19 +14,8 @@ import { Student } from '../../student';
   styleUrls: ['./student-list.component.css'],
 })
 export class StudentListComponent implements OnInit {
-
-  // array of students to store different different student's object
-  // students : any = [];
-
-  studentDetailObj : Student = {
-    firstName: '',
-    lastName: '',
-    gender: '',
-    city: '',
-    institute: '',
-    description: ''
-  };
-  // viewchild decorators to take value of input fields
+  
+  // viewchild decorators to take value from user input
   @ViewChild('fname') studentFirstName!: ElementRef;
   @ViewChild('lname') studentLastName!: ElementRef;
   @ViewChild('genderf') studentGenderFemale!: ElementRef;
@@ -35,9 +24,10 @@ export class StudentListComponent implements OnInit {
   @ViewChild('city') studentCity!: ElementRef;
   @ViewChild('description') studentDescription!: ElementRef;
 
+  studentList : Student[] = [];
   studentGender = '';
 
-  @Output() oneStudentDetail =  new EventEmitter();
+  @Output() oneStudentDetail =  new EventEmitter<Student>();
 
   constructor() {}
 
@@ -62,7 +52,7 @@ export class StudentListComponent implements OnInit {
       this.studentDescription.nativeElement.value
     ) {
 
-      this.studentDetailObj = {
+      let studentDetailObj : Student = {
         firstName: this.studentFirstName.nativeElement.value,
         lastName: this.studentLastName.nativeElement.value,
         gender: this.studentGender,
@@ -71,6 +61,7 @@ export class StudentListComponent implements OnInit {
         description: this.studentDescription.nativeElement.value,
       }
 
+      this.studentList.push(studentDetailObj);
       alert('student added successfully');
       this.reset();
     } else {
@@ -78,7 +69,7 @@ export class StudentListComponent implements OnInit {
     }
   }
 
-  oneStudentDetails(data: any) {
+  oneStudentDetails(data: Student) {
     // assign it to studentInfo object
     this.oneStudentDetail.emit(data);
   }
@@ -91,5 +82,8 @@ export class StudentListComponent implements OnInit {
     this.studentInstitue.nativeElement.value = '';
     this.studentCity.nativeElement.value = '';
     this.studentDescription.nativeElement.value = '';
+  }
+  deleteStudent(index: number){
+    this.studentList.splice(index, 1);
   }
 }

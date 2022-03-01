@@ -1,29 +1,18 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
-import { Student } from 'src/app/student/student';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Student } from 'src/app/core/models/student';
 
 @Component({
   selector: 'app-student-info',
   templateUrl: './student-info.component.html',
   styleUrls: ['./student-info.component.css']
 })
-export class StudentInfoComponent implements OnInit , OnChanges{
+export class StudentInfoComponent implements OnInit {
 
   //to take data from parent compoent list
-  @Input() studentsDetail : Student ={
-    firstName: '',
-    lastName: '',
-    gender: '',
-    city: '',
-    institute: '',
-    description: ''
-  };
-
-  students : any = [];
+  @Input() studentsDetail! : Student;
 
   // output decorator to pass deatils of student
-  @Output() oneStudentDetail =   new EventEmitter();
-
-  storeOneStudentDetail =[];
+  @Output() oneStudentDetail =   new EventEmitter<Student>();
 
   constructor() {
    }
@@ -31,22 +20,8 @@ export class StudentInfoComponent implements OnInit , OnChanges{
   ngOnInit(): void {
   }
 
-  ngOnChanges(){
-    // this.task = this.studentsDetail;
-    if(this.studentsDetail.firstName)
-    this.students.push(this.studentsDetail);
-    console.log(this.students);
-  }
-
-  // to delete particular student detail
-  deleteStudent(index: number) {
-    this.students.splice(index, 1);
-    console.log(this.students);
-  }
-
   // called when click on info button and it store the details of that student and pass it to main component
-  showStudentDetails(index: number) {
-    this.storeOneStudentDetail = this.students[index];
-    this.oneStudentDetail.emit(this.storeOneStudentDetail);
+  showStudentDetails() {
+    this.oneStudentDetail.emit(this.studentsDetail);
   }
 }

@@ -5,8 +5,12 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class PrependNamePipe implements PipeTransform {
   transform(gender: string): string {
-    if (gender.toLowerCase() == ('male' || 'm')) return 'Mr.' ;
-    else if (gender.toLowerCase() == ('female' || 'f')) return 'Ms.' ;
-    else return '-';
+    if (gender) {
+      if (gender.toLowerCase() == ('male' || 'm')) return 'Mr.';
+      else if (gender.toLowerCase() == ('female' || 'f')) return 'Ms.';
+      else return '-';
+    } else {
+      return '-';
+    }
   }
 }

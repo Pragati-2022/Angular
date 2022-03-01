@@ -94,9 +94,12 @@
   </button>
 </form>
 </div>
+
+
 <app-student-info
-  *ngIf="studentDetailObj.firstName"
   [studentsDetail]="studentDetailObj"
   (oneStudentDetail)="oneStudentDetails($event)"
+  *ngFor="let studentDetailObj of studentList, let i = index"
 >
+<button class="btn btn-primary" (click)="deleteStudent(i)">delete</button>
 </app-student-info>
