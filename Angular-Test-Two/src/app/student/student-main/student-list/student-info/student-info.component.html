@@ -1,3 +1,39 @@
-<!-- to show data inside this component's selector -->
-<ng-content></ng-content>
 
+<p>student List</p>
+  <!-- table to show list of students -->
+  <table>
+    <thead>
+      <tr>
+        <td>First Name</td>
+        <td>Last Name</td>
+        <td>Gender</td>
+        <td>Institute Name</td>
+        <td>City</td>
+        <td>Delete</td>
+        <td>Details</td>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- loop for show list of students in table -->
+      <tr *ngFor="let data of studentsDetail; let i = index">
+        <td>{{ data.firstName }}</td>
+        <td>{{ data.lastName }}</td>
+        <!-- directives for styling gender colomn -->
+        <td
+          [ngClass]="data.gender == 'Male' ? 'male' : 'female'"
+          [ngStyle]="{
+            'background-color':
+              data.gender == 'Male' ? 'lightblue' : 'lightpink'
+          }"
+        >
+          {{ data.gender }}
+        </td>
+        <td>{{ data.institute }}</td>
+        <td>{{ data.city }}</td>
+        <!-- button for show particlar student details -->
+        <td><button (click)="showStudentDetails(i)">Info</button></td>
+        <!-- delete button to delete particular student details -->
+        <td><button (click)="deleteStudent(i)">Delete</button></td>
+      </tr>
+    </tbody>
+  </table> 

@@ -32,9 +32,6 @@ export class StudentListComponent implements OnInit, Student {
   description!: string;
   shoWStudent = false;
 
-  // to store one student details which is pass to main component
-  task = {};
-
   // array of students to store different different student's object
   students: Student[] = [];
 
@@ -48,9 +45,8 @@ export class StudentListComponent implements OnInit, Student {
   @ViewChild('description') studentDescription!: ElementRef;
 
   studentGender = '';
-  deletedIndex!: number;
-  // output decorator to pass deatils of student
-  @Output() studentDetailInfo: EventEmitter<any> = new EventEmitter();
+
+  @Output() oneStudentDetail =  new EventEmitter();
 
   constructor() {}
 
@@ -91,18 +87,9 @@ export class StudentListComponent implements OnInit, Student {
     }
   }
 
-  // to delete particular student detail
-  deleteStudent(index: number) {
-    this.students.splice(index, 1);
-    if(this.deletedIndex)
-    this.showData(index);
-  }
-
-  // called when click on info button and it store the details of that student and pass it to main component
-  showData(i: number) {
-    this.deletedIndex = i;
-    this.task = this.students[i];
-    this.studentDetailInfo.emit(this.task);
+  oneStudentDetails(data: any) {
+    // assign it to studentInfo object
+    this.oneStudentDetail.emit(data);
   }
 
   reset() {

@@ -8,16 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StudentMainComponent implements OnInit {
   // to store particular student details
-  studentInfo : any;
+  studentDetails : any;
 
   constructor() { }
 
   showStudent = false;
   // take details of student from list component
-  showData(data: any) {
+  showStudentDetails(data: any) {
     // assign it to studentInfo object
     this.showStudent = ! this.showStudent;
-    this.studentInfo = data;
+    this.studentDetails = data;
   }
   ngOnInit(): void {}
 }
