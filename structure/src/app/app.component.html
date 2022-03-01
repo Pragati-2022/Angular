@@ -1,0 +1,10 @@
+<input #name type="text" placeholder="Enter Name">
+<input #city type="text" placeholder="Enter City">
+
+<button (click)="addUser()">Add User</button>
+
+<app-input-dec [data]="user">
+  {{ name.value }}
+  {{ city.value }}
+</app-input-dec>
+
