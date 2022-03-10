@@ -83,3 +83,18 @@ angular procides two different ways to collect and validate data from user.
     ),
     password: new FormControl('', Validators.required),
   });
+
+#### update validator
+
+- this function call at keyup event of lot size field
+
+updateLotSizeValidation() {
+    this.quantity = this._addProductForm.quantity.value - 1;
+
+    this.addProductForm.controls.lotSize.setValidators([
+      Validators.required,
+      Validators.min(1),
+      Validators.max(this.quantity),
+    ]);
+    this.addProductForm.get("lotSize").updateValueAndValidity();
+  }
