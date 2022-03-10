@@ -1,0 +1,46 @@
+<form [formGroup]="signUpForm">
+  <!-- User Name -->
+  <div class="form-group">
+    <label for="username">User Name: </label>
+    <app-input [control]="username" placeholder="Enter User Name"></app-input>
+  </div>
+
+  <!-- Email -->
+  <div class="form-group">
+    <label for="email">Email: </label>
+    <app-input [control]="email" placeholder="Enter Email"></app-input>
+  </div>
+
+  <!-- Age -->
+  <div class="form-group">
+    <label for="age">Age: </label>
+    <app-input
+      [control]="age"
+      type="number"
+      placeholder="Enter Age"
+    ></app-input>
+  </div>
+
+  <!-- Password -->
+  <div class="form-group">
+    <label for="password">Password: </label>
+    <app-input
+      [control]="password"
+      type="password"
+      placeholder="Enter Password"
+    ></app-input>
+  </div>
+
+  <!-- PhoneNumber -->
+  <div class="form-group">
+    <label for="password">Phone Number: </label>
+    <app-input
+      [control]="phoneNumber"
+      formate="(000)000-0000"
+      placeholder="Enter Phone Number"
+    ></app-input>
+  </div>
+
+  <!-- submit button -->
+  <button class="btn btn-primary mt-3" [disabled]="signUpForm.invalid">Submit</button>
+</form>
