@@ -1,0 +1,115 @@
+<!-- to add notes -->
+<div class="container">
+  <form class="form text-center" [formGroup]="addNotesForm">
+    <h1>Add Notes</h1>
+
+    <!-- Title -->
+    <div class="row">
+      <div class="col-4">
+        <label for="title" class="sr-only">Title: </label>
+      </div>
+      <div class="col-6">
+        <input
+          formControlName="title"
+          type="text"
+          class="form-control"
+          name="title"
+          maxlength="100"
+          placeholder="Titel"
+        />
+        <div
+          *ngIf="
+            _addNotesForm.title?.errors &&
+            (formSubmitted || _addNotesForm.title.touched)
+          "
+        >
+          <div
+            class="alert-danger"
+            *ngIf="_addNotesForm.title?.errors?.required"
+          >
+            Note title is required
+          </div>
+          <div
+            class="alert-danger"
+            *ngIf="_addNotesForm.title?.errors?.maxlength"
+          >
+            Title should be less than 100 char!
+          </div>
+        </div>
+      </div>
+    </div>
+    <br />
+
+    <!-- Notes -->
+    <div class="row">
+      <div class="col-4">
+        <label for="note">Note :</label>
+      </div>
+      <div class="col-6">
+        <textarea
+          type="text"
+          class="form-control"
+          formControlName="note"
+          name="note"
+          placeholder="Note"
+        ></textarea>
+        <div
+          *ngIf="
+            _addNotesForm.note?.errors &&
+            (formSubmitted || _addNotesForm.note.touched)
+          "
+        >
+          <div
+            class="alert-danger"
+            *ngIf="_addNotesForm.note?.errors?.required"
+          >
+            Note is required
+          </div>
+          <div
+            class="alert-danger"
+            *ngIf="_addNotesForm.note?.errors?.maxlength"
+          >
+            Note should be less than 1000 char!
+          </div>
+        </div>
+      </div>
+    </div>
+    <br />
+    <div class="row">
+      <div class="col-6">
+        <input
+          type="checkbox"
+          id="status"
+          name="status"
+          formControlName="status"
+        />
+        <label for="status">Status </label>
+      </div>
+    </div>
+
+    <!-- to add product in list -->
+    <button
+      class="btn btn-primary"
+      (click)="onSubmit()"
+      id="add"
+      [style.visibility]="isHidden ? 'visible' : 'hidden'"
+    >
+      Add Note
+    </button>
+
+    <button
+      class="btn btn-primary"
+      (click)="editNoteData()"
+      id="edit"
+      [style.visibility]="isHidden ? 'hidden' : 'visible'"
+    >
+      Edit Note
+    </button>
+  </form>
+</div>
+
+
+<app-list-notes [noteDetails]="note" *ngFor="let note of notesArray">
+    <button (click)="deleteNote(i)" class="btn btn-primary" >Delete</button>
+    <button (click)="editNote(i)" class="btn btn-primary" >Edit</button>
+</app-list-notes>

@@ -1,0 +1,8 @@
+<p>list-notes works!</p>
+<div class="card" [ngClass]="{noteDetails.status ? 'statusTrue' : 'statusFalse'}">
+    <div class="card-body">
+      <h5 class="card-title">{{ noteDetails.title }}</h5>
+      <p class="card-text">{{ noteDetails.note }}</p>
+      <ng-content></ng-content>
+    </div>
+  </div>
