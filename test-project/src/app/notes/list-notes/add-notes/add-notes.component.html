@@ -15,7 +15,7 @@
           class="form-control"
           name="title"
           maxlength="100"
-          placeholder="Titel"
+          placeholder="Tite"
         />
         <div
           *ngIf="
@@ -34,6 +34,12 @@
             *ngIf="_addNotesForm.title?.errors?.maxlength"
           >
             Title should be less than 100 char!
+          </div>
+          <div
+            class="alert-danger"
+            *ngIf="_addNotesForm.title?.errors?.pattern"
+          >
+            Invalid pattern for title!
           </div>
         </div>
       </div>
@@ -76,25 +82,28 @@
     </div>
     <br />
     <div class="row">
-      <div class="col-6">
+      <div class="col-4">
+        <label for="status" class="form-check-label">Status : </label>
+      </div>
+      <div class="col-1">
         <input
           type="checkbox"
           id="status"
           name="status"
           formControlName="status"
+          class="form-check-input"
         />
-        <label for="status">Status </label>
       </div>
     </div>
 
     <!-- to add or edit note in list -->
     <button
-      class="btn btn-primary"
+      class="btn btn-primary col-1"
       (click)="getNoteForEdit ? editNote() : onSubmit()"
     >
       {{ getNoteForEdit ? "Edit" : "Add" }}
     </button>
 
-    <button class="btn btn-primary" (click)="clearForm()">Clear Note</button>
+    <button class="btn btn-primary col-2" (click)="clearForm()">Clear Note</button>
   </form>
 </div>

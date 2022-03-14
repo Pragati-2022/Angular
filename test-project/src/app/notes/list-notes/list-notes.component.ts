@@ -21,9 +21,9 @@ export class ListNotesComponent implements OnInit {
   ngOnInit(): void {}
 
   deleteNote(note) {
-    if (note.status) {
-      alert('you can not delete');
-    } else {
+    // if (note.status) {
+    //   alert('you can not delete');
+    // } else {
       let deleteNoteData = this.noteArray.find((e) => e === note);
       console.log(deleteNoteData);
 
@@ -33,7 +33,7 @@ export class ListNotesComponent implements OnInit {
       this.noteArray.splice(index, 1);
 
       localStorage.setItem('notes', JSON.stringify(this.noteArray));
-    }
+    // }
   }
 
   editNote(note: INote) {

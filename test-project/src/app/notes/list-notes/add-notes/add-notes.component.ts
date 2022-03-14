@@ -4,7 +4,7 @@ import {
   Input,
   OnChanges,
   OnInit,
-  Output,
+  Output
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UUID } from 'angular2-uuid';
@@ -15,14 +15,17 @@ import { INote } from 'src/app/core/models/note';
   templateUrl: './add-notes.component.html',
   styleUrls: ['./add-notes.component.css'],
 })
-export class AddNotesComponent implements OnInit, OnChanges {
+export class AddNotesComponent
+  implements
+    OnInit,
+    OnChanges
+{
   addNotesForm: FormGroup;
   formSubmitted = false;
 
   @Input() getNoteForEdit: INote;
   @Output() sendNotes = new EventEmitter();
 
-  isEditAlert = false;
   note: INote;
   noteArray: INote[] = [];
 
@@ -45,7 +48,14 @@ export class AddNotesComponent implements OnInit, OnChanges {
 
   initializeForm() {
     this.addNotesForm = this.fb.group({
-      title: ['', [Validators.required, Validators.maxLength(100)]],
+      title: [
+        '',
+        [
+          Validators.required,
+          Validators.maxLength(100),
+          Validators.pattern('[a-zA-Z]+'),
+        ],
+      ],
       note: ['', [Validators.required, Validators.maxLength(1000)]],
       status: [''],
     });
@@ -105,7 +115,7 @@ export class AddNotesComponent implements OnInit, OnChanges {
       });
 
       this.sendNotes.emit(this.noteArray);
-      
+
       localStorage.setItem('notes', JSON.stringify(this.noteArray));
 
       this.clearForm();
@@ -117,6 +127,6 @@ export class AddNotesComponent implements OnInit, OnChanges {
   clearForm() {
     this.initializeForm();
     this.formSubmitted = false;
-    this.getNoteForEdit = null;
+    // this.getNoteForEdit = null;
   }
 }
