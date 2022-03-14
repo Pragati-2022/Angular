@@ -87,29 +87,14 @@
       </div>
     </div>
 
-    <!-- to add product in list -->
+    <!-- to add or edit note in list -->
     <button
       class="btn btn-primary"
-      (click)="onSubmit()"
-      id="add"
-      [style.visibility]="isHidden ? 'visible' : 'hidden'"
+      (click)="getNoteForEdit ? editNote() : onSubmit()"
     >
-      Add Note
+      {{ getNoteForEdit ? "Edit" : "Add" }}
     </button>
 
-    <button
-      class="btn btn-primary"
-      (click)="editNoteData()"
-      id="edit"
-      [style.visibility]="isHidden ? 'hidden' : 'visible'"
-    >
-      Edit Note
-    </button>
+    <button class="btn btn-primary" (click)="clearForm()">Clear Note</button>
   </form>
 </div>
-
-
-<app-list-notes [noteDetails]="note" *ngFor="let note of notesArray">
-    <button (click)="deleteNote(i)" class="btn btn-primary" >Delete</button>
-    <button (click)="editNote(i)" class="btn btn-primary" >Edit</button>
-</app-list-notes>

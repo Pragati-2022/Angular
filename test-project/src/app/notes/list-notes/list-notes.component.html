@@ -1,0 +1,18 @@
+<app-add-notes (sendNotes)="getNotes($event)" [getNoteForEdit]="noteForEdit">
+</app-add-notes>
+
+<div *ngFor="let note of noteArray">
+  <div
+    class="card"
+    style="width: 18rem"
+    [ngClass]="note.status == true ? 'statusTrue' : 'statusFalse'"
+  >
+    <div class="card-body">
+      <h4 class="card-title">{{ note.title }}</h4>
+      <h6 class="card-subtitle">{{ note.date }}</h6>
+      <p class="card-text">{{ note.note }}</p>
+      <button (click)="deleteNote(note)" class="btn btn-primary">Delete</button>
+      <button (click)="editNote(note)" class="btn btn-primary">Edit</button>
+    </div>
+  </div>
+</div>

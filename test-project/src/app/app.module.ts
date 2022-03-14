@@ -3,9 +3,9 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AddNotesComponent } from './notes/add-notes/add-notes.component';
+import { AddNotesComponent } from './notes/list-notes/add-notes/add-notes.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ListNotesComponent } from './notes/add-notes/list-notes/list-notes.component';
+import { ListNotesComponent } from './notes/list-notes/list-notes.component';
 
 @NgModule({
   declarations: [
