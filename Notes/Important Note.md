@@ -1,6 +1,6 @@
 # line break ways
 
--> By innerHTML 
+-> By innerHTML
 
     - html file
     <div class="alert alert-danger" [innerHTML]="errorString" *ngIf="errorString"></div>
@@ -16,9 +16,9 @@
       this.errorString +=
         "- Product Name is required and Product Name is required. <br>";
     }
-    
+
     note:errorString: string = 'Plain Text Example &amp; <strong>Bold Text Example</strong>';
-    
+
 -> By CSS
 
     - html file
@@ -36,7 +36,10 @@
       this.errorString +=
         "- Product Name is required and Product Name is required. \n";
     }
-
+    - css file
+    #formatted {
+    white-space: pre-wrap;
+    }
 
 # valiadtion ways of Null, Undefined, '', ' '
 
@@ -45,4 +48,3 @@
   <h1>Name: {{ name === null || name === '' || name === undefined ? 'default' : name }} </h1>
 
   <h3>{{ name || 'default' }}</h3>
-
