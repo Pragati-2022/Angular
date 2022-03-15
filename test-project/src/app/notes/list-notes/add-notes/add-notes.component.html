@@ -1,7 +1,7 @@
 <!-- to add notes -->
 <div class="container">
   <form class="form text-center" [formGroup]="addNotesForm">
-    <h1>Add Notes</h1>
+    <h1>{{ getNoteForEdit ? "Edit Note" : "Add Note" }}</h1>
 
     <!-- Title -->
     <div class="row">
@@ -34,12 +34,6 @@
             *ngIf="_addNotesForm.title?.errors?.maxlength"
           >
             Title should be less than 100 char!
-          </div>
-          <div
-            class="alert-danger"
-            *ngIf="_addNotesForm.title?.errors?.pattern"
-          >
-            Invalid pattern for title!
           </div>
         </div>
       </div>
@@ -95,11 +89,11 @@
         />
       </div>
     </div>
-
+    <br>
     <!-- to add or edit note in list -->
     <button
       class="btn btn-primary col-1"
-      (click)="getNoteForEdit ? editNote() : onSubmit()"
+      (click)="onSubmit()"
     >
       {{ getNoteForEdit ? "Edit" : "Add" }}
     </button>

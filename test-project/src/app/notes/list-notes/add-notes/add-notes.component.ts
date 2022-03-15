@@ -4,7 +4,7 @@ import {
   Input,
   OnChanges,
   OnInit,
-  Output
+  Output,
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UUID } from 'angular2-uuid';
@@ -15,11 +15,7 @@ import { INote } from 'src/app/core/models/note';
   templateUrl: './add-notes.component.html',
   styleUrls: ['./add-notes.component.css'],
 })
-export class AddNotesComponent
-  implements
-    OnInit,
-    OnChanges
-{
+export class AddNotesComponent implements OnInit, OnChanges {
   addNotesForm: FormGroup;
   formSubmitted = false;
 
@@ -30,8 +26,7 @@ export class AddNotesComponent
   noteArray: INote[] = [];
 
   constructor(public fb: FormBuilder) {
-    console.log('constroctor');
-    this.noteArray = JSON.parse(localStorage.getItem('notes'));
+    this.noteArray = JSON.parse(localStorage.getItem('notes')) ?? [];
   }
 
   ngOnInit() {
@@ -48,14 +43,7 @@ export class AddNotesComponent
 
   initializeForm() {
     this.addNotesForm = this.fb.group({
-      title: [
-        '',
-        [
-          Validators.required,
-          Validators.maxLength(100),
-          Validators.pattern('[a-zA-Z]+'),
-        ],
-      ],
+      title: ['', [Validators.required, Validators.maxLength(100)]],
       note: ['', [Validators.required, Validators.maxLength(1000)]],
       status: [''],
     });
@@ -66,67 +54,68 @@ export class AddNotesComponent
   }
 
   onSubmit() {
-    this.formSubmitted = true;
-    console.log(this.addNotesForm);
+    if (this.getNoteForEdit) {
 
-    if (this.addNotesForm.valid) {
-      var answer = confirm('Are you sure to add this product?');
-      if (answer) {
-        // to store note details in object
-        if (!this.noteArray) this.noteArray = [];
-        this.note = {
-          id: UUID.UUID(),
-          title: this._addNotesForm.title.value,
-          note: this._addNotesForm.note.value,
-          status: this._addNotesForm.status.value,
-          date: new Date(),
-        };
+      this.formSubmitted = true;
 
-        this.noteArray.unshift(this.note);
-        this.sendNotes.emit(this.noteArray);
-        localStorage.setItem('notes', JSON.stringify(this.noteArray));
-        this.noteArray = JSON.parse(localStorage.getItem('notes'));
+      if (this.addNotesForm.valid) {
+        this.getNoteForEdit.id;
 
-        this.clearForm();
+        let index = this.noteArray.findIndex(
+          (e) => e.id === this.getNoteForEdit.id
+        );
+        if (index != null && index != undefined && index != -1) {
+          this.noteArray[index].title = this._addNotesForm.title.value;
+          this.noteArray[index].note = this._addNotesForm.note.value;
+          this.noteArray[index].status = this._addNotesForm.status.value;
+          this.noteArray[index].date = new Date();
+
+          this.noteArray.sort((D1, D2) => {
+            return <any>new Date(D2.date) - <any>new Date(D1.date);
+          });
+
+          this.sendNotes.emit(this.noteArray);
+
+          localStorage.setItem('notes', JSON.stringify(this.noteArray));
+
+          this.clearForm();
+        }
       } else {
         this.addNotesForm.markAsTouched();
       }
-    }
-  }
-
-  editNote() {
-    this.formSubmitted = true;
-
-    if (this.addNotesForm.valid) {
-      this.getNoteForEdit.id;
-
-      let index = this.noteArray.findIndex(
-        (e) => e.id === this.getNoteForEdit.id
-      );
-      console.log(index);
-
-      this.noteArray[index].title = this._addNotesForm.title.value;
-      this.noteArray[index].note = this._addNotesForm.note.value;
-      this.noteArray[index].status = this._addNotesForm.status.value;
-      this.noteArray[index].date = new Date();
-
-      this.noteArray.sort((D1, D2) => {
-        return <any>new Date(D2.date) - <any>new Date(D1.date);
-      });
-
-      this.sendNotes.emit(this.noteArray);
-
-      localStorage.setItem('notes', JSON.stringify(this.noteArray));
-
-      this.clearForm();
     } else {
-      this.addNotesForm.markAsTouched();
+      this.formSubmitted = true;
+      if (this.addNotesForm.valid) {
+        var answer = confirm('Are you sure to add this note?');
+        if (answer) {
+          if (!this.noteArray) this.noteArray = [];
+          this.note = {
+            id: UUID.UUID(),
+            title: this._addNotesForm.title.value,
+            note: this._addNotesForm.note.value,
+            status: this._addNotesForm.status.value,
+            date: new Date(),
+          };
+
+          this.noteArray.push(this.note);
+          this.noteArray.sort((D1, D2) => {
+            return <any>new Date(D2.date) - <any>new Date(D1.date);
+          });
+          this.sendNotes.emit(this.noteArray);
+          localStorage.setItem('notes', JSON.stringify(this.noteArray));
+          // this.noteArray = JSON.parse(localStorage.getItem('notes'))?? [];
+
+          this.clearForm();
+        } else {
+          this.addNotesForm.markAsTouched();
+        }
+      }
     }
   }
 
   clearForm() {
     this.initializeForm();
     this.formSubmitted = false;
-    // this.getNoteForEdit = null;
+    this.getNoteForEdit = null;
   }
 }

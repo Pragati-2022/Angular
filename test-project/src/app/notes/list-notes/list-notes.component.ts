@@ -7,7 +7,7 @@ import { INote } from 'src/app/core/models/note';
   styleUrls: ['./list-notes.component.css'],
 })
 export class ListNotesComponent implements OnInit {
-  noteArray: INote[] = [];
+  noteArray: INote[];
   noteForEdit: INote;
 
   getNotes(notes: INote[]) {
@@ -15,7 +15,7 @@ export class ListNotesComponent implements OnInit {
   }
 
   constructor() {
-    this.noteArray = JSON.parse(localStorage.getItem('notes'));
+    this.noteArray = JSON.parse(localStorage.getItem('notes'))?? [];
   }
 
   ngOnInit(): void {}
@@ -24,15 +24,14 @@ export class ListNotesComponent implements OnInit {
     // if (note.status) {
     //   alert('you can not delete');
     // } else {
-      let deleteNoteData = this.noteArray.find((e) => e === note);
-      console.log(deleteNoteData);
-
-      let index = this.noteArray.indexOf(deleteNoteData);
-      console.log(index);
+     
+      let index = this.noteArray.findIndex((e) => e === note)
+      
+      if(index != null && index != undefined && index != -1){
 
       this.noteArray.splice(index, 1);
-
       localStorage.setItem('notes', JSON.stringify(this.noteArray));
+      }
     // }
   }
 

@@ -1,6 +1,6 @@
 .statusTrue{
-    background-color: #33ff00;
+    background-color: lightgreen;
 }
 .statusFalse{
-    background-color: #f80b0b;
+    background-color: rgb(243, 78, 78);
 }
