@@ -1,4 +1,4 @@
-<!-- to add notes -->
+<!-- to add or notes -->
 <div class="container">
   <form class="form text-center" [formGroup]="addNotesForm">
     <h1>{{ getNoteForEdit ? "Edit Note" : "Add Note" }}</h1>
@@ -17,6 +17,7 @@
           maxlength="100"
           placeholder="Tite"
         />
+        <!-- validation -->
         <div
           *ngIf="
             _addNotesForm.title?.errors &&
@@ -53,6 +54,7 @@
           name="note"
           placeholder="Note"
         ></textarea>
+        <!-- validation -->
         <div
           *ngIf="
             _addNotesForm.note?.errors &&
@@ -75,6 +77,8 @@
       </div>
     </div>
     <br />
+
+    <!-- status -->
     <div class="row">
       <div class="col-4">
         <label for="status" class="form-check-label">Status : </label>
@@ -90,6 +94,7 @@
       </div>
     </div>
     <br>
+
     <!-- to add or edit note in list -->
     <button
       class="btn btn-primary col-1"
@@ -97,7 +102,7 @@
     >
       {{ getNoteForEdit ? "Edit" : "Add" }}
     </button>
-
+    <!-- to clear form -->
     <button class="btn btn-primary col-2" (click)="clearForm()">Clear Note</button>
   </form>
 </div>

@@ -1,11 +1,13 @@
+<!-- selector of add note component -->
 <app-add-notes (sendNotes)="getNotes($event)" [getNoteForEdit]="noteForEdit">
 </app-add-notes>
 
+<!-- card  -->
 <div *ngFor="let note of noteArray">
   <div
     class="card"
     style="width: 18rem"
-    [ngClass]="note.status == true ? 'statusTrue' : 'statusFalse'"
+    [ngClass]="note.status ? 'statusTrue' : 'statusFalse'"
   >
     <div class="card-body">
       <h4 class="card-title">{{ note.title }}</h4>
