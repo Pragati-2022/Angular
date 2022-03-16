@@ -26,7 +26,7 @@ export class AddNotesComponent implements OnInit, OnChanges {
   noteArray: INote[] = [];
 
   constructor(public fb: FormBuilder) {
-    this.noteArray = JSON.parse(localStorage.getItem('notes')) ?? [];
+    this.noteArray = JSON.parse(localStorage.getItem('notes')) || [];
   }
 
   ngOnInit() {
@@ -57,12 +57,11 @@ export class AddNotesComponent implements OnInit, OnChanges {
 
   // method to add or edit note
   onSubmit() {
-    if (this.getNoteForEdit) {
+    //condition for validation 
+    this.formSubmitted = true;
+    if (this.addNotesForm.valid) {
       // edit
-      this.formSubmitted = true;
-
-      if (this.addNotesForm.valid) {
-
+    if (this.getNoteForEdit) {
         //find edit note index
         let index = this.noteArray.findIndex(
           (e) => e.id === this.getNoteForEdit.id
@@ -84,14 +83,12 @@ export class AddNotesComponent implements OnInit, OnChanges {
           localStorage.setItem('notes', JSON.stringify(this.noteArray));
 
           this.clearForm();
+        }else{
+          alert('data not available');
+          this.clearForm();
         }
-      } else {
-        this.addNotesForm.markAsTouched();
-      }
     } else {
       // add
-      this.formSubmitted = true;
-      if (this.addNotesForm.valid) {
         var answer = confirm('Are you sure to add this note?');
         if (answer) {
           if (!this.noteArray) this.noteArray = [];
@@ -116,11 +113,11 @@ export class AddNotesComponent implements OnInit, OnChanges {
           // this.noteArray = JSON.parse(localStorage.getItem('notes'))?? [];
 
           this.clearForm();
-        } else {
-          this.addNotesForm.markAsTouched();
         }
-      }
     }
+  }else {
+        this.addNotesForm.markAsTouched();
+      }
   }
 
   //method to clear form

@@ -11,7 +11,7 @@ export class ListNotesComponent implements OnInit {
   noteForEdit: INote;
 
   constructor() {
-    this.noteArray = JSON.parse(localStorage.getItem('notes'))?? [];
+    this.noteArray = JSON.parse(localStorage.getItem('notes')) || [];
   }
 
   ngOnInit(): void {}
@@ -37,7 +37,7 @@ export class ListNotesComponent implements OnInit {
       //set upadetd array localstorage
       localStorage.setItem('notes', JSON.stringify(this.noteArray));
       }
-    // }
+    // } 
   }
 
   //method to edit note
