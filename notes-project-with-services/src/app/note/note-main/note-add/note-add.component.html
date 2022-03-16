@@ -1,0 +1,110 @@
+<!-- to add or notes -->
+<div class="container">
+    <form class="form text-center" [formGroup]="addNotesForm">
+      <h1>{{ _noteDetailService.noteId ? "Edit Note" : "Add Note" }}</h1>
+      <!-- Title -->
+      <div class="row">
+        <div class="col-4">
+          <label for="title" class="sr-only">Title: </label>
+        </div>
+        <div class="col-6">
+          <input
+            formControlName="title"
+            type="text"
+            class="form-control"
+            name="title"
+            maxlength="100"
+            placeholder="Title"
+          />
+          <!-- validation -->
+          <div
+            *ngIf="
+              _addNotesForm.title?.errors &&
+              (formSubmitted || _addNotesForm.title.touched)
+            "
+          >
+            <div
+              class="alert-danger"
+              *ngIf="_addNotesForm.title?.errors?.required"
+            >
+              Note title is required
+            </div>
+            <div
+              class="alert-danger"
+              *ngIf="_addNotesForm.title?.errors?.maxlength"
+            >
+              Title should be less than 100 char!
+            </div>
+          </div>
+        </div>
+      </div>
+      <br />
+  
+      <!-- Notes -->
+      <div class="row">
+        <div class="col-4">
+          <label for="note">Note :</label>
+        </div>
+        <div class="col-6">
+          <textarea
+            type="text"
+            class="form-control"
+            formControlName="note"
+            name="note"
+            placeholder="Note"
+          ></textarea>
+          <!-- validation -->
+          <div
+            *ngIf="
+              _addNotesForm.note?.errors &&
+              (formSubmitted || _addNotesForm.note.touched)
+            "
+          >
+            <div
+              class="alert-danger"
+              *ngIf="_addNotesForm.note?.errors?.required"
+            >
+              Note is required
+            </div>
+            <div
+              class="alert-danger"
+              *ngIf="_addNotesForm.note?.errors?.maxlength"
+            >
+              Note should be less than 1000 char!
+            </div>
+          </div>
+        </div>
+      </div>
+      <br />
+  
+      <!-- status -->
+      <div class="row">
+        <div class="col-4">
+          <label for="status" class="form-check-label">Status : </label>
+        </div>
+        <div class="col-1">
+          <input
+            type="checkbox"
+            id="status"
+            name="status"
+            formControlName="status"
+            class="form-check-input"
+          />
+        </div>
+      </div>
+      <br>
+  
+      <!-- to add or edit note in list -->
+      <button
+        class="btn btn-primary col-1"
+        (click)="onSubmit()"
+      >
+        {{ _noteDetailService.noteId ? "Edit" : "Add" }}
+      </button>
+      <!-- to clear form -->
+      <button class="btn btn-danger col-2" (click)="clearForm()">Clear Note</button>
+    </form>
+  </div>
+  
+
+  <app-note-list (sendNoteId)="getNoteId($event)"></app-note-list>

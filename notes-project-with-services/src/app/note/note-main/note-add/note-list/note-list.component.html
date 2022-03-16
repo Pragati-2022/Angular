@@ -1,0 +1,17 @@
+
+<!-- card  -->
+<div *ngFor="let note of _noteDetailService.noteArray">
+  <div
+    class="card"
+    style="width: 18rem"
+    [ngClass]="note.status ? 'statusTrue' : 'statusFalse'"
+  >
+    <div class="card-body">
+      <h4 class="card-title">{{ note.title }}</h4>
+      <h6 class="card-subtitle">{{ note.date | date:'short' }}</h6>
+      <p class="card-text">{{ note.note }}</p>
+      <button (click)="onEdit(note)" class="btn btn-primary">Edit</button>
+      <button (click)="onDelete(note)" class="btn btn-danger" *ngIf="!note.status">Delete</button>
+    </div>
+  </div>
+</div>

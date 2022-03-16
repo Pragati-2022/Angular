@@ -1,0 +1,6 @@
+.statusTrue{
+    background-color: lightgreen;
+}
+.statusFalse{
+    background-color: rgb(218, 129, 129);
+}
