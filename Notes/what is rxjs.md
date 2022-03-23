@@ -29,3 +29,10 @@ A subject is the same as an EventEmitter. It is an observable that multicasts in
 A scheduler handles the execution of subscriptions.
 
 The RxJS library is great for handling async tasks. It has a large collection of operators in filtering, error handling, conditional, creation, multicasting, and more. It is supported by JavaScript and TypeScript, and it works well with Angular.
+
+
+
+
+-> compelete method pachi kai pan data observable ma emit na thay
+
+-> next, complete, error are methods of observer
