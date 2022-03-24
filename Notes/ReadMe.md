@@ -175,3 +175,6 @@ const numbers = [45, 4, 9, 16, 25];
 
 var employee = new Object();
 var books = new Array("C++", "Perl", "Java");
+
+
+Although X in Ajax stands for XML, JSON is preferred over XML nowadays because of its many advantages such as being a part of JavaScript, thus being lighter in size. Both JSON and XML are used for packaging information in the Ajax model.
