@@ -25,3 +25,18 @@
 
     https://stackblitz.com/edit/angular-ivy-2ymqvg
     https://stackblitz.com/edit/angular-ivy-qlca3b
+
+
+### practice app with all type of input field
+    https://stackblitz.com/edit/angular-ivy-h6ou5f
+    
+    
+### basic topics practice
+    https://stackblitz.com/edit/angular-ivy-t5ntkm
+    https://stackblitz.com/edit/angular-ivy-ulnx31
+    
+    
+### calculator
+    https://stackblitz.com/edit/angular-ivy-rfz5e6
+    
+    
