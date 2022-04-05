@@ -1,0 +1,36 @@
+<div class="container">
+
+  <!-- designation list table -->
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+      <!-- if no data then show this --> 
+      <tr *ngIf="!_designationService.designations || isNoData">
+        <td colspan="3" class="text-center">Data not found</td>
+    </tr>
+    </thead>
+
+    <!-- loop for add designation in table -->
+    <tbody *ngFor="let designation of _designationService.designations">
+      <tr *ngIf="designation">
+        <td>{{ designation.title }}</td>
+        <td><h1>
+          <!-- icon toggle off when status false and icon toggle on when status true  -->
+          <fa-icon *ngIf="!designation.status" class="blue-color" [icon]="faToggleOff"></fa-icon>
+          <fa-icon *ngIf="designation.status" class="blue-color" [icon]="faToggleOn"></fa-icon>
+        </h1></td>
+        <td>
+          <h1>
+            <!-- icons for edit and delete -->
+            <fa-icon  class="blue-color me-3" [icon]="faEdit" (click)="onEdit(designation)"></fa-icon>
+            <fa-icon class="red-color" [icon]="faTrash" (click)="onDelete(designation)"></fa-icon>
+          </h1>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

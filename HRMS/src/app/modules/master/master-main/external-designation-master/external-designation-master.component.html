@@ -1,0 +1,62 @@
+<h3 class="text-center">EXTERNAL DESIGNATION MASTER</h3>
+
+<form [formGroup]="addExternalDesignationForm">
+  <div class="input-group mb-3 mx-auto" style="width: 400px">
+
+    <!-- externalDesignation title -->
+    <div class="input-group-prepend me-2">
+      <input
+        type="text"
+        placeholder="Enter External Designation"
+        formControlName="title"
+        class="form-control"
+      />
+
+      <!-- validation -->
+      <small
+        class="alert-danger"
+        *ngIf="
+          (_addExternalDesignationForm['title'].touched || isSubmittedForm) &&
+          _addExternalDesignationForm['title'].invalid
+        "
+      >
+        <small *ngIf="_addExternalDesignationForm['title'].errors?.['required']"
+          >External designation is required</small
+        >
+        <small
+          *ngIf="_addExternalDesignationForm['title'].errors?.['uniqueTitle']"
+          >External designation must be unique</small
+        >
+      </small>
+    </div>
+
+    <!-- status -->
+    <div class="form-check me-2 mt-2">
+      <input type="checkbox" formControlName="status" class="form-check-input" id="checkBoxStatus2" />
+      <label for="checkBoxStatus2">Status</label>
+    </div>
+
+    <!-- edit or save button -->
+    <div class="input-group-append">
+      <button class="btn btn-primary" (click)="onSubmit()">
+        {{ editExternalDesignationId ? "Edit" : "Save" }}
+      </button>
+    </div>
+  </div>
+</form>
+
+
+<!-- loader -->
+<!-- <sa-spinner-circular
+  *ngIf="isSpinner"
+  [size]="50"
+  [thickness]="100"
+  [speed]="100"
+  color="rgba(57, 64, 172, 1)"
+  secondaryColor="rgba(172, 57, 57, 0.1)"
+></sa-spinner-circular> -->
+
+<!-- externalDesignation list selector -->
+<app-external-designation-list
+  (sendExternalDesignation)="getExternalDesignation($event)"
+></app-external-designation-list>

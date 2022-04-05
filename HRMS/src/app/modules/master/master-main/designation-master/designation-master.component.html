@@ -1,0 +1,54 @@
+<h3 class="text-center">DESIGNATION MASTER</h3>
+
+  <form [formGroup]="addDesignationForm" >
+    <div class="input-group mb-3 mx-auto" style="width:400px" >
+
+      <!-- Designation title -->
+      <div class="input-group-prepend me-2">
+        <input
+          type="text"
+          placeholder="Enter Designation"
+          formControlName="designationTitle"
+          class="form-control"
+        />
+
+        <!-- validation  -->
+        <small
+          *ngIf="
+            (isFormSubmitted ||
+              _addDesignationForm['designationTitle'].touched) &&
+            _addDesignationForm['designationTitle'].invalid
+          "
+        >
+          <small
+            class="alert-danger"
+            *ngIf="_addDesignationForm['designationTitle']?.errors?.['required']"
+            >Designation is required</small
+          >
+          <small
+            class="alert-danger"
+            *ngIf="_addDesignationForm['designationTitle'].errors?.['uniqueTitle']"
+            >Designation must be unique
+          </small>
+        </small>
+      </div>
+
+      <!-- status  -->
+      <div class="form-check me-2 mt-2">
+        <input type="checkbox" formControlName="status" class="form-check-input" id="checkBoxStatus" /> 
+        <label for="checkBoxStatus">Status</label>
+      </div>
+
+      <!-- edit or save button -->
+      <div class="input-group-append">
+        <button class="btn btn-primary" (click)="onSubmit()">
+          {{ editDesignationId ? "Edit" : "Save" }}
+        </button>
+      </div>
+    </div>
+  </form>
+
+<!-- Designation list selector -->
+<app-designation-list
+  (sendDesignation)="getDesignation($event)"
+></app-designation-list>
