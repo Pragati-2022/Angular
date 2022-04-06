@@ -1,7 +1,0 @@
-
-<p>Memory leak example</p>
-<button (click)="toggleComponent()">
-    {{ isDestroyed ? 'create' : 'destroy' }} component
-  </button>
-  
-  <app-clock *ngIf="!isDestroyed"></app-clock>
