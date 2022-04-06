@@ -1,0 +1,41 @@
+<div class="row">
+  <div class="col-6">
+    <div
+      class="card text-white mb-4"
+      [ngClass]="{
+        'bg-warning': getTask.status === 'pending',
+        'bg-secondary': !getTask.status,
+        'bg-success': getTask.status === 'completed'
+      }"
+    >
+      <div class="card-body">
+        <h5 class="card-title">{{ getTask.task }}</h5>
+        <p class="card-date">
+          {{ getTask.date }}
+        </p>
+        <a
+          href="#"
+          class="btn btn-dark"
+          *ngIf="!getTask.status"
+          (click)="onStart()"
+          >start</a
+        >
+        <a
+          href="#"
+          class="btn btn-dark me-1"
+          *ngIf="getTask.status"
+          [ngClass]="{ 'bg-danger': getTask.status === 'pending' }"
+          >{{ getTask.status }}</a
+        >
+        <a
+          href="#"
+          [style.visibility]="getTask.status ? 'visible' : 'hidden'"
+          (click)="onComplete()"
+          class="btn btn-dark"
+          [ngClass]="{ 'bg-danger': getTask.status === 'completed' }"
+          >{{ getTask.status === "pending" ? "complete" : "delete" }}</a
+        >
+      </div>
+    </div>
+  </div>
+</div>

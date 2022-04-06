@@ -1,0 +1,131 @@
+<h5>Template driven form example</h5>
+
+<form #f="ngForm" (ngSubmit)="onSubmit(f)">
+    <!-- text with FirstName -->
+  <div class="form-group">
+    <label for="txtFName">FirstName : </label>
+    <input
+      required
+      ngModel
+      name="fname"
+      #fname="ngModel"
+      (change)="log(fname)"
+      type="text"
+      placeholder="FirstName"
+      id="txtFName"
+      class="form-control"
+    />
+    <div class="alert-danger" *ngIf="fname.touched && !fname.valid">
+      first name is required
+    </div>
+  </div>
+
+  <!-- textarea with comment -->
+  <div class="form-group">
+    <label for="txtAreaComment">Comment : </label>
+    <textarea
+      required
+      ngModel
+      name="comment"
+      #comment="ngModel"
+      placeholder="Comment"
+      id="txtAreaComment"
+      class="form-control"
+    ></textarea>
+    <div class="alert-danger" *ngIf="comment.touched && !comment.valid">
+      comment is required
+    </div>
+  </div>
+
+  <!-- checkbox -->
+  <div class="form-group">
+    <label>
+      <input
+        type="checkbox"
+        required
+        ngModel
+        #isSubscribed="ngModel"
+        name="isSubscribed"
+      />subscribe to mailing list
+    </label>
+    <div
+      class="alert-danger"
+      *ngIf="isSubscribed.touched && !isSubscribed.valid"
+    >
+      please check the subscribe mailing list
+    </div>
+  </div>
+
+  <!-- dropdown list -->
+  <div class="form-group">
+    <label for="ddlContactMethod">Contact Method</label>
+    <select
+      multiple
+      ngModel
+      name="contactMethod"
+      id="ddlContactMethod"
+      class="form-control"
+      #contactMethod="ngModel"
+      required
+    >
+      <option>choose any one or more</option>
+      <option *ngFor="let method of contactMethods" [value]="method.name">
+        {{ method.name }}
+      </option>
+    </select>
+
+    <span
+      class="alert-danger"
+      *ngIf="
+        contactMethod.touched &&
+        (contactMethod.value == '' ||
+          contactMethod.value == 'choose any one or more')
+      "
+      >Plz select any method</span
+    >
+  </div>
+
+  <!-- radio with gender -->
+  <div class="radio">
+    <label>
+      <input
+        ngModel
+        type="radio"
+        name="gender"
+        value="m"
+        #gender="ngModel"
+        required
+      />
+      Male
+    </label>
+  </div>
+  <div class="radio">
+    <label>
+      <input ngModel type="radio" name="gender" value="f" #gender="ngModel" />
+      Female
+    </label>
+  </div>
+  <div class="alert-danger" *ngIf="gender.touched && !gender.valid">
+    gender is required
+  </div>
+  <hr />
+
+  <!-- radio with dynamic value -->
+  <div class="radio">
+    <label *ngFor="let method of contactMethods">
+      <input
+        ngModel
+        type="radio"
+        name="contactByRadio"
+        [value]="method.name"
+        required
+      />
+      {{ method.name }}
+    </label>
+  </div>
+
+  <p>
+    {{ f.value | json }}
+  </p>
+  <button class="btn btn-primary mt-1">Submit</button>
+</form>

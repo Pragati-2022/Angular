@@ -1,0 +1,63 @@
+<div class="text-center">
+  <button
+    type="button"
+    *ngIf="!isAddTask"
+    class="btn btn-primary"
+    (click)="isAddTask = true"
+  >
+    Add Task
+  </button>
+</div>
+<div class="container" *ngIf="isAddTask">
+  <h1 class="text-center">Add Task</h1>
+  <form [formGroup]="addTaskForm">
+    <div class="form-group">
+      <input
+        formControlName="task"
+        type="text"
+        placeholder="Add Task"
+        class="form-control"
+      />
+      <div
+        *ngIf="
+          (isSubmitted || _addTaskForm.task.touched) &&
+          _addTaskForm.task.invalid
+        "
+      >
+        <div class="alert-danger" *ngIf="_addTaskForm.task.errors?.required">
+          task is required
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <input formControlName="date" type="date" class="form-control mt-1" />
+      <div
+        *ngIf="
+          (isSubmitted || _addTaskForm.date.touched) &&
+          _addTaskForm.date.invalid
+        "
+      >
+        <div class="alert-danger" *ngIf="_addTaskForm.date.errors?.required">
+          date is required
+        </div>
+        <div
+          class="alert-danger"
+          *ngIf="_addTaskForm.date.errors?.greaterThenNow"
+        >
+          date is invalid
+        </div>
+      </div>
+    </div>
+    <button class="btn btn-primary mt-1" (click)="onSubmit()">Add Task</button>
+    <button class="btn btn-primary mt-1" (click)="isAddTask = false">
+      Show Task
+    </button>
+  </form>
+</div>
+
+<div *ngIf="!isAddTask">
+  <app-list-task
+    [getTask]="taskDetail"
+    *ngFor="let taskDetail of tasks"
+  ></app-list-task>
+</div>

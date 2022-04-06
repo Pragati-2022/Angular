@@ -1,0 +1,63 @@
+<!-- example of pipe with add underscore in name-->
+<!-- <h1>Hello Pragati</h1>
+{{ friend | addUnderscorePipe }}
+
+<br>
+<button (click)="isComponent = true" (click)="isModule = false" (click)="isRoot = false">By isComponent</button>
+<button (click)="isModule = true" (click)="isComponent = false" (click)="isRoot = false">By Module</button>
+<button (click)="isRoot = true" (click)="isModule = false" (click)="isComponent = false">By Root level</button> -->
+
+<!-- example of service and import by component -->
+<!-- <app-demo1 *ngIf="isComponent"></app-demo1>
+<app-demo2 *ngIf="isComponent"></app-demo2> -->
+
+<!-- example of service and import by module -->
+<!-- <app-demo3 *ngIf="isModule"></app-demo3>
+<app-demo4 *ngIf="isModule"></app-demo4> -->
+
+<!-- example of service and import by root level -->
+<!-- <app-demo5 *ngIf="isRoot"></app-demo5>
+<app-demo6 *ngIf="isRoot"></app-demo6>
+
+<br /> -->
+
+<!-- example of pipe with filter array -->
+<!-- <input type="text" placeholder="Name" #nameVal="ngModel" [(ngModel)]="name" />
+<p *ngIf="!name">{{ names }}</p>
+<p *ngIf="name">
+  {{ names | filterPipe: name }}
+</p> -->
+
+<!-- example of pipe with add mr or ms in name and pipes are singal and double parameter -->
+<!-- <input
+  type="text"
+  placeholder="Gender"
+  #genderVal="ngModel"
+  [(ngModel)]="gender"
+/> -->
+<!-- singal parameter -->
+<!-- <p *ngIf="name && gender">{{ name | prependName: gender }}</p> -->
+<!-- double parameter -->
+<!-- <p *ngIf="name && gender">{{ gender | prependName2 }} {{ name }}</p>
+<br> -->
+
+<!-- attribute directive example -->
+<!-- <p>attribute directive</p> -->
+<!-- <app-attribute-demo></app-attribute-demo> -->
+
+<!-- structural directive example -->
+<!-- <p>structural directive</p> -->
+<!-- <app-structural-demo></app-structural-demo> -->
+
+<!-- <app-bank-details></app-bank-details> -->
+
+<!-- <app-toggle></app-toggle> -->
+
+<!-- <br> -->
+<!-- <app-contact-form></app-contact-form> -->
+
+<!-- <app-registration-form></app-registration-form> -->
+
+<!-- <app-to-do-list-main></app-to-do-list-main> -->
+
+<app-api-call></app-api-call>
