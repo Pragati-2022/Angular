@@ -8,11 +8,11 @@ import { IDesignation } from 'src/app/modules/shared/models/master';
 import { v4 as uuidv4 } from 'uuid';
 
 @Component({
-  selector: 'app-external-designation-master',
-  templateUrl: './external-designation-master.component.html',
-  styleUrls: ['./external-designation-master.component.css'],
+  selector: 'app-external-designation-add',
+  templateUrl: './external-designation-add.component.html',
+  styleUrls: ['./external-designation-add.component.css'],
 })
-export class ExternalDesignationMasterComponent implements OnInit {
+export class ExternalDesignationAddComponent implements OnInit {
   addExternalDesignationForm!: FormGroup;
   isSubmittedForm = false;
   externalDesignation!: IDesignation;
@@ -22,7 +22,7 @@ export class ExternalDesignationMasterComponent implements OnInit {
     public formBuilder: FormBuilder,
     public _externalDesignationService: ExternalDesignationService,
     private _notificationService: NotificationService,
-    private ngxService: NgxUiLoaderService
+    private loaderService: NgxUiLoaderService
   ) {}
 
   ngOnInit(): void {
@@ -60,7 +60,7 @@ export class ExternalDesignationMasterComponent implements OnInit {
       // check for editExternalDesignationId
       if (this.editExternalDesignationId) {
 
-        this.ngxService.start();
+        this.loaderService.start();
 
         // store edited value in object
         this.externalDesignation = {
@@ -85,7 +85,7 @@ export class ExternalDesignationMasterComponent implements OnInit {
           );
 
       } else {
-        this.ngxService.start();
+        this.loaderService.start();
 
         // store designation details in object
         this.externalDesignation = {

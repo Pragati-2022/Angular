@@ -8,10 +8,11 @@ import { IDesignation } from 'src/app/modules/shared/models/master';
 import { v4 as uuidv4 } from 'uuid';
 
 @Component({
-  selector: 'app-designation-master',
-  templateUrl: './designation-master.component.html',
+  selector: 'app-designation-add',
+  templateUrl: './designation-add.component.html',
+  styleUrls: ['./designation-add.component.css'],
 })
-export class DesignationMasterComponent implements OnInit {
+export class DesignationAddComponent implements OnInit {
   addDesignationForm!: FormGroup;
   isFormSubmitted = false;
   designation!: IDesignation;
@@ -21,7 +22,7 @@ export class DesignationMasterComponent implements OnInit {
     public formBuilder: FormBuilder,
     public _designationService: DesignationService,
     private _notificationService: NotificationService,
-    private ngxService: NgxUiLoaderService
+    private loaderService: NgxUiLoaderService
   ) {}
 
   ngOnInit(): void {
@@ -58,7 +59,7 @@ export class DesignationMasterComponent implements OnInit {
     if (this.addDesignationForm.valid) {
       // condition for editDesignationId is available
       if (this.editDesignationId) {
-        this.ngxService.start();
+        this.loaderService.start();
 
         //edited value store in object
         this.designation = {
@@ -80,7 +81,7 @@ export class DesignationMasterComponent implements OnInit {
             'Notification'
           );
       } else {
-        this.ngxService.start();
+        this.loaderService.start();
 
         // store designation details in object
         this.designation = {
@@ -89,7 +90,7 @@ export class DesignationMasterComponent implements OnInit {
           title: this._addDesignationForm['designationTitle'].value,
           status: this._addDesignationForm['status'].value,
         };
-
+        
           // call method from service
           this._designationService.addDesignation(this.designation);
 

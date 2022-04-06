@@ -30,11 +30,13 @@
               *ngIf="!designation.status"
               class="blue-color"
               [icon]="faToggleOff"
+              (click)="designation.status = true"
             ></fa-icon>
             <fa-icon
               *ngIf="designation.status"
               class="blue-color"
               [icon]="faToggleOn"
+              (click)="designation.status = false"
             ></fa-icon>
           </h1>
         </td>

@@ -12,7 +12,7 @@ export class ExternalDesignationService {
 
   constructor(
     private _notificationService: NotificationService,
-    private ngxService: NgxUiLoaderService
+    private loaderService: NgxUiLoaderService
   ) {}
   // method to add externalDesignation
   addExternalDesignation(externalDesignation: IDesignation) {
@@ -28,7 +28,7 @@ export class ExternalDesignationService {
       return d - c;
     });
 
-    this.ngxService.stop();
+    this.loaderService.stop();
   }
 
   //method to edit externalDesignation
@@ -53,7 +53,7 @@ export class ExternalDesignationService {
         'notification'
       );
     }
-    this.ngxService.stop();
+    this.loaderService.stop();
   }
 
   deleteExternalDesignation(externalDesignation: IDesignation) {
@@ -66,7 +66,7 @@ export class ExternalDesignationService {
     if (index != -1 && index != null && index != undefined) {
       //delete externalDesignation
       this.externalDesignations.splice(index, 1);
-      this.ngxService.stop();
+      this.loaderService.stop();
     }
   }
 }

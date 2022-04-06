@@ -20,8 +20,8 @@
         <td>{{ designation.title }}</td>
         <td><h1>
           <!-- icon toggle off when status false and icon toggle on when status true  -->
-          <fa-icon *ngIf="!designation.status" class="blue-color" [icon]="faToggleOff"></fa-icon>
-          <fa-icon *ngIf="designation.status" class="blue-color" [icon]="faToggleOn"></fa-icon>
+          <fa-icon *ngIf="!designation.status" class="blue-color" (click)="designation.status = true" [icon]="faToggleOff"></fa-icon>
+          <fa-icon *ngIf="designation.status" class="blue-color" (click)="designation.status = false" [icon]="faToggleOn"></fa-icon>
         </h1></td>
         <td>
           <h1>

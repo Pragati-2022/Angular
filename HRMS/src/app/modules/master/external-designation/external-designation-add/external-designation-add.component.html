@@ -31,7 +31,7 @@
     </div>
 
     <!-- status -->
-    <div class="form-check me-2 mt-2">
+    <div class="form-check form-switch me-2 mt-2">
       <input type="checkbox" formControlName="status" class="form-check-input" id="checkBoxStatus2" />
       <label for="checkBoxStatus2">Status</label>
     </div>
@@ -39,7 +39,7 @@
     <!-- edit or save button -->
     <div class="input-group-append">
       <button class="btn btn-primary" (click)="onSubmit()">
-        {{ editExternalDesignationId ? "Edit" : "Save" }}
+        {{ editExternalDesignationId ? "Edit" : "Add" }}
       </button>
     </div>
   </div>

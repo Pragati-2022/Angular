@@ -12,7 +12,7 @@ export class DesignationService {
 
   constructor(
     private _notificationService: NotificationService,
-    private ngxService: NgxUiLoaderService
+    private loaderService: NgxUiLoaderService
   ) {}
 
   // method to add designation
@@ -29,7 +29,7 @@ export class DesignationService {
       return d - c;
     });
 
-    this.ngxService.stop();
+    this.loaderService.stop();
   }
 
   //method to edit designation
@@ -53,7 +53,7 @@ export class DesignationService {
         'notification'
       );
     }
-    this.ngxService.stop();
+    this.loaderService.stop();
   }
 
   // method to delete designation
@@ -65,7 +65,7 @@ export class DesignationService {
     if (index != -1 && index != null && index != undefined) {
       //delete designation
       this.designations.splice(index, 1);
-      this.ngxService.stop();
+      this.loaderService.stop();
     }
   }
 }

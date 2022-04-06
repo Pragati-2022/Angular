@@ -16,4 +16,8 @@ export class NotificationService {
     onWarning(message: string | undefined, title: string | undefined){
         this._toastrService.warning(message, title);
     }
+
+    onError(message: string | undefined, title: string | undefined){
+        this._toastrService.error(message, title);
+    }
 }
