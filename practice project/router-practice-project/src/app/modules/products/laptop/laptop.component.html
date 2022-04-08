@@ -1,0 +1,7 @@
+<h3>Laptop List</h3>
+
+<ul class="items">
+    <li (click)="onSelect(laptop)" [ngStyle]="recentActiveRouteId === laptop.id ? { color: 'red' } : { color: 'black' }" *ngFor="let laptop of laptops">
+        {{ laptop.id }} {{ laptop.name }}
+    </li>
+</ul>

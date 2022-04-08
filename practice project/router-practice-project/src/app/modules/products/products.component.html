@@ -1,0 +1,48 @@
+<div>
+<h1 class="text-center">Products</h1>
+<button class="btn btn-primary" (click)="addProduct()">Add Product</button>
+</div>
+
+<div class="row">
+<div class="row col-md-9"> 
+    <div class="col-sm-5 mt-2">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Mobile</h5>
+          <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+          <a routerLink="mobile" class="btn btn-primary">Know More</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-5 mt-2">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">TV</h5>
+          <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+          <a routerLink="tv" class="btn btn-primary">Know More</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-5 mt-2">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Laptop</h5>
+            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+            <a routerLink="laptop" class="btn btn-primary">Know More</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-5 mt-2">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Tablate</h5>
+            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+            <a routerLink="tablate" class="btn btn-primary">Know More</a>
+          </div>
+        </div>
+      </div>
+  </div>
+  <div class="col-md-3 border-left">
+      <router-outlet></router-outlet>
+  </div>
+</div>
