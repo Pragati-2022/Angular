@@ -41,7 +41,7 @@ export class DesignationService {
     if (index != -1 && index != null && index != undefined) {
       // edit designation
       this.designations[index] = designation;
-
+      
       this.designations.sort(function (a, b) {
         var c: any = new Date(a.dateTime);
         var d: any = new Date(b.dateTime);

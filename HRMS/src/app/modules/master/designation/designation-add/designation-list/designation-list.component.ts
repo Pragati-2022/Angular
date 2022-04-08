@@ -7,6 +7,8 @@ import {
   faToggleOff,
   faEdit,
   faTrash,
+  faArrowUp,
+  faArrowDown,
 } from '@fortawesome/free-solid-svg-icons';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import Swal from 'sweetalert2';
@@ -22,8 +24,15 @@ export class DesignationListComponent implements OnInit {
   faToggleOff = faToggleOff;
   faEdit = faEdit;
   faTrash = faTrash;
+  faArrowUp = faArrowUp;
+  faArrowDown = faArrowDown;
 
   isNoData = false;
+  isUp = false;
+  isStatus: string | boolean = '';
+
+  p: number = 1;
+  rowPerPage = 4;
 
   // decorator for send designation when click on edit
   @Output() sendDesignation = new EventEmitter();
@@ -32,9 +41,11 @@ export class DesignationListComponent implements OnInit {
     public _designationService: DesignationService,
     private _notificationService: NotificationService,
     private loaderService: NgxUiLoaderService
-  ) {}
+  ) {
+  }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   // method to edit
   onEdit(designation: IDesignation) {
@@ -66,7 +77,6 @@ export class DesignationListComponent implements OnInit {
 
         if (this._designationService.designations.length === 0)
           this.isNoData = true;
-
       } else if (result.dismiss === Swal.DismissReason.cancel) {
         // Swal.fire('Cancelled', 'Designation is safe :)', 'error');
         this._notificationService.onError(
@@ -75,5 +85,56 @@ export class DesignationListComponent implements OnInit {
         );
       }
     });
+  }
+
+  SetRowPerPage(rowPerPage: any) {
+    this.rowPerPage = rowPerPage.target.value;
+    console.log(this.rowPerPage);
+    this.p = 1;
+  }
+
+  onSort() {
+    // Ascending
+
+    if (this._designationService.designations) {
+      this.p = 1;
+      if (this.isUp) {
+        function compare(a: any, b: any) {
+          // Use toUpperCase() to ignore character casing
+          const titleA = a.title.toUpperCase();
+          const titleB = b.title.toUpperCase();
+
+          let comparison = 0;
+          if (titleA > titleB) {
+            comparison = 1;
+          } else if (titleA < titleB) {
+            comparison = -1;
+          }
+          return comparison;
+        }
+
+        this._designationService.designations.sort(compare);
+        console.log('up');
+      } else {
+        function compare(a: any, b: any) {
+          // Use toUpperCase() to ignore character casing
+          const titleA = a.title.toUpperCase();
+          const titleB = b.title.toUpperCase();
+
+          let comparison = 0;
+          if (titleA < titleB) {
+            comparison = 1;
+          } else if (titleA > titleB) {
+            comparison = -1;
+          }
+          return comparison;
+        }
+
+        this._designationService.designations.sort(compare);
+        console.log('down');
+      }
+    }
+
+    console.log(this._designationService.designations);
   }
 }

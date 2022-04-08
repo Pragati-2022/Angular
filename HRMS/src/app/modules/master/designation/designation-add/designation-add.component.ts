@@ -40,6 +40,7 @@ export class DesignationAddComponent implements OnInit {
             this._designationService.designations,
             this.editDesignationId
           ),
+          Validators.maxLength(256)
         ],
       ],
       status: [false],

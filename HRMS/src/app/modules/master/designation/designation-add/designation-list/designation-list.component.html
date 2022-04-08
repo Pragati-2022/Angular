@@ -1,36 +1,98 @@
 <div class="container">
-
   <!-- designation list table -->
+  <h3 class="text-center">
+    Designation List
+    <span class="form-switch mt-2"
+      ><h1><fa-icon
+        *ngIf="isStatus"
+        (click)="isStatus = false"
+        class="blue-color"
+        [icon]="faToggleOn"
+      ></fa-icon>
+      <fa-icon
+        *ngIf="!isStatus"
+        (click)="isStatus = true"
+        class="blue-color"
+        [icon]="faToggleOff"
+      ></fa-icon></h1>
+    </span>
+  </h3>
   <table class="table">
     <thead>
       <tr>
-        <th>Title</th>
+        <th (click)="onSort()">
+          Title
+          <fa-icon
+            *ngIf="!isUp"
+            (click)="isUp = true"
+            class="blue-color"
+            [icon]="faArrowUp"
+          ></fa-icon>
+          <fa-icon
+            *ngIf="isUp"
+            class="blue-color"
+            (click)="isUp = false"
+            [icon]="faArrowDown"
+          ></fa-icon>
+        </th>
         <th>Status</th>
         <th>Actions</th>
       </tr>
-      <!-- if no data then show this --> 
+      <!-- if no data then show this -->
       <tr *ngIf="!_designationService.designations || isNoData">
         <td colspan="3" class="text-center">Data not found</td>
-    </tr>
+      </tr>
     </thead>
 
     <!-- loop for add designation in table -->
-    <tbody *ngFor="let designation of _designationService.designations">
-      <tr *ngIf="designation">
+    <tbody
+      *ngFor="
+        let designation of _designationService.designations
+          | paginate: { itemsPerPage: rowPerPage, currentPage: p }
+      "
+    >
+      <tr *ngIf="isStatus == designation.status">
         <td>{{ designation.title }}</td>
-        <td><h1>
-          <!-- icon toggle off when status false and icon toggle on when status true  -->
-          <fa-icon *ngIf="!designation.status" class="blue-color" (click)="designation.status = true" [icon]="faToggleOff"></fa-icon>
-          <fa-icon *ngIf="designation.status" class="blue-color" (click)="designation.status = false" [icon]="faToggleOn"></fa-icon>
-        </h1></td>
+        <td>
+          <h1>
+            <!-- icon toggle off when status false and icon toggle on when status true  -->
+            <fa-icon
+              *ngIf="!designation.status"
+              class="blue-color"
+              (click)="designation.status = true"
+              [icon]="faToggleOff"
+            ></fa-icon>
+            <fa-icon
+              *ngIf="designation.status"
+              class="blue-color"
+              (click)="designation.status = false"
+              [icon]="faToggleOn"
+            ></fa-icon>
+          </h1>
+        </td>
         <td>
           <h1>
             <!-- icons for edit and delete -->
-            <fa-icon  class="blue-color me-3" [icon]="faEdit" (click)="onEdit(designation)"></fa-icon>
-            <fa-icon class="red-color" [icon]="faTrash" (click)="onDelete(designation)"></fa-icon>
+            <fa-icon
+              class="blue-color me-3"
+              [icon]="faEdit"
+              (click)="onEdit(designation)"
+            ></fa-icon>
+            <fa-icon
+              class="red-color"
+              [icon]="faTrash"
+              (click)="onDelete(designation)"
+            ></fa-icon>
           </h1>
         </td>
       </tr>
     </tbody>
   </table>
+  <div class="input-group justify-content-end" *ngIf="_designationService.designations && !isNoData">
+    <select class="custom-select mb-3" (change)="SetRowPerPage($event)">
+      <option value="4">4</option>
+      <option value="8">8</option>
+    </select>
+    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+  </div>
 </div>

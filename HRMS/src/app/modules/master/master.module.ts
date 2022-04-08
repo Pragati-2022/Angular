@@ -7,7 +7,7 @@ import { DesignationListComponent } from './designation/designation-add/designat
 import { DesignationAddComponent } from './designation/designation-add/designation-add.component';
 import { ExternalDesignationAddComponent } from './external-designation/external-designation-add/external-designation-add.component';
 import { ExternalDesignationListComponent } from './external-designation/external-designation-add/external-designation-list/external-designation-list.component';
-
+import {NgxPaginationModule} from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -16,7 +16,7 @@ import { ExternalDesignationListComponent } from './external-designation/externa
     ExternalDesignationAddComponent,
     ExternalDesignationListComponent,
   ],
-  imports: [CommonModule, ReactiveFormsModule, FontAwesomeModule, NgxUiLoaderModule],
+  imports: [CommonModule, ReactiveFormsModule, FontAwesomeModule, NgxUiLoaderModule, NgxPaginationModule],
   exports: [
     DesignationAddComponent,
     DesignationListComponent,
