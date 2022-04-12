@@ -72,6 +72,7 @@ export class DesignationAddComponent implements OnInit {
 
           // call editDesignation method from service
           this._designationService.editDesignation(this.designation);
+          this._designationService.designations = [...this._designationService.designations]
 
           // do editDesignationId blank
           this.editDesignationId = '';
@@ -94,7 +95,7 @@ export class DesignationAddComponent implements OnInit {
         
           // call method from service
           this._designationService.addDesignation(this.designation);
-
+          this._designationService.designations = [...this._designationService.designations]
           //toaster notification on success from notificationService
           this._notificationService.onSuccess(
             'Designation added successfully',

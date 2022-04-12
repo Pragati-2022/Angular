@@ -29,10 +29,11 @@ export class ExternalDesignationListComponent implements OnInit {
 
   isNoData = false;
   isUp = false;
-  isStatus: string | boolean = '';
+  isStatus = false;
 
   p: number = 1;
   rowPerPage = 4;
+
   // decorator for send designation for edit
   @Output() sendExternalDesignation = new EventEmitter();
 
@@ -71,7 +72,9 @@ export class ExternalDesignationListComponent implements OnInit {
         this._externalDesignationService.deleteExternalDesignation(
           externalDesignation
         );
-
+        this._externalDesignationService.externalDesignations = [
+          ...this._externalDesignationService.externalDesignations,
+        ];
         // toaster notification on success
         this._notificationService.onSuccess(
           'External designation deleted successfully ',
@@ -89,7 +92,7 @@ export class ExternalDesignationListComponent implements OnInit {
       }
     });
   }
-  
+
   SetRowPerPage(rowPerPage: any) {
     this.rowPerPage = rowPerPage.target.value;
     console.log(this.rowPerPage);
@@ -117,6 +120,9 @@ export class ExternalDesignationListComponent implements OnInit {
         }
 
         this._externalDesignationService.externalDesignations.sort(compare);
+        this._externalDesignationService.externalDesignations = [
+          ...this._externalDesignationService.externalDesignations,
+        ];
         console.log('up');
       } else {
         function compare(a: any, b: any) {
@@ -134,6 +140,9 @@ export class ExternalDesignationListComponent implements OnInit {
         }
 
         this._externalDesignationService.externalDesignations.sort(compare);
+        this._externalDesignationService.externalDesignations = [
+          ...this._externalDesignationService.externalDesignations,
+        ];
         console.log('down');
       }
     }
@@ -141,5 +150,21 @@ export class ExternalDesignationListComponent implements OnInit {
     console.log(this._externalDesignationService.externalDesignations);
   }
 
-}
+  filterStatus() {
+    this.p = 1;
+  }
 
+  onChangeStatus(externalDesignation: IDesignation) {
+    if (externalDesignation.status) {
+      externalDesignation.status = false;
+      this._externalDesignationService.externalDesignations = [
+        ...this._externalDesignationService.externalDesignations,
+      ];
+    } else if (!externalDesignation.status) {
+      externalDesignation.status = true;
+      this._externalDesignationService.externalDesignations = [
+        ...this._externalDesignationService.externalDesignations,
+      ];
+    }
+  }
+}

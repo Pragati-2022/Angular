@@ -40,7 +40,7 @@ export class ExternalDesignationAddComponent implements OnInit {
             this._externalDesignationService.externalDesignations,
             this.editExternalDesignationId
           ),
-          Validators.maxLength(256)
+          Validators.maxLength(256),
         ],
       ],
       status: [false],
@@ -60,52 +60,56 @@ export class ExternalDesignationAddComponent implements OnInit {
     if (this.addExternalDesignationForm.valid) {
       // check for editExternalDesignationId
       if (this.editExternalDesignationId) {
-
         this.loaderService.start();
 
         // store edited value in object
         this.externalDesignation = {
           id: this.editExternalDesignationId,
-          dateTime : new Date(),
+          dateTime: new Date(),
           title: this._addExternalDesignationForm['title'].value,
           status: this._addExternalDesignationForm['status'].value,
         };
 
-          //call editExternalDesignation method form service
-          this._externalDesignationService.editExternalDesignation(
-            this.externalDesignation
-          );
+        //call editExternalDesignation method form service
+        this._externalDesignationService.editExternalDesignation(
+          this.externalDesignation
+        );
+        this._externalDesignationService.externalDesignations = [
+          ...this._externalDesignationService.externalDesignations,
+        ];
 
-          // do edit id blank
-          this.editExternalDesignationId = '';
+        // do edit id blank
+        this.editExternalDesignationId = '';
 
-          // toaster notification on success
-          this._notificationService.onSuccess(
-            'External designation edited successfully ',
-            'notification'
-          );
-
+        // toaster notification on success
+        this._notificationService.onSuccess(
+          'External designation edited successfully ',
+          'notification'
+        );
       } else {
         this.loaderService.start();
 
         // store designation details in object
         this.externalDesignation = {
           id: uuidv4(),
-          dateTime : new Date(),
+          dateTime: new Date(),
           title: this._addExternalDesignationForm['title'].value,
           status: this._addExternalDesignationForm['status'].value,
         };
-        
-          // call method from service to add designation
-          this._externalDesignationService.addExternalDesignation(
-            this.externalDesignation
-          );
 
-          //toaster notification on success
-          this._notificationService.onSuccess(
-            'External designation added successfully ',
-            'notification'
-          );
+        // call method from service to add designation
+        this._externalDesignationService.addExternalDesignation(
+          this.externalDesignation
+        );
+        this._externalDesignationService.externalDesignations = [
+          ...this._externalDesignationService.externalDesignations,
+        ];
+
+        //toaster notification on success
+        this._notificationService.onSuccess(
+          'External designation added successfully ',
+          'notification'
+        );
       }
 
       //clear form

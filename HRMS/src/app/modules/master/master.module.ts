@@ -8,6 +8,7 @@ import { DesignationAddComponent } from './designation/designation-add/designati
 import { ExternalDesignationAddComponent } from './external-designation/external-designation-add/external-designation-add.component';
 import { ExternalDesignationListComponent } from './external-designation/external-designation-add/external-designation-list/external-designation-list.component';
 import {NgxPaginationModule} from 'ngx-pagination';
+import { StatusFilter } from '../shared/pipe/status-filter.pipe';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
     DesignationListComponent,
     ExternalDesignationAddComponent,
     ExternalDesignationListComponent,
+    StatusFilter
   ],
   imports: [CommonModule, ReactiveFormsModule, FontAwesomeModule, NgxUiLoaderModule, NgxPaginationModule],
   exports: [

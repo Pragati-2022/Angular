@@ -34,26 +34,24 @@
     <!-- loop for designation list in table -->
     <tbody
       *ngFor="
-        let designation of _externalDesignationService.externalDesignations
+        let designation of _externalDesignationService.externalDesignations | statusFilter : isStatus
         | paginate: { itemsPerPage: rowPerPage, currentPage: p }
       "
     >
       <tr *ngIf="isStatus == designation.status">
         <td>{{ designation.title }}</td>
-        <td>
-          <h1>
+        <td >
+          <h1 (click)="onChangeStatus(designation)">
             <!-- icons for status true and false -->
             <fa-icon
               *ngIf="!designation.status"
               class="blue-color"
               [icon]="faToggleOff"
-              (click)="designation.status = true"
             ></fa-icon>
             <fa-icon
               *ngIf="designation.status"
               class="blue-color"
               [icon]="faToggleOn"
-              (click)="designation.status = false"
             ></fa-icon>
           </h1>
         </td>

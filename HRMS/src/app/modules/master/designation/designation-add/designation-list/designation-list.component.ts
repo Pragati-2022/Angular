@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { DesignationService } from 'src/app/core/services/master/designation.service';
 import { NotificationService } from 'src/app/core/services/notification/notification.service';
 import { IDesignation } from 'src/app/modules/shared/models/master';
@@ -12,6 +12,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import Swal from 'sweetalert2';
+import { filter, from, toArray } from 'rxjs';
 
 @Component({
   selector: 'app-designation-list',
@@ -29,7 +30,7 @@ export class DesignationListComponent implements OnInit {
 
   isNoData = false;
   isUp = false;
-  isStatus: string | boolean = '';
+  isStatus = false;
 
   p: number = 1;
   rowPerPage = 4;
@@ -41,11 +42,9 @@ export class DesignationListComponent implements OnInit {
     public _designationService: DesignationService,
     private _notificationService: NotificationService,
     private loaderService: NgxUiLoaderService
-  ) {
-  }
+  ) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   // method to edit
   onEdit(designation: IDesignation) {
@@ -68,7 +67,7 @@ export class DesignationListComponent implements OnInit {
 
         //call method from service to delete designation
         this._designationService.deleteDesignation(designation);
-
+      this._designationService.designations = [...this._designationService.designations]
         //toaster notification on success from notificationService
         this._notificationService.onSuccess(
           'Designation deleted successfully',
@@ -95,7 +94,6 @@ export class DesignationListComponent implements OnInit {
 
   onSort() {
     // Ascending
-
     if (this._designationService.designations) {
       this.p = 1;
       if (this.isUp) {
@@ -114,6 +112,9 @@ export class DesignationListComponent implements OnInit {
         }
 
         this._designationService.designations.sort(compare);
+        this._designationService.designations = [
+          ...this._designationService.designations,
+        ];
         console.log('up');
       } else {
         function compare(a: any, b: any) {
@@ -131,10 +132,33 @@ export class DesignationListComponent implements OnInit {
         }
 
         this._designationService.designations.sort(compare);
+        this._designationService.designations = [
+          ...this._designationService.designations,
+        ];
         console.log('down');
       }
     }
 
     console.log(this._designationService.designations);
+  }
+
+  filterStatus() {
+    this.p = 1;
+  }
+
+  onChangeStatus(designation: IDesignation) {
+    if (designation.status) {
+      this.p = 1;
+      designation.status = false;
+      this._designationService.designations = [
+        ...this._designationService.designations,
+      ];
+    } else if (!designation.status) {
+      this.p = 1;
+      designation.status = true;
+      this._designationService.designations = [
+        ...this._designationService.designations,
+      ];
+    }
   }
 }

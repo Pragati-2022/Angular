@@ -2,7 +2,7 @@
   <!-- designation list table -->
   <h3 class="text-center">
     Designation List
-    <span class="form-switch mt-2"
+    <span class="form-switch mt-2" (click)="filterStatus()"
       ><h1><fa-icon
         *ngIf="isStatus"
         (click)="isStatus = false"
@@ -47,11 +47,11 @@
     <!-- loop for add designation in table -->
     <tbody
       *ngFor="
-        let designation of _designationService.designations
+        let designation of this._designationService.designations | statusFilter : isStatus
           | paginate: { itemsPerPage: rowPerPage, currentPage: p }
       "
     >
-      <tr *ngIf="isStatus == designation.status">
+      <tr>
         <td>{{ designation.title }}</td>
         <td>
           <h1>
@@ -59,13 +59,13 @@
             <fa-icon
               *ngIf="!designation.status"
               class="blue-color"
-              (click)="designation.status = true"
+              (click)="onChangeStatus(designation)"
               [icon]="faToggleOff"
             ></fa-icon>
             <fa-icon
               *ngIf="designation.status"
               class="blue-color"
-              (click)="designation.status = false"
+              (click)="onChangeStatus(designation)"
               [icon]="faToggleOn"
             ></fa-icon>
           </h1>
