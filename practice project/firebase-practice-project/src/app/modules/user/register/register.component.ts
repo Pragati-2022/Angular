@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { EmailTaken } from 'src/app/core/validators/email-taken';
 
 
 @Component({
-  selector: 'app-regitser',
-  templateUrl: './regitser.component.html',
-  styleUrls: ['./regitser.component.css'],
+  selector: 'app-register',
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.css'],
 })
 export class RegitserComponent implements OnInit {
   registrationForm!: FormGroup;
@@ -14,7 +15,8 @@ export class RegitserComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private authService : AuthService
+    private authService : AuthService,
+    private EmailTaken : EmailTaken
   ) {}
 
   ngOnInit(): void {
@@ -23,7 +25,7 @@ export class RegitserComponent implements OnInit {
 
   initializeForm() {
     this.registrationForm = this.formBuilder.group({
-      email: ['', Validators.required],
+      email: ['',[Validators.required,Validators.email], [this.EmailTaken.validate]],
       password: ['', Validators.required],
       userName: ['', Validators.required],
       age: ['', Validators.required],
@@ -37,18 +39,21 @@ export class RegitserComponent implements OnInit {
 
   async onRegister() {
     this.isFormSubmitted = true;
+    console.log(this._registrationForm['email'].errors?.['EmailTaken']);
+
 
     if (this.registrationForm.valid) {
 
       const { email, password } = this.registrationForm.value;
 
         try {
-            this.authService.createUser(this.registrationForm.value);
+            await this.authService.createUser(this.registrationForm.value);
+            alert('Success! Your account has been created');
         } catch (e) {
+          alert('error!');
           console.error(e);
           return
         }
-        alert('Success! Your account has been created');
     }
   }
 }

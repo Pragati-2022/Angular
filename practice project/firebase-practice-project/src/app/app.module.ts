@@ -8,13 +8,25 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { environment } from 'src/environments/environment';
-import { RegitserComponent } from './user/regitser/regitser.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NavComponent } from './modules/shared/nav/nav.component';
+import { RegitserComponent } from './modules/user/register/register.component';
+import { HomeComponent } from './modules/user/home/home.component';
+import { AboutComponent } from './modules/user/about/about.component';
+import { ProductsComponent } from './modules/user/products/products.component';
+import { ContactComponent } from './modules/user/contact/contact.component';
+import { PageNotFoundComponent } from './modules/user/page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    RegitserComponent
+    RegitserComponent,
+    NavComponent,
+    HomeComponent,
+    AboutComponent,
+    ProductsComponent,
+    ContactComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
