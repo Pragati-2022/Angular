@@ -14,4 +14,8 @@ export class ProductsComponent implements OnInit {
     // this.activeRoute.data.subscribe(console.log)
   }
 
+  jumpTo(section : string){
+    document.getElementById(section)?.scrollIntoView({behavior : 'smooth'});
+  }
+
 }

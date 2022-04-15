@@ -7,14 +7,19 @@ import { PageNotFoundComponent } from './modules/user/page-not-found/page-not-fo
 import { ProductsComponent } from './modules/user/products/products.component';
 import { RegitserComponent } from './modules/user/register/register.component';
 import { AngularFireAuthGuard, redirectUnauthorizedTo } from '@angular/fire/compat/auth-guard';
+import { LoginComponent } from './modules/user/login/login.component';
 
 const redirectUnauthorizedToHome = () => redirectUnauthorizedTo('/');
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo : 'register',
+    redirectTo : 'home',
     pathMatch : 'full',
+  },
+  {
+    path: 'login',
+    component : LoginComponent,
   },
   {
     path: 'register',

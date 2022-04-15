@@ -22,7 +22,7 @@
         class="nav-item"
         *ngIf="!(_authService.isAuthenticated$ | async); else authlinks"
       >
-        <a class="nav-link" routerLink="register" routerLinkActive="active"
+        <a class="nav-link" routerLink="login" routerLinkActive="active"
           >Register/Login</a
         >
       </li>

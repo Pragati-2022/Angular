@@ -1,0 +1,50 @@
+<h1>Login</h1>
+
+<form [formGroup]="loginForm">
+  <div class="form-group">
+    <label for="email">Email : </label>
+    <input
+      type="email"
+      formControlName="email"
+      class="form-control"
+      placeholder="Email"
+      name="email"
+    />
+    <div
+      class="text-danger"
+      *ngIf="
+        (isFormSubmitted || _loginForm['email'].touched) &&
+        _loginForm['email'].invalid
+      "
+    >
+      <div *ngIf="_loginForm['email'].errors?.['required']">
+        email is required
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="password">Password : </label>
+    <input
+      type="password"
+      class="form-control"
+      formControlName="password"
+      placeholder="Password"
+      name="password"
+    />
+    <div
+      class="text-danger"
+      *ngIf="
+        (isFormSubmitted || _loginForm['password'].touched) &&
+        _loginForm['password'].invalid
+      "
+    >
+      <div *ngIf="_loginForm['password'].errors?.['required']">
+        password is required
+      </div>
+    </div>
+  </div>
+
+  <button class="btn btn-primary" (click)="onSubmit()">Login</button>
+
+  <span>If not register <a routerLink="/register">Registration</a></span>
+</form>

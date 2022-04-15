@@ -16,6 +16,7 @@ import { AboutComponent } from './modules/user/about/about.component';
 import { ProductsComponent } from './modules/user/products/products.component';
 import { ContactComponent } from './modules/user/contact/contact.component';
 import { PageNotFoundComponent } from './modules/user/page-not-found/page-not-found.component';
+import { LoginComponent } from './modules/user/login/login.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { PageNotFoundComponent } from './modules/user/page-not-found/page-not-fo
     AboutComponent,
     ProductsComponent,
     ContactComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

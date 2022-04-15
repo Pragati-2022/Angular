@@ -14,7 +14,7 @@ import { IUser } from '../models/user';
 })
 export class AuthService {
   private userCollection: AngularFirestoreCollection<IUser>;
-  public isAuthenticated$: Observable<boolean>;
+  public isAuthenticated$: Observable<boolean> | undefined;
   private redirect = false;
 
   constructor(
@@ -24,14 +24,6 @@ export class AuthService {
     private activeRoute: ActivatedRoute
   ) {
     this.userCollection = fireStore.collection('users');
-    this.isAuthenticated$ = auth.user.pipe(map((user) => !!user));
-    this.router.events.pipe(
-      filter((e) => e instanceof NavigationEnd),
-      map((e) => this.activeRoute.firstChild),
-      switchMap((route) => route?.data ?? of({}))
-    ).subscribe((data) => {
-      this.redirect = data['authOnly'] ?? false;
-    });
   }
 
   async createUser(userData: IUser) {
@@ -53,8 +45,22 @@ export class AuthService {
       phoneNumber: userData.phoneNumber,
     });
 
-    await userCred.user.updateProfile({
-      displayName: userData.userName,
+    // await userCred.user.updateProfile({
+    //   displayName: userData.userName,
+    // });
+  }
+
+  async login(email: string, password: string){
+    await this.auth.signInWithEmailAndPassword(email, password);
+
+    this.isAuthenticated$ = this.auth.user.pipe(map((user) => !!user));
+    
+    this.router.events.pipe(
+      filter((e) => e instanceof NavigationEnd),
+      map((e) => this.activeRoute.firstChild),
+      switchMap((route) => route?.data ?? of({}))
+    ).subscribe((data) => {
+      this.redirect = data['authOnly'] ?? false;
     });
   }
 

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { EmailTaken } from 'src/app/core/validators/email-taken';
 
@@ -16,7 +17,8 @@ export class RegitserComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private authService : AuthService,
-    private EmailTaken : EmailTaken
+    private EmailTaken : EmailTaken,
+    private router : Router
   ) {}
 
   ngOnInit(): void {
@@ -39,8 +41,6 @@ export class RegitserComponent implements OnInit {
 
   async onRegister() {
     this.isFormSubmitted = true;
-    console.log(this._registrationForm['email'].errors?.['EmailTaken']);
-
 
     if (this.registrationForm.valid) {
 
@@ -49,6 +49,8 @@ export class RegitserComponent implements OnInit {
         try {
             await this.authService.createUser(this.registrationForm.value);
             alert('Success! Your account has been created');
+
+            this.router.navigate(['login']);
         } catch (e) {
           alert('error!');
           console.error(e);
