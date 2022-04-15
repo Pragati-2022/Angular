@@ -11,6 +11,10 @@ import { ToArrayComponent } from './module/toArray-operator-practice/to-array/to
 import { TakeComponent } from './module/take-operator-practice/take/take.component';
 import { MapComponent } from './module/map-operator-practice/map/map.component';
 import { PluckComponent } from './module/pluck-operator-practice/pluck/pluck.component';
+import { SwitchAllComponent } from './module/switch-all/switch-all.component';
+import { SwitchMapComponent } from './module/switch-map-practice/switch-map/switch-map.component';
+import { FormsModule } from '@angular/forms';
+import { DebounceTimeComponent } from './module/debounce-time-practice/debounce-time/debounce-time.component';
 
 @NgModule({
   declarations: [
@@ -22,11 +26,15 @@ import { PluckComponent } from './module/pluck-operator-practice/pluck/pluck.com
     ToArrayComponent,
     TakeComponent,
     MapComponent,
-    PluckComponent
+    PluckComponent,
+    SwitchAllComponent,
+    SwitchMapComponent,
+    DebounceTimeComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
