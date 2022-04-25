@@ -7,15 +7,15 @@ import {
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { filter, map, switchMap } from 'rxjs/operators';
-import { IUser } from '../models/user';
+import { IUser } from 'src/app/modules/shared/model/user';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private userCollection: AngularFirestoreCollection<IUser>;
-  public isAuthenticated$: Observable<boolean> | undefined;
-  private redirect = false;
+  userCollection: AngularFirestoreCollection<IUser>;
+  isAuthenticated$!: Observable<boolean>;
+  redirect = false;
 
   constructor(
     private auth: AngularFireAuth,
@@ -29,47 +29,41 @@ export class AuthService {
 
   async createUser(userData: IUser) {
     if (!userData.password) {
-      throw new Error('password not provided!');
+      throw new Error('password is provided');
     }
     const userCred = await this.auth.createUserWithEmailAndPassword(
       userData.email,
       userData.password
     );
 
-    if (!userCred.user) {
-      throw new Error('user can"t be found');
-    }
-    await this.userCollection.doc(userCred.user.uid).set({
-      userName: userData.userName,
+    await this.userCollection.doc(userCred.user?.uid).set({
+      name: userData.name,
       email: userData.email,
-      age: userData.age,
-      phoneNumber: userData.phoneNumber,
-    });
-
-    await userCred.user.updateProfile({
-      displayName: userData.userName,
+      address: userData.address,
+      city: userData.city,
+      zipCode: userData.zipCode,
     });
   }
 
-  async login(email: string, password: string){
+  async login(email: string, password: string) {
     await this.auth.signInWithEmailAndPassword(email, password);
-    
-    this.router.events.pipe(
-      filter((e) => e instanceof NavigationEnd),
-      map((e) => this.activeRoute.firstChild),
-      switchMap((route) => route?.data ?? of({}))
-    ).subscribe((data) => {
-      this.redirect = data['authOnly'] ?? false;
-    });
+
+    this.router.events
+      .pipe(
+        filter((e) => e instanceof NavigationEnd),
+        map((e) => this.activeRoute.firstChild),
+        switchMap((route) => route?.data ?? of({}))
+      )
+      .subscribe((data) => {
+        this.redirect = data['authOnly'] ?? false;
+      });
   }
 
-  public async logout($event: Event) {
-    $event.preventDefault();
+  async logout(event: Event) {
+    event.preventDefault();
 
     await this.auth.signOut();
 
-    if(this.redirect){  
-    await this.router.navigate(['/']);
-    }
+    if (this.redirect) await this.router.navigate(['login']);
   }
 }

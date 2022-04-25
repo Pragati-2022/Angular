@@ -70,6 +70,34 @@
       </div>
     </div>
     <div class="form-group">
+      <label for="confirmPassword">Confirm Password : </label>
+      <input
+        type="password"
+        class="form-control"
+        formControlName="confirmPassword"
+        placeholder="Confirm Password"
+        name="confirmPassword"
+      />
+      <div
+        class="text-danger"
+        *ngIf="
+          (isFormSubmitted || _registrationForm['confirmPassword'].touched) &&
+          _registrationForm['confirmPassword'].invalid
+        "
+      >
+        <div
+          *ngIf="_registrationForm['confirmPassword'].errors?.['required']"
+        >
+          Confirm Password is required
+        </div>
+      </div>
+      <div class="text-danger"
+          *ngIf="registrationForm.errors?.['match']"
+        >
+          Confirm Password is not match
+        </div>
+    </div>
+    <div class="form-group">
       <label for="age">Age : </label>
       <input
         type="text"

@@ -1,0 +1,26 @@
+  <div class="container">
+    <table class="table">
+      <thead>
+        <th>Product Name</th>
+        <th>Category</th>
+        <th>Price</th>
+        <th>Actions</th>
+      </thead>
+      <tbody *ngFor="let product of products" [ngStyle]="recentActiveRouteId === product.id ? { color: 'blue' } : { color: 'black' }">
+        <td>{{ product.productName }}</td>
+        <td>{{ product.category }}</td>
+        <td>{{ product.price }}</td>
+        <td>
+          <button class="btn btn-primary" [ngStyle]="{ color: 'black' }" (click)="onView(product)">
+            View 
+          </button>
+          <button class="btn btn-primary" [ngStyle]="{ color: 'black' }" (click)="onEdit(product)">
+            Edit 
+          </button>
+          <button class="btn btn-primary" [ngStyle]="{ color: 'black' }" (click)="onDelete(product)">
+            Delete 
+          </button>
+        </td>
+      </tbody>
+    </table>
+  </div>

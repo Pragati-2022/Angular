@@ -113,3 +113,48 @@
     Adipisci tenetur animi illo quam doloremque magni corporis incidunt. df
   </p>
 </div>
+
+<div class="container text-center mt-5">
+  <h3 class="mb-5">Drop zone angular file drag and drop example.</h3>
+  <!-- Apply DropZone Directive -->
+  <div app-event-blocker (drop)="storeFile($event)" class="dropzone">
+    <div class="text-center">
+      Drop files here.<BR />
+      <p *ngIf="showPercentage">{{ percentage | percent }}</p>
+      <BR />
+    </div>
+  </div>
+
+  <form [formGroup]="uploadForm" (ngSubmit)="uploadFile()">
+    <div class="form-group">
+      <input
+        type="text"
+        placeholder="Title"
+        formControlName="title"
+        class="form-control"
+      />
+      <div class="text-danger" *ngIf="uploadForm.controls['title'].touched && uploadForm.controls['title'].invalid">
+      <div *ngIf="uploadForm.controls['title'].errors?.['required']">title is required</div>
+      <div *ngIf="uploadForm.controls['title'].errors?.['minlength']">title must be atleast 3 char</div>
+    </div>
+    </div>
+
+    <input type="file" class="mt-4" (change)="storeFile($event)">
+    <button class="btn btn-primary">Submit</button>
+  </form>
+
+  <table class="table">
+    <thead>
+      <th>DisplayName</th>
+      <th>FileName</th>
+      <th>Title</th>
+      <th>Url</th>
+    </thead>
+    <tbody *ngFor=" let product of products">
+      <td>{{ product.displayName }}</td>
+      <td>{{ product.fileName }}</td>
+      <td>{{ product.title }}</td>
+      <td><img width="100" height="100" src="{{ product.url }}"></td>
+    </tbody>
+  </table>
+</div>

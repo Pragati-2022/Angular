@@ -17,6 +17,8 @@ import { ProductsComponent } from './modules/user/products/products.component';
 import { ContactComponent } from './modules/user/contact/contact.component';
 import { PageNotFoundComponent } from './modules/user/page-not-found/page-not-found.component';
 import { LoginComponent } from './modules/user/login/login.component';
+import { EventBlockerDirective } from './modules/shared/directives/event-blocker.directive';
+import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,8 @@ import { LoginComponent } from './modules/user/login/login.component';
     ProductsComponent,
     ContactComponent,
     PageNotFoundComponent,
-    LoginComponent
+    LoginComponent,
+    EventBlockerDirective,
   ],
   imports: [
     BrowserModule,
@@ -36,9 +39,10 @@ import { LoginComponent } from './modules/user/login/login.component';
     ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    AngularFireStorageModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

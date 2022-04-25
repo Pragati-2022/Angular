@@ -1,0 +1,31 @@
+<form [formGroup]="loginForm">
+  <div class="form-group">
+    <label for="email">Email : </label>
+    <input type="email" formControlName="email" class="form-control" name="email" placeholder="Email" />
+    <div class="text-danger" *ngIf="(isFormSubmitted || _loginForm['email'].touched) && _loginForm['email'].invalid">
+        <div *ngIf="_loginForm['email'].errors?.['required']">Email is required</div>
+        <div *ngIf="_loginForm['email'].errors?.['email']">Email is invalid</div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="password">Password : </label>
+    <input
+      type="password"
+      class="form-control"
+      name="password"
+      placeholder="Password"
+      formControlName="password"
+    />
+    <div class="text-danger" *ngIf="(isFormSubmitted || _loginForm['password'].touched) && _loginForm['password'].invalid">
+        <div *ngIf="_loginForm['password'].errors?.['required']">Password is required</div>
+        <div *ngIf="_loginForm['password'].errors?.['minlength']">Password is invalid</div>
+    </div>
+  </div>
+
+  <button class="btn btn-primary" (click)="onLogin()">Login</button>
+  <br />
+  <strong
+    >If not registerd then go and do
+    <span><a routerLink="/register"> Registration </a></span>
+  </strong>
+</form>
