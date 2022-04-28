@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
 import { AngularFireAuth } from "@angular/fire/compat/auth";
-import { AngularFirestore } from "@angular/fire/compat/firestore";
-import { Observable } from "rxjs";
-import { first, map } from "rxjs/operators";
+import { AngularFirestore, AngularFirestoreCollection } from "@angular/fire/compat/firestore";
+import { Observable, of } from "rxjs";
+import { first, map, switchMap } from "rxjs/operators";
 import { IProduct } from "src/app/modules/shared/model/product";
 
 @Injectable({
@@ -11,8 +11,13 @@ import { IProduct } from "src/app/modules/shared/model/product";
 
 export class ProductService {
     editProduct : IProduct | null = null;
+    productCollection: AngularFirestoreCollection<IProduct>;
+    products! : Observable<IProduct[]>;
 
-    constructor(private auth : AngularFireAuth, private fireStore : AngularFirestore){ }
+    constructor(private auth : AngularFireAuth, private fireStore : AngularFirestore){
+      this.productCollection = fireStore.collection('products');
+      this.products = this.productCollection.valueChanges();
+     }
 
     async createProduct(product : IProduct){
         await this.fireStore.collection('products').add(product);
@@ -29,6 +34,8 @@ export class ProductService {
         ),
         first(),
       );
+
+      return this.products;
     }
   
     async updateProduct(product : IProduct): Promise<void> {      

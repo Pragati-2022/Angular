@@ -19,6 +19,7 @@ import { PageNotFoundComponent } from './modules/user/page-not-found/page-not-fo
 import { LoginComponent } from './modules/user/login/login.component';
 import { EventBlockerDirective } from './modules/shared/directives/event-blocker.directive';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
+import { EditProductComponent } from './modules/user/products/edit-product/edit-product.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage';
     PageNotFoundComponent,
     LoginComponent,
     EventBlockerDirective,
+    EditProductComponent,
   ],
   imports: [
     BrowserModule,
