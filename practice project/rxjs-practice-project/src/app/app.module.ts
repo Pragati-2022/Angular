@@ -15,6 +15,9 @@ import { SwitchAllComponent } from './module/switch-all/switch-all.component';
 import { SwitchMapComponent } from './module/switch-map-practice/switch-map/switch-map.component';
 import { FormsModule } from '@angular/forms';
 import { DebounceTimeComponent } from './module/debounce-time-practice/debounce-time/debounce-time.component';
+import { MergeMapPracticeComponent } from './module/merge-map-practice/merge-map-practice.component';
+import { SharePracticeComponent } from './module/share-practice/share-practice.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -29,12 +32,15 @@ import { DebounceTimeComponent } from './module/debounce-time-practice/debounce-
     PluckComponent,
     SwitchAllComponent,
     SwitchMapComponent,
-    DebounceTimeComponent
+    DebounceTimeComponent,
+    MergeMapPracticeComponent,
+    SharePracticeComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
