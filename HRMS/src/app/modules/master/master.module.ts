@@ -25,5 +25,5 @@ import { StatusFilter } from '../shared/pipe/status-filter.pipe';
     ExternalDesignationAddComponent,
     ExternalDesignationListComponent,
   ],
-})
+})  
 export class MasterModule {}

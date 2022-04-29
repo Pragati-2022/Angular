@@ -12,7 +12,6 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import Swal from 'sweetalert2';
-import { filter, from, toArray } from 'rxjs';
 
 @Component({
   selector: 'app-designation-list',
