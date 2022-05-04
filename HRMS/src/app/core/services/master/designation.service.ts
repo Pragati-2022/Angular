@@ -11,8 +11,8 @@ export class DesignationService {
   designations!: IDesignation[];
 
   constructor(
-    private _notificationService: NotificationService,
-    private loaderService: NgxUiLoaderService
+    private notificationService: NotificationService,
+    private loader: NgxUiLoaderService
   ) {}
 
   // method to add designation
@@ -29,7 +29,7 @@ export class DesignationService {
       return d - c;
     });
 
-    this.loaderService.stop();
+    this.loader.stop();
   }
 
   //method to edit designation
@@ -48,12 +48,12 @@ export class DesignationService {
         return d - c;
       });
     } else {
-      this._notificationService.onWarning(
+      this.notificationService.onWarning(
         'Data not found for edit !!',
         'notification'
       );
     }
-    this.loaderService.stop();
+    this.loader.stop();
   }
 
   // method to delete designation
@@ -65,7 +65,7 @@ export class DesignationService {
     if (index != -1 && index != null && index != undefined) {
       //delete designation
       this.designations.splice(index, 1);
-      this.loaderService.stop();
+      this.loader.stop();
     }
   }
 }

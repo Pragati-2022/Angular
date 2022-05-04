@@ -12,10 +12,7 @@ export class CustomValidators {
         title = titles.find((e) => e.title === control.value);
       }
 
-      
-
       if (title) {
-
         if (editTitleId === title.id) return null;
         else return { uniqueTitle: true };
       } else {

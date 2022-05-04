@@ -1,55 +1,63 @@
-<h3 class="text-center">DESIGNATION MASTER</h3>
+<h2 class="text-center">
+  {{ editDesignationId ? "Edit DESIGNATION MASTER" : "Add DESIGNATION MASTER" }}
+</h2>
 
-  <form [formGroup]="addDesignationForm" >
-    <div class="input-group mb-3 mx-auto" style="width:400px" >
+<form [formGroup]="addDesignationForm">
+  <div class="form-group input-group mx-auto" style="width: 400px">
+    <!-- Designation title -->
+    <label for="textTitle" class="mt-2 me-3">Title : </label>
+    <input
+      type="text"
+      placeholder="Enter Designation"
+      formControlName="designationTitle"
+      class="form-control"
+      id="textTitle"
+    />
+    <!-- validation  -->
+    <small
+      class="text-danger"
+      *ngIf="
+        (isFormSubmitted || _addDesignationForm['designationTitle'].touched) &&
+        _addDesignationForm['designationTitle'].invalid
+      "
+    >
+      <small
+        *ngIf="_addDesignationForm['designationTitle']?.errors?.['required']"
+        >Designation is required</small
+      >
+      <small
+        *ngIf="_addDesignationForm['designationTitle']?.errors?.['maxlength']"
+        >Designation is allow 256 char</small
+      >
+      <small
+        *ngIf="_addDesignationForm['designationTitle'].errors?.['uniqueTitle']"
+        >Designation must be unique
+      </small>
+    </small>
+  </div>
 
-      <!-- Designation title -->
-      <div class="input-group-prepend me-2">
-        <input
-          type="text"
-          placeholder="Enter Designation"
-          formControlName="designationTitle"
-          class="form-control"
-        />
-        <!-- validation  -->
-        <small class="text-danger"
-          *ngIf="
-            (isFormSubmitted ||
-              _addDesignationForm['designationTitle'].touched) &&
-            _addDesignationForm['designationTitle'].invalid
-          "
-        >
-          <small
-            *ngIf="_addDesignationForm['designationTitle']?.errors?.['required']"
-            >Designation is required</small
-          >
-          <small
-            *ngIf="_addDesignationForm['designationTitle']?.errors?.['maxlength']"
-            >Designation is allow 256 char</small
-          >
-          <small
-            *ngIf="_addDesignationForm['designationTitle'].errors?.['uniqueTitle']"
-            >Designation must be unique
-          </small>
-        </small>
-      </div>
-
-      <!-- status  -->
-      <div class="form-check form-switch me-2 mt-2">
-        <label for="checkBoxStatus">Status</label>
-        <input type="checkbox" formControlName="status" class="form-check-input" id="checkBoxStatus" /> 
-      </div>
-
-      <!-- edit or save button -->
-      <div class="input-group-append">
-        <button class="btn btn-primary" (click)="onSubmit()">
-          {{ editDesignationId ? "Edit" : "Add" }}
-        </button>
-      </div>
+  <div class="form-group input-group mx-auto mt-2" style="width: 400px">
+    <!-- status  -->
+    <label for="checkBoxStatus" class="mt-2 me-2">Status : </label>
+    <div class="form-check form-switch mt-2 me-3">
+      <input
+        type="checkbox"
+        formControlName="status"
+        class="form-check-input"
+        id="checkBoxStatus"
+      />
     </div>
-  </form>
 
+    <!-- edit or save button -->
+    <div class="input-group-append">
+      <button class="btn btn-primary" (click)="onSubmit()">Save</button>
+    </div>
+  </div>
+</form>
+
+<div class="mt-4">
 <!-- Designation list selector -->
 <app-designation-list
   (sendDesignation)="getDesignation($event)"
 ></app-designation-list>
+</div>

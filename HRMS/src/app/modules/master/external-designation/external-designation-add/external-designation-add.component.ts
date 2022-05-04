@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { faWarning } from '@fortawesome/free-solid-svg-icons';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { ExternalDesignationService } from 'src/app/core/services/master/external-designation.service';
 import { NotificationService } from 'src/app/core/services/notification/notification.service';
 import { CustomValidators } from 'src/app/modules/shared/custom-validators/custom.validators';
 import { IDesignation } from 'src/app/modules/shared/models/master';
+import swal from 'sweetalert';
 import { v4 as uuidv4 } from 'uuid';
 
 @Component({
@@ -13,16 +15,16 @@ import { v4 as uuidv4 } from 'uuid';
   styleUrls: ['./external-designation-add.component.css'],
 })
 export class ExternalDesignationAddComponent implements OnInit {
-  addExternalDesignationForm!: FormGroup;
+  addExternalDesignationForm: FormGroup;
   isSubmittedForm = false;
-  externalDesignation!: IDesignation;
-  editExternalDesignationId!: string;
+  externalDesignation: IDesignation;
+  editExternalDesignationId: string;
 
   constructor(
     public formBuilder: FormBuilder,
-    public _externalDesignationService: ExternalDesignationService,
-    private _notificationService: NotificationService,
-    private loaderService: NgxUiLoaderService
+    public externalDesignationService: ExternalDesignationService,
+    private notificationService: NotificationService,
+    private loader: NgxUiLoaderService
   ) {}
 
   ngOnInit(): void {
@@ -37,7 +39,7 @@ export class ExternalDesignationAddComponent implements OnInit {
         [
           Validators.required,
           CustomValidators.uniqueTitle(
-            this._externalDesignationService.externalDesignations,
+            this.externalDesignationService.externalDesignations,
             this.editExternalDesignationId
           ),
           Validators.maxLength(256),
@@ -60,8 +62,6 @@ export class ExternalDesignationAddComponent implements OnInit {
     if (this.addExternalDesignationForm.valid) {
       // check for editExternalDesignationId
       if (this.editExternalDesignationId) {
-        this.loaderService.start();
-
         // store edited value in object
         this.externalDesignation = {
           id: this.editExternalDesignationId,
@@ -70,25 +70,34 @@ export class ExternalDesignationAddComponent implements OnInit {
           status: this._addExternalDesignationForm['status'].value,
         };
 
-        //call editExternalDesignation method form service
-        this._externalDesignationService.editExternalDesignation(
-          this.externalDesignation
-        );
-        this._externalDesignationService.externalDesignations = [
-          ...this._externalDesignationService.externalDesignations,
-        ];
+        swal({
+          title: 'Are you sure want to edit?',
+          icon: 'warning',
+          buttons: ['No', 'Yes'],
+          dangerMode: true,
+        }).then((result: any) => {
+          if (result) {
+            this.loader.start();
 
-        // do edit id blank
-        this.editExternalDesignationId = '';
+            //call editExternalDesignation method form service
+            this.externalDesignationService.editExternalDesignation(
+              this.externalDesignation
+            );
+            this.externalDesignationService.externalDesignations = [
+              ...this.externalDesignationService.externalDesignations,
+            ];
 
-        // toaster notification on success
-        this._notificationService.onSuccess(
-          'External designation edited successfully ',
-          'notification'
-        );
+            // do edit id blank
+            this.editExternalDesignationId = '';
+
+            // toaster notification on success
+            this.notificationService.onSuccess(
+              'External designation edited successfully ',
+              'notification'
+            );
+          }
+        });
       } else {
-        this.loaderService.start();
-
         // store designation details in object
         this.externalDesignation = {
           id: uuidv4(),
@@ -97,19 +106,28 @@ export class ExternalDesignationAddComponent implements OnInit {
           status: this._addExternalDesignationForm['status'].value,
         };
 
-        // call method from service to add designation
-        this._externalDesignationService.addExternalDesignation(
-          this.externalDesignation
-        );
-        this._externalDesignationService.externalDesignations = [
-          ...this._externalDesignationService.externalDesignations,
-        ];
+        swal({
+          title: 'Are you sure want to add?',
+          icon: 'warning',
+          buttons: ['No', 'Yes'],
+          dangerMode: true,
+        }).then((result: any) => {
+          if (result) {
+            // call method from service to add designation
+            this.externalDesignationService.addExternalDesignation(
+              this.externalDesignation
+            );
+            this.externalDesignationService.externalDesignations = [
+              ...this.externalDesignationService.externalDesignations,
+            ];
 
-        //toaster notification on success
-        this._notificationService.onSuccess(
-          'External designation added successfully ',
-          'notification'
-        );
+            //toaster notification on success
+            this.notificationService.onSuccess(
+              'External designation added successfully ',
+              'notification'
+            );
+          }
+        });
       }
 
       //clear form

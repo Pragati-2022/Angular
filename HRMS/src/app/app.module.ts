@@ -22,7 +22,7 @@ import { NgxUiLoaderModule } from 'ngx-ui-loader';
     ToastrModule.forRoot({
       preventDuplicates: true,
       closeButton: true,
-      progressBar : true,
+      timeOut : 1000,
     }),
     CandidateModule,
     EmployeeModule,

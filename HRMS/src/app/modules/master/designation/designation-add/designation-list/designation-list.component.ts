@@ -11,7 +11,7 @@ import {
   faArrowDown,
 } from '@fortawesome/free-solid-svg-icons';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
-import Swal from 'sweetalert2';
+import swal from 'sweetalert';
 
 @Component({
   selector: 'app-designation-list',
@@ -29,7 +29,7 @@ export class DesignationListComponent implements OnInit {
 
   isNoData = false;
   isUp = false;
-  isStatus = false;
+  isStatus = 'all';
 
   p: number = 1;
   rowPerPage = 4;
@@ -38,9 +38,9 @@ export class DesignationListComponent implements OnInit {
   @Output() sendDesignation = new EventEmitter();
 
   constructor(
-    public _designationService: DesignationService,
-    private _notificationService: NotificationService,
-    private loaderService: NgxUiLoaderService
+    public designationService: DesignationService,
+    private notificationService: NotificationService,
+    private loader: NgxUiLoaderService
   ) {}
 
   ngOnInit(): void {}
@@ -53,31 +53,28 @@ export class DesignationListComponent implements OnInit {
 
   //method to delete
   onDelete(designation: IDesignation) {
-    Swal.fire({
-      title: 'Are you sure want to delete?',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Yes, delete it!',
-      cancelButtonText: 'No, keep it',
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover this designation details!",
+      icon: "warning",
+      dangerMode: true,
     }).then((result: any) => {
       if (result.value) {
-        // Swal.fire('Deleted!', 'Designation has been deleted.', 'success');
-        this.loaderService.start();
+        this.loader.start();
 
         //call method from service to delete designation
-        this._designationService.deleteDesignation(designation);
-      this._designationService.designations = [...this._designationService.designations]
+        this.designationService.deleteDesignation(designation);
+      this.designationService.designations = [...this.designationService.designations]
         //toaster notification on success from notificationService
-        this._notificationService.onSuccess(
+        this.notificationService.onSuccess(
           'Designation deleted successfully',
           'Notification'
         );
 
-        if (this._designationService.designations.length === 0)
+        if (this.designationService.designations.length === 0)
           this.isNoData = true;
-      } else if (result.dismiss === Swal.DismissReason.cancel) {
-        // Swal.fire('Cancelled', 'Designation is safe :)', 'error');
-        this._notificationService.onError(
+      } else {
+        this.notificationService.onError(
           'Designation is safe :)',
           'Notification'
         );
@@ -93,7 +90,7 @@ export class DesignationListComponent implements OnInit {
 
   onSort() {
     // Ascending
-    if (this._designationService.designations) {
+    if (this.designationService.designations) {
       this.p = 1;
       if (this.isUp) {
         function compare(a: any, b: any) {
@@ -110,9 +107,9 @@ export class DesignationListComponent implements OnInit {
           return comparison;
         }
 
-        this._designationService.designations.sort(compare);
-        this._designationService.designations = [
-          ...this._designationService.designations,
+        this.designationService.designations.sort(compare);
+        this.designationService.designations = [
+          ...this.designationService.designations,
         ];
         console.log('up');
       } else {
@@ -130,15 +127,15 @@ export class DesignationListComponent implements OnInit {
           return comparison;
         }
 
-        this._designationService.designations.sort(compare);
-        this._designationService.designations = [
-          ...this._designationService.designations,
+        this.designationService.designations.sort(compare);
+        this.designationService.designations = [
+          ...this.designationService.designations,
         ];
         console.log('down');
       }
     }
 
-    console.log(this._designationService.designations);
+    console.log(this.designationService.designations);
   }
 
   filterStatus() {
@@ -149,15 +146,20 @@ export class DesignationListComponent implements OnInit {
     if (designation.status) {
       this.p = 1;
       designation.status = false;
-      this._designationService.designations = [
-        ...this._designationService.designations,
+      this.designationService.designations = [
+        ...this.designationService.designations,
       ];
     } else if (!designation.status) {
       this.p = 1;
       designation.status = true;
-      this._designationService.designations = [
-        ...this._designationService.designations,
+      this.designationService.designations = [
+        ...this.designationService.designations,
       ];
     }
+  }
+  
+  getDropDowmValue(event : any){
+    this.isStatus = event.target.value;
+    console.log(this.isStatus);
   }
 }

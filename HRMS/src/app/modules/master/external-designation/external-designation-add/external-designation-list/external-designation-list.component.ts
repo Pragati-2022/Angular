@@ -11,7 +11,7 @@ import {
   faArrowDown,
 } from '@fortawesome/free-solid-svg-icons';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
-import Swal from 'sweetalert2';
+import swal from 'sweetalert';
 
 @Component({
   selector: 'app-external-designation-list',
@@ -29,7 +29,7 @@ export class ExternalDesignationListComponent implements OnInit {
 
   isNoData = false;
   isUp = false;
-  isStatus = false;
+  isStatus = 'all';
 
   p: number = 1;
   rowPerPage = 4;
@@ -38,9 +38,9 @@ export class ExternalDesignationListComponent implements OnInit {
   @Output() sendExternalDesignation = new EventEmitter();
 
   constructor(
-    public _externalDesignationService: ExternalDesignationService,
-    private _notificationService: NotificationService,
-    private loaderService: NgxUiLoaderService
+    public externalDesignationService: ExternalDesignationService,
+    private notificationService: NotificationService,
+    private loader: NgxUiLoaderService
   ) {}
 
   ngOnInit(): void {}
@@ -53,39 +53,32 @@ export class ExternalDesignationListComponent implements OnInit {
 
   // method to delete
   onDelete(externalDesignation: IDesignation) {
-    Swal.fire({
-      title: 'Are you sure want to delete?',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Yes, delete it!',
-      cancelButtonText: 'No, keep it',
-    }).then((result) => {
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover this designation details!",
+      icon: "warning",
+      dangerMode: true,
+    }).then((result: any) => {
       if (result.value) {
-        // Swal.fire(
-        //   'Deleted!',
-        //   'External designation has been deleted.',
-        //   'success'
-        // );
-        this.loaderService.start();
+        this.loader.start();
 
         // call method for delete designation
-        this._externalDesignationService.deleteExternalDesignation(
+        this.externalDesignationService.deleteExternalDesignation(
           externalDesignation
         );
-        this._externalDesignationService.externalDesignations = [
-          ...this._externalDesignationService.externalDesignations,
+        this.externalDesignationService.externalDesignations = [
+          ...this.externalDesignationService.externalDesignations,
         ];
         // toaster notification on success
-        this._notificationService.onSuccess(
+        this.notificationService.onSuccess(
           'External designation deleted successfully ',
           'notification'
         );
 
-        if (this._externalDesignationService.externalDesignations.length === 0)
+        if (this.externalDesignationService.externalDesignations.length === 0)
           this.isNoData = true;
-      } else if (result.dismiss === Swal.DismissReason.cancel) {
-        // Swal.fire('Cancelled', 'External designation is safe :)', 'error');
-        this._notificationService.onError(
+      } else {
+        this.notificationService.onError(
           'External designation is safe :)',
           'notification'
         );
@@ -102,7 +95,7 @@ export class ExternalDesignationListComponent implements OnInit {
   onSort() {
     // Ascending
 
-    if (this._externalDesignationService.externalDesignations) {
+    if (this.externalDesignationService.externalDesignations) {
       this.p = 1;
       if (this.isUp) {
         function compare(a: any, b: any) {
@@ -119,9 +112,9 @@ export class ExternalDesignationListComponent implements OnInit {
           return comparison;
         }
 
-        this._externalDesignationService.externalDesignations.sort(compare);
-        this._externalDesignationService.externalDesignations = [
-          ...this._externalDesignationService.externalDesignations,
+        this.externalDesignationService.externalDesignations.sort(compare);
+        this.externalDesignationService.externalDesignations = [
+          ...this.externalDesignationService.externalDesignations,
         ];
         console.log('up');
       } else {
@@ -139,15 +132,15 @@ export class ExternalDesignationListComponent implements OnInit {
           return comparison;
         }
 
-        this._externalDesignationService.externalDesignations.sort(compare);
-        this._externalDesignationService.externalDesignations = [
-          ...this._externalDesignationService.externalDesignations,
+        this.externalDesignationService.externalDesignations.sort(compare);
+        this.externalDesignationService.externalDesignations = [
+          ...this.externalDesignationService.externalDesignations,
         ];
         console.log('down');
       }
     }
 
-    console.log(this._externalDesignationService.externalDesignations);
+    console.log(this.externalDesignationService.externalDesignations);
   }
 
   filterStatus() {
@@ -157,14 +150,19 @@ export class ExternalDesignationListComponent implements OnInit {
   onChangeStatus(externalDesignation: IDesignation) {
     if (externalDesignation.status) {
       externalDesignation.status = false;
-      this._externalDesignationService.externalDesignations = [
-        ...this._externalDesignationService.externalDesignations,
+      this.externalDesignationService.externalDesignations = [
+        ...this.externalDesignationService.externalDesignations,
       ];
     } else if (!externalDesignation.status) {
       externalDesignation.status = true;
-      this._externalDesignationService.externalDesignations = [
-        ...this._externalDesignationService.externalDesignations,
+      this.externalDesignationService.externalDesignations = [
+        ...this.externalDesignationService.externalDesignations,
       ];
     }
+  }
+
+  getDropDowmValue(event : any){
+    this.isStatus = event.target.value;
+    console.log(this.isStatus);
   }
 }

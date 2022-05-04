@@ -5,6 +5,7 @@ import { DesignationService } from 'src/app/core/services/master/designation.ser
 import { NotificationService } from 'src/app/core/services/notification/notification.service';
 import { CustomValidators } from 'src/app/modules/shared/custom-validators/custom.validators';
 import { IDesignation } from 'src/app/modules/shared/models/master';
+import swal from 'sweetalert';
 import { v4 as uuidv4 } from 'uuid';
 
 @Component({
@@ -13,16 +14,16 @@ import { v4 as uuidv4 } from 'uuid';
   styleUrls: ['./designation-add.component.css'],
 })
 export class DesignationAddComponent implements OnInit {
-  addDesignationForm!: FormGroup;
+  addDesignationForm: FormGroup;
   isFormSubmitted = false;
-  designation!: IDesignation;
-  editDesignationId!: string;
+  designation: IDesignation;
+  editDesignationId: string;
 
   constructor(
     public formBuilder: FormBuilder,
-    public _designationService: DesignationService,
-    private _notificationService: NotificationService,
-    private loaderService: NgxUiLoaderService
+    public designationService: DesignationService,
+    private notificationService: NotificationService,
+    private loader: NgxUiLoaderService
   ) {}
 
   ngOnInit(): void {
@@ -37,10 +38,10 @@ export class DesignationAddComponent implements OnInit {
         [
           Validators.required,
           CustomValidators.uniqueTitle(
-            this._designationService.designations,
+            this.designationService.designations,
             this.editDesignationId
           ),
-          Validators.maxLength(256)
+          Validators.maxLength(256),
         ],
       ],
       status: [false],
@@ -58,49 +59,75 @@ export class DesignationAddComponent implements OnInit {
 
     //condition for valid form
     if (this.addDesignationForm.valid) {
+      console.log(this._addDesignationForm['designationTitle'].value);
+
       // condition for editDesignationId is available
       if (this.editDesignationId) {
-        this.loaderService.start();
 
         //edited value store in object
         this.designation = {
           id: this.editDesignationId,
-          dateTime : new Date(),
+          dateTime: new Date(),
           title: this._addDesignationForm['designationTitle'].value,
           status: this._addDesignationForm['status'].value,
         };
 
-          // call editDesignation method from service
-          this._designationService.editDesignation(this.designation);
-          this._designationService.designations = [...this._designationService.designations]
+        swal({
+          title: 'Are you sure want to edit?',
+          icon: 'warning',
+          buttons: ['No', 'Yes'],
+          dangerMode: true,
+        }).then((result: any) => {
+          if (result) {
+            this.loader.start();
 
-          // do editDesignationId blank
-          this.editDesignationId = '';
+            // call editDesignation method from service
+            this.designationService.editDesignation(this.designation);
+            this.designationService.designations = [
+              ...this.designationService.designations,
+            ];
 
-          //toaster notification from notificationservice
-          this._notificationService.onSuccess(
-            'Designation edited successfully',
-            'Notification'
-          );
+            // do editDesignationId blank
+            this.editDesignationId = '';
+
+            //toaster notification from notificationservice
+            this.notificationService.onSuccess(
+              'Designation edited successfully',
+              'Notification'
+            );
+          }
+        });
       } else {
-        this.loaderService.start();
+        console.log(this._addDesignationForm['designationTitle'].value);
 
         // store designation details in object
         this.designation = {
           id: uuidv4(),
-          dateTime : new Date(),
+          dateTime: new Date(),
           title: this._addDesignationForm['designationTitle'].value,
           status: this._addDesignationForm['status'].value,
         };
-        
-          // call method from service
-          this._designationService.addDesignation(this.designation);
-          this._designationService.designations = [...this._designationService.designations]
-          //toaster notification on success from notificationService
-          this._notificationService.onSuccess(
-            'Designation added successfully',
-            'Notification'
-          );
+        swal({
+          title: 'Are you sure want to add?',
+          icon: 'warning',
+          buttons: ['No', 'Yes'],
+          dangerMode: true,
+        }).then((result: any) => {
+          if (result) {
+            this.loader.start();
+
+            // call method from service
+            this.designationService.addDesignation(this.designation);
+            this.designationService.designations = [
+              ...this.designationService.designations,
+            ];
+            //toaster notification on success from notificationService
+            this.notificationService.onSuccess(
+              'Designation added successfully',
+              'Notification'
+            );
+          }
+        });
       }
 
       //clear form once added or edited

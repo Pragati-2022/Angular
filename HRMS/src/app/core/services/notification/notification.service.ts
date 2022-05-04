@@ -7,17 +7,17 @@ import { ToastrService } from 'ngx-toastr';
 
 export class NotificationService {
 
-    constructor(private _toastrService: ToastrService) {  }
+    constructor(private toastrService: ToastrService) {  }
 
     onSuccess(message: string | undefined, title: string | undefined){
-        this._toastrService.success(message, title);
+        this.toastrService.success(message, title);
     }
 
     onWarning(message: string | undefined, title: string | undefined){
-        this._toastrService.warning(message, title);
+        this.toastrService.warning(message, title);
     }
 
     onError(message: string | undefined, title: string | undefined){
-        this._toastrService.error(message, title);
+        this.toastrService.error(message, title);
     }
 }

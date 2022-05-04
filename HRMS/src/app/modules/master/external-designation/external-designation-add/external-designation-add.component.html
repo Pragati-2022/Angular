@@ -1,15 +1,21 @@
-<h3 class="text-center">EXTERNAL DESIGNATION MASTER</h3>
+<h2 class="text-center">
+  {{
+    editExternalDesignationId
+      ? "Edit EXTERNAL DESIGNATION MASTER "
+      : "Add EXTERNAL DESIGNATION MASTER "
+  }}
+</h2>
 
 <form [formGroup]="addExternalDesignationForm">
-  <div class="input-group mb-3 mx-auto" style="width: 400px">
-
     <!-- externalDesignation title -->
-    <div class="input-group-prepend me-2">
+    <div class="form-group input-group mx-auto" style="width: 400px" >
+      <label for="textTitle" class="mt-2 me-3">Title : </label>
       <input
         type="text"
         placeholder="Enter External Designation"
         formControlName="title"
         class="form-control"
+        id="textTitle"
       />
 
       <!-- validation -->
@@ -23,31 +29,35 @@
         <small *ngIf="_addExternalDesignationForm['title'].errors?.['required']"
           >External designation is required</small
         >
-        <small *ngIf="_addExternalDesignationForm['title'].errors?.['maxlength']"
+        <small
+          *ngIf="_addExternalDesignationForm['title'].errors?.['maxlength']"
           >External designation is allow 256 char</small
         >
-        <small
+        <s mall
           *ngIf="_addExternalDesignationForm['title'].errors?.['uniqueTitle']"
-          >External designation must be unique</small
+          >External designation must be unique</s
         >
       </small>
     </div>
 
-    <!-- status -->
-    <div class="form-check form-switch me-2 mt-2">
-      <input type="checkbox" formControlName="status" class="form-check-input" id="checkBoxStatus2" />
-      <label for="checkBoxStatus2">Status</label>
+    <div class="form-group input-group mx-auto mt-2" style="width: 400px" >
+      <!-- status -->
+    <label for="checkBoxStatus2" class="mt-2 me-2" >Status : </label>
+      <div class="form-check form-switch mt-2 me-3">
+      <input
+        type="checkbox"
+        formControlName="status"
+        class="form-check-input"
+        id="checkBoxStatus2"
+      />
     </div>
 
     <!-- edit or save button -->
     <div class="input-group-append">
-      <button class="btn btn-primary" (click)="onSubmit()">
-        {{ editExternalDesignationId ? "Edit" : "Add" }}
-      </button>
+      <button class="btn btn-primary" (click)="onSubmit()">Save</button>
     </div>
   </div>
 </form>
-
 
 <!-- loader -->
 <!-- <sa-spinner-circular
@@ -59,7 +69,9 @@
   secondaryColor="rgba(172, 57, 57, 0.1)"
 ></sa-spinner-circular> -->
 
+<div class="mt-4">
 <!-- externalDesignation list selector -->
 <app-external-designation-list
   (sendExternalDesignation)="getExternalDesignation($event)"
 ></app-external-designation-list>
+</div>
