@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DesignationService } from 'src/app/core/services/master/designation.service';
 import { NotificationService } from 'src/app/core/services/notification/notification.service';
 import { IDesignation } from 'src/app/modules/shared/models/master';
@@ -27,15 +27,12 @@ export class DesignationListComponent implements OnInit {
   faArrowUp = faArrowUp;
   faArrowDown = faArrowDown;
 
-  isNoData = false;
   isUp = false;
   isStatus = 'all';
+  editDesignation! : IDesignation;
 
   p: number = 1;
   rowPerPage = 4;
-
-  // decorator for send designation when click on edit
-  @Output() sendDesignation = new EventEmitter();
 
   constructor(
     public designationService: DesignationService,
@@ -43,12 +40,11 @@ export class DesignationListComponent implements OnInit {
     private loader: NgxUiLoaderService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {  }
 
   // method to edit
   onEdit(designation: IDesignation) {
-    //emit designation
-    this.sendDesignation.emit(designation);
+    this.editDesignation = designation;
   }
 
   //method to delete
@@ -59,7 +55,7 @@ export class DesignationListComponent implements OnInit {
       icon: "warning",
       dangerMode: true,
     }).then((result: any) => {
-      if (result.value) {
+      if (result) {
         this.loader.start();
 
         //call method from service to delete designation
@@ -70,9 +66,6 @@ export class DesignationListComponent implements OnInit {
           'Designation deleted successfully',
           'Notification'
         );
-
-        if (this.designationService.designations.length === 0)
-          this.isNoData = true;
       } else {
         this.notificationService.onError(
           'Designation is safe :)',
@@ -82,8 +75,9 @@ export class DesignationListComponent implements OnInit {
     });
   }
 
-  SetRowPerPage(rowPerPage: any) {
-    this.rowPerPage = rowPerPage.target.value;
+  onClickRowPerPage(rowPerPage: number) {
+    // this.rowPerPage = rowPerPage.target.value;
+    this.rowPerPage = rowPerPage;
     console.log(this.rowPerPage);
     this.p = 1;
   }
@@ -158,8 +152,8 @@ export class DesignationListComponent implements OnInit {
     }
   }
   
-  getDropDowmValue(event : any){
-    this.isStatus = event.target.value;
+  onClickDropdown(value : any){
+    this.isStatus = value;
     console.log(this.isStatus);
   }
 }

@@ -1,14 +1,34 @@
-<div class="container">
+<!-- Designation list selector -->
+<app-designation-add
+  [onEditDesignation]="editDesignation"
+></app-designation-add>
+
+<div class="container mt-4">
   <!-- designation list table -->
   <h3 class="text-center">
-    Designation List - 
-    <label for="designnation">Filter by status:</label>
-
-    <select name="designnation" (change)="getDropDowmValue($event)">
+    <div class="dropdown">
+      Designation List -
+      <button
+        class="btn dropdown-toggle"
+        type="button"
+        id="dropdownMenuButton1"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+      >
+      Filter by status:
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" >
+        <li><a (click)="onClickDropdown('all')" class="dropdown-item">All</a></li>
+        <li><a (click)="onClickDropdown(true)" class="dropdown-item">Active</a></li>
+        <li><a (click)="onClickDropdown(false)" class="dropdown-item">Inactive</a></li>
+      </ul>
+    </div>
+    <!-- <labe  l for="designnation">Filter by status:</labe> -->
+    <!-- <select name="designnation" (change)="getDropDowmValue($event)">
       <option value="all">All</option>
       <option value="true">Active</option>
       <option value="false">Inactive</option>
-    </select>
+    </select> -->
     <!-- <span class="form-switch mt-2" (click)="filterStatus()"
       ><h1><fa-icon
         *ngIf="isStatus"
@@ -46,7 +66,7 @@
         <th>Actions</th>
       </tr>
       <!-- if no data then show this -->
-      <tr *ngIf="!designationService.designations || isNoData">
+      <tr *ngIf="!designationService.designations.length">
         <td colspan="3" class="text-center">Data not found</td>
       </tr>
     </thead>
@@ -54,7 +74,8 @@
     <!-- loop for add designation in table -->
     <tbody
       *ngFor="
-        let designation of designationService.designations | statusFilter : isStatus
+        let designation of designationService.designations
+          | statusFilter: isStatus
           | paginate: { itemsPerPage: rowPerPage, currentPage: p }
       "
     >
@@ -65,7 +86,7 @@
             <!-- icon toggle off when status false and icon toggle on when status true  -->
             <fa-icon
               *ngIf="!designation.status"
-              class="blue-color"
+              class="gray-color"
               (click)="onChangeStatus(designation)"
               [icon]="faToggleOff"
             ></fa-icon>
@@ -95,11 +116,29 @@
       </tr>
     </tbody>
   </table>
-  <div class="input-group justify-content-end" *ngIf="designationService.designations && !isNoData">
-    <select class="custom-select mb-3" (change)="SetRowPerPage($event)">
+  <div
+    class="input-group justify-content-end"
+    *ngIf="designationService.designations.length > 0"
+  >
+    <!-- <select class="custom-select mb-3" (change)="SetRowPerPage($event)">
       <option value="4">4</option>
       <option value="8">8</option>
-    </select>
+    </select> -->
+    <div class="dropdown">
+      <button
+        class="btn dropdown-toggle"
+        type="button"
+        id="dropdownMenuButton1"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+      >
+      Choose Row Per Page({{ rowPerPage }})
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" >
+        <li><a (click)="onClickRowPerPage(4)" class="dropdown-item">4</a></li>
+        <li><a (click)="onClickRowPerPage(8)" class="dropdown-item">8</a></li>
+      </ul>
+    </div>
     <pagination-controls (pageChange)="p = $event"></pagination-controls>
   </div>
 </div>

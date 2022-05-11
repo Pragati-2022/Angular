@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -8,4 +9,17 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class AppComponent {
   title = 'HRMS';
+
+  isHoliday = false;
+
+  constructor(private router : Router){
+    router.events.subscribe((url:any) => {
+
+       if(router.url == '/holiday'){
+         this.isHoliday = true;
+       }
+    });
+    
+    
+  }
 }

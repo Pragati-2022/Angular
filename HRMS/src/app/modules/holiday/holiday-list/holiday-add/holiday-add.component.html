@@ -1,0 +1,72 @@
+<h2 class="text-center">{{ onEditHoliday ? 'Edit Holiday' : 'Add Holiday' }}</h2>
+
+<form [formGroup]="addHolidayForm">
+  <mat-form-field>
+    <input matInput placeholder="Title" formControlName="title" />
+  </mat-form-field>
+  <mat-error
+    *ngIf="
+      (isFormSubmitted || _addHolidayForm['title'].touched) &&
+      _addHolidayForm['title'].invalid
+    "
+  >
+    <mat-error *ngIf="_addHolidayForm['title']?.errors?.['required']"
+      >Title is required</mat-error
+    >
+    <mat-error *ngIf="_addHolidayForm['title']?.errors?.['maxlength']"
+      >Title is allow 256 char</mat-error
+    >
+    <mat-error *ngIf="_addHolidayForm['title']?.errors?.['uniqueTitle']"
+      >Title is already taken</mat-error
+    >
+  </mat-error>
+
+  <mat-form-field>  
+    <input
+      matInput
+      [matDatepicker]="picker"
+      placeholder="StartDate"
+      formControlName="startDate"
+      [min]="minDate"
+      (dateChange)="date($event)"
+    />
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>  
+  </mat-form-field>
+
+  <mat-form-field>
+    <input
+      matInput
+      [matDatepicker]="picker1"
+      placeholder="EndDate"
+      formControlName="endDate"
+      [min]="maxDate"
+    />
+    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+    <mat-datepicker #picker1></mat-datepicker>  
+  </mat-form-field>
+
+  <!-- <mat-form-field>
+    <input matInput [matDatepicker]="picker1" placeholder="Start Date" >
+    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+    <mat-datepicker #picker1></mat-datepicker>
+  </mat-form-field> -->
+
+  <!-- <mat-form-field appearance="fill">
+    <mat-label>Enter a date range</mat-label>
+    <mat-date-range-input [rangePicker]="picker">
+      <input
+        matStartDate
+        formControlName="startDate"
+        [min]="minDate"
+        placeholder="Start date"
+      />
+      <input matEndDate formControlName="startDate" placeholder="End date" />
+    </mat-date-range-input>
+    <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-date-range-picker #picker></mat-date-range-picker>
+  </mat-form-field> -->
+
+    <button mat-raised-button color="primary" (click)="onSubmit()">Save</button>
+</form>

@@ -1,9 +1,10 @@
 import { FormControl, ValidationErrors } from '@angular/forms';
+import { IHoliday } from '../models/holiday';
 import { IDesignation } from '../models/master';
 
 export class CustomValidators {
   static uniqueTitle(
-    titles: IDesignation[],
+    titles: any[],
     editTitleId?: string
   ): ValidationErrors | null {
     return (control: FormControl) => {

@@ -12,8 +12,7 @@ export class StatusFilter implements PipeTransform {
       from(value)
         .pipe(
           filter((val) => {
-            let designationStatus = String(val.status);
-            return designationStatus == status;
+            return val.status == status;
           }),
           toArray()
         )

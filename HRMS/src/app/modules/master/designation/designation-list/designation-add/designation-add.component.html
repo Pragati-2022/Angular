@@ -1,5 +1,5 @@
 <h2 class="text-center">
-  {{ editDesignationId ? "Edit DESIGNATION MASTER" : "Add DESIGNATION MASTER" }}
+  {{ onEditDesignation ? "Edit DESIGNATION MASTER" : "Add DESIGNATION MASTER" }}
 </h2>
 
 <form [formGroup]="addDesignationForm">
@@ -55,9 +55,4 @@
   </div>
 </form>
 
-<div class="mt-4">
-<!-- Designation list selector -->
-<app-designation-list
-  (sendDesignation)="getDesignation($event)"
-></app-designation-list>
-</div>
+

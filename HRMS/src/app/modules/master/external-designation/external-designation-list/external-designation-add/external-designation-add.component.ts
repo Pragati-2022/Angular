@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { faWarning } from '@fortawesome/free-solid-svg-icons';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
@@ -14,23 +14,39 @@ import { v4 as uuidv4 } from 'uuid';
   templateUrl: './external-designation-add.component.html',
   styleUrls: ['./external-designation-add.component.css'],
 })
-export class ExternalDesignationAddComponent implements OnInit {
+export class ExternalDesignationAddComponent implements OnInit, OnChanges {
+  // @ts-ignore
   addExternalDesignationForm: FormGroup;
   isSubmittedForm = false;
+  // @ts-ignore
   externalDesignation: IDesignation;
-  editExternalDesignationId: string;
+  
+  @Input() onEditExternalDesignation! : IDesignation | null;
 
   constructor(
     public formBuilder: FormBuilder,
     public externalDesignationService: ExternalDesignationService,
     private notificationService: NotificationService,
     private loader: NgxUiLoaderService
-  ) {}
+  ) {  }
 
   ngOnInit(): void {
     this.initializeForm();
   }
 
+  ngOnChanges(): void {
+    if(this.onEditExternalDesignation){
+      //initialize form for update validation for unique title
+      this.initializeForm();
+
+      //patch value in form
+      this.addExternalDesignationForm
+        .get('title')
+        ?.setValue(this.onEditExternalDesignation?.title);
+      this.addExternalDesignationForm.get('status')?.setValue(this.onEditExternalDesignation.status);
+    }
+  }
+  
   // initialize form
   initializeForm() {
     this.addExternalDesignationForm = this.formBuilder.group({
@@ -40,7 +56,7 @@ export class ExternalDesignationAddComponent implements OnInit {
           Validators.required,
           CustomValidators.uniqueTitle(
             this.externalDesignationService.externalDesignations,
-            this.editExternalDesignationId
+            this.onEditExternalDesignation?.id
           ),
           Validators.maxLength(256),
         ],
@@ -61,10 +77,10 @@ export class ExternalDesignationAddComponent implements OnInit {
     // check validation
     if (this.addExternalDesignationForm.valid) {
       // check for editExternalDesignationId
-      if (this.editExternalDesignationId) {
+      if (this.onEditExternalDesignation) {
         // store edited value in object
         this.externalDesignation = {
-          id: this.editExternalDesignationId,
+          id: this.onEditExternalDesignation.id,
           dateTime: new Date(),
           title: this._addExternalDesignationForm['title'].value,
           status: this._addExternalDesignationForm['status'].value,
@@ -88,7 +104,7 @@ export class ExternalDesignationAddComponent implements OnInit {
             ];
 
             // do edit id blank
-            this.editExternalDesignationId = '';
+            this.onEditExternalDesignation = null;
 
             // toaster notification on success
             this.notificationService.onSuccess(
@@ -141,7 +157,7 @@ export class ExternalDesignationAddComponent implements OnInit {
     //check for externalDesignation
     if (externalDesignation) {
       // store id on specific property
-      this.editExternalDesignationId = externalDesignation.id;
+      // this.editExternalDesignationId = externalDesignation.id;
 
       // call initializeForm for update validation for unique title
       this.initializeForm();

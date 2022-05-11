@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { DesignationService } from 'src/app/core/services/master/designation.service';
@@ -13,23 +13,37 @@ import { v4 as uuidv4 } from 'uuid';
   templateUrl: './designation-add.component.html',
   styleUrls: ['./designation-add.component.css'],
 })
-export class DesignationAddComponent implements OnInit {
-  addDesignationForm: FormGroup;
+export class DesignationAddComponent implements OnInit, OnChanges {
+  addDesignationForm!: FormGroup;
   isFormSubmitted = false;
-  designation: IDesignation;
-  editDesignationId: string;
+  designation!: IDesignation;
+
+  @Input() onEditDesignation! : IDesignation | null;
 
   constructor(
     public formBuilder: FormBuilder,
     public designationService: DesignationService,
     private notificationService: NotificationService,
     private loader: NgxUiLoaderService
-  ) {}
+  ) { }
+
+  ngOnChanges(): void {
+    if(this.onEditDesignation){
+      //initialize form for update validation for unique title
+      this.initializeForm();
+
+      //patch value in form
+      this.addDesignationForm
+        .get('designationTitle')
+        ?.setValue(this.onEditDesignation?.title);
+      this.addDesignationForm.get('status')?.setValue(this.onEditDesignation.status);
+    }
+  }
 
   ngOnInit(): void {
     this.initializeForm();
   }
-
+  
   //initialize form
   initializeForm() {
     this.addDesignationForm = this.formBuilder.group({
@@ -39,7 +53,7 @@ export class DesignationAddComponent implements OnInit {
           Validators.required,
           CustomValidators.uniqueTitle(
             this.designationService.designations,
-            this.editDesignationId
+            this.onEditDesignation?.id
           ),
           Validators.maxLength(256),
         ],
@@ -62,19 +76,18 @@ export class DesignationAddComponent implements OnInit {
       console.log(this._addDesignationForm['designationTitle'].value);
 
       // condition for editDesignationId is available
-      if (this.editDesignationId) {
+      if (this.onEditDesignation) {
 
         //edited value store in object
         this.designation = {
-          id: this.editDesignationId,
+          id: this.onEditDesignation.id,
           dateTime: new Date(),
           title: this._addDesignationForm['designationTitle'].value,
           status: this._addDesignationForm['status'].value,
         };
 
         swal({
-          title: 'Are you sure want to edit?',
-          icon: 'warning',
+          title: 'Are you sure?',
           buttons: ['No', 'Yes'],
           dangerMode: true,
         }).then((result: any) => {
@@ -88,7 +101,7 @@ export class DesignationAddComponent implements OnInit {
             ];
 
             // do editDesignationId blank
-            this.editDesignationId = '';
+            this.onEditDesignation = null;
 
             //toaster notification from notificationservice
             this.notificationService.onSuccess(
@@ -108,8 +121,7 @@ export class DesignationAddComponent implements OnInit {
           status: this._addDesignationForm['status'].value,
         };
         swal({
-          title: 'Are you sure want to add?',
-          icon: 'warning',
+          title: 'Are you sure?',
           buttons: ['No', 'Yes'],
           dangerMode: true,
         }).then((result: any) => {
@@ -141,7 +153,7 @@ export class DesignationAddComponent implements OnInit {
     // condition to check designation
     if (designation) {
       //store designation id to specific property
-      this.editDesignationId = designation.id;
+      // this.editDesignationId = designation.id;
 
       //initialize form for update validation for unique title
       this.initializeForm();

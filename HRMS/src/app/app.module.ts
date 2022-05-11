@@ -11,12 +11,13 @@ import { SharedModule } from './modules/shared/shared.module';
 import { MasterModule } from './modules/master/master.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgxUiLoaderModule } from 'ngx-ui-loader';
+import { HolidayModule } from './modules/holiday/holiday.module';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     NgxUiLoaderModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot({
@@ -24,11 +25,14 @@ import { NgxUiLoaderModule } from 'ngx-ui-loader';
       closeButton: true,
       timeOut : 1000,
     }),
+    RouterModule,
+    AppRoutingModule,
     CandidateModule,
     EmployeeModule,
     SharedModule,
     MasterModule,
-    FontAwesomeModule
+    HolidayModule,
+    FontAwesomeModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

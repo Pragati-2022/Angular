@@ -1,6 +1,6 @@
 <h2 class="text-center">
   {{
-    editExternalDesignationId
+    onEditExternalDesignation
       ? "Edit EXTERNAL DESIGNATION MASTER "
       : "Add EXTERNAL DESIGNATION MASTER "
   }}
@@ -68,10 +68,3 @@
   color="rgba(57, 64, 172, 1)"
   secondaryColor="rgba(172, 57, 57, 0.1)"
 ></sa-spinner-circular> -->
-
-<div class="mt-4">
-<!-- externalDesignation list selector -->
-<app-external-designation-list
-  (sendExternalDesignation)="getExternalDesignation($event)"
-></app-external-designation-list>
-</div>

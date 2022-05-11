@@ -1,10 +1,24 @@
-<!-- to show master in card -->
 <div class="row">
-  <div class="col-6 text-center">
-    <app-designation-add></app-designation-add>
+  <div class="col-2">
+    <app-side-bar></app-side-bar>
   </div>
-  <div class="col-6 text-center">
-    <app-external-designation-add></app-external-designation-add>
+
+  <!-- to show master in card -->
+  <div class="row col-10" *ngIf="!isHoliday">
+    <div class="col-6 text-center">
+      <app-designation-list></app-designation-list>
+    </div>
+    <div class="col-6 text-center">
+      <app-external-designation-list></app-external-designation-list>
+    </div>
+  </div>
+
+  <!-- <div app-holiday-list></div> -->
+</div>
+<div class="row">
+  <div class="col-3"></div>
+  <div class="row col-9">
+    <router-outlet></router-outlet>
   </div>
 </div>
 

@@ -8,7 +8,7 @@ import { NotificationService } from '../notification/notification.service';
 })
 export class ExternalDesignationService {
   // externalDesignations array
-  externalDesignations!: IDesignation[];
+  externalDesignations : IDesignation[] = [];
 
   constructor(
     private notificationService: NotificationService,

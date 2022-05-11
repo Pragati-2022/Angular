@@ -1,14 +1,35 @@
-<div class="container">
+<!-- Designation list selector -->
+<app-external-designation-add
+  [onEditExternalDesignation]="editDesignation"
+></app-external-designation-add>
+
+
+<div class="container mt-4">
   <!-- externalDesignation list table -->
   <h3 class="text-center">
-    External Designation List -
-    <label for="designnation">Filter by status:</label>
-
+    <div class="dropdown">
+      External Designation List -
+      <button
+        class="btn dropdown-toggle"
+        type="button"
+        id="dropdownMenuButton1"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+      >
+      Filter by status ({{ isStatus }}):
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" >
+        <li><a (click)="onClickDropdown('all')" class="dropdown-item">All</a></li>
+        <li><a (click)="onClickDropdown(true)" class="dropdown-item">Active</a></li>
+        <li><a (click)="onClickDropdown(false)" class="dropdown-item">Inactive</a></li>
+      </ul>
+    </div>
+    <!-- <label for="designnation">Filter by status:</label>
     <select name="designnation" (change)="getDropDowmValue($event)">
       <option value="all">All</option>
       <option value="true">Active</option>
       <option value="false">Inactive</option>
-    </select>
+    </select> -->
     <!-- <span class="form-switch mt-2"
       ><h1><fa-icon
         *ngIf="isStatus"
@@ -47,7 +68,7 @@
       </tr>
 
       <!-- if no data then show this -->
-      <tr *ngIf="!externalDesignationService.externalDesignations || isNoData">
+      <tr *ngIf="!externalDesignationService.externalDesignations.length">
         <td colspan="3" class="text-center">Data not found</td>
       </tr>
     </thead>
@@ -67,7 +88,7 @@
             <!-- icons for status true and false -->
             <fa-icon
               *ngIf="!designation.status"
-              class="blue-color"
+              class="gray-color"
               [icon]="faToggleOff"
             ></fa-icon>
             <fa-icon
@@ -97,12 +118,27 @@
   </table>
   <div
     class="input-group justify-content-end"
-    *ngIf="externalDesignationService.externalDesignations && !isNoData"
+    *ngIf="externalDesignationService.externalDesignations.length > 0"
   >
-    <select class="custom-select mb-3" (change)="SetRowPerPage($event)">
+    <!-- <select class="custom-select mb-3" (change)="SetRowPerPage($event)">
       <option value="4">4</option>
       <option value="8">8</option>
-    </select>
+    </select> -->
+    <div class="dropdown">
+      <button
+        class="btn dropdown-toggle"
+        type="button"
+        id="dropdownMenuButton1"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+      >
+      Choose Row Per Page({{ rowPerPage }})
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" >
+        <li><a (click)="onClickRowPerPage(4)" class="dropdown-item">4</a></li>
+        <li><a (click)="onClickRowPerPage(8)" class="dropdown-item">8</a></li>
+      </ul>
+    </div>
     <pagination-controls (pageChange)="p = $event"></pagination-controls>
   </div>
 </div>

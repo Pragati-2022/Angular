@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ExternalDesignationService } from 'src/app/core/services/master/external-designation.service';
 import { NotificationService } from 'src/app/core/services/notification/notification.service';
 import { IDesignation } from 'src/app/modules/shared/models/master';
@@ -27,15 +27,12 @@ export class ExternalDesignationListComponent implements OnInit {
   faArrowUp = faArrowUp;
   faArrowDown = faArrowDown;
 
-  isNoData = false;
   isUp = false;
   isStatus = 'all';
+  editDesignation! : IDesignation;
 
   p: number = 1;
   rowPerPage = 4;
-
-  // decorator for send designation for edit
-  @Output() sendExternalDesignation = new EventEmitter();
 
   constructor(
     public externalDesignationService: ExternalDesignationService,
@@ -47,8 +44,7 @@ export class ExternalDesignationListComponent implements OnInit {
 
   // method to edit
   onEdit(externalDesignation: IDesignation) {
-    // emit designation when click on edit
-    this.sendExternalDesignation.emit(externalDesignation);
+    this.editDesignation = externalDesignation;
   }
 
   // method to delete
@@ -59,7 +55,7 @@ export class ExternalDesignationListComponent implements OnInit {
       icon: "warning",
       dangerMode: true,
     }).then((result: any) => {
-      if (result.value) {
+      if (result) {
         this.loader.start();
 
         // call method for delete designation
@@ -74,9 +70,6 @@ export class ExternalDesignationListComponent implements OnInit {
           'External designation deleted successfully ',
           'notification'
         );
-
-        if (this.externalDesignationService.externalDesignations.length === 0)
-          this.isNoData = true;
       } else {
         this.notificationService.onError(
           'External designation is safe :)',
@@ -86,8 +79,9 @@ export class ExternalDesignationListComponent implements OnInit {
     });
   }
 
-  SetRowPerPage(rowPerPage: any) {
-    this.rowPerPage = rowPerPage.target.value;
+  onClickRowPerPage(rowPerPage: number) {
+    // this.rowPerPage = rowPerPage.target.value;
+    this.rowPerPage = rowPerPage;
     console.log(this.rowPerPage);
     this.p = 1;
   }
@@ -161,8 +155,8 @@ export class ExternalDesignationListComponent implements OnInit {
     }
   }
 
-  getDropDowmValue(event : any){
-    this.isStatus = event.target.value;
+  onClickDropdown(value : any){
+    this.isStatus = value;
     console.log(this.isStatus);
   }
 }
