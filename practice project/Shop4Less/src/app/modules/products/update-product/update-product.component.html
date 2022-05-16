@@ -1,24 +1,79 @@
 <h2 class="text-center">Update Product</h2>
 
 <form [formGroup]="updateProductForm">
-    <div class="form-row">
-      <div class="col-md-6 mb-3">
-        <label for="name">Product Name</label>
-        <input formControlName="productName" type="text" class="form-control" id="name" placeholder="Product Name">
-      </div>
-      <div class="col-md-6 mb-3">
-        <label for="id">Category Id</label>
-        <input formControlName="categoryId" type="text" class="form-control" id="id" placeholder="Category Id">
-      </div>
+  <div class="form-row">
+    <div class="col-md-6 mb-3">
+      <label for="name">Product Name</label>
+      <input
+        formControlName="productName"
+        type="text"
+        class="form-control"
+        id="name"
+        placeholder="Product Name"
+      />
+      <small
+        class="text-danger"
+        *ngIf="
+          (isFormSubmitted || _updateProductForm['productName'].touched) &&
+          _updateProductForm['productName'].invalid
+        "
+      >
+        <small *ngIf="_updateProductForm['productName'].errors?.['required']"
+          >Product Name is required</small
+        >
+      </small>
     </div>
-    <div class="form-row">
-      <div class="col-md-6 mb-3">
+    <div class="col-md-6 mb-3">
+      <label for="id">Category Id</label>
+      <input
+        formControlName="categoryId"
+        type="text"
+        class="form-control"
+        id="id"
+        placeholder="Category Id"
+      />
+      <small
+        class="text-danger"
+        *ngIf="
+          (isFormSubmitted || _updateProductForm['categoryId'].touched) &&
+          _updateProductForm['productName'].invalid
+        "
+      >
+        <small *ngIf="_updateProductForm['categoryId'].errors?.['required']"
+          >Product Name is required</small
+        >
+      </small>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="col-md-6 mb-3">
       <label for="description">Description</label>
-      <textarea formControlName="description" type="text" class="form-control" id="description" placeholder="Description"></textarea>
-      </div>
+      <textarea
+        formControlName="description"
+        type="text"
+        class="form-control"
+        id="description"
+        placeholder="Description"
+      ></textarea>
+      <small
+        class="text-danger"
+        *ngIf="
+          (isFormSubmitted || _updateProductForm['description'].touched) &&
+          _updateProductForm['productName'].invalid
+        "
+      >
+        <small *ngIf="_updateProductForm['description'].errors?.['required']"
+          >Product Name is required</small
+        >
+      </small>
+    </div>
     <div class="col-md-6 mb-3">
       <label for="rating">Rating</label>
-      <select formControlName="rating" class="custom-select form-control" id="rating">
+      <select
+        formControlName="rating"
+        class="custom-select form-control"
+        id="rating"
+      >
         <option selected>Choose...</option>
         <option value="1">1</option>
         <option value="2">2</option>
@@ -26,38 +81,115 @@
         <option value="4">4</option>
         <option value="5">5</option>
       </select>
+      <small
+        class="text-danger"
+        *ngIf="
+          (isFormSubmitted || _updateProductForm['rating'].touched) &&
+          _updateProductForm['productName'].invalid
+        "
+      >
+        <small *ngIf="_updateProductForm['rating'].errors?.['required']"
+          >Product Name is required</small
+        >
+      </small>
     </div>
   </div>
-    <div class="form-row">
-      <div class="col-md-6 mb-3">
-        <label for="color">Product Color</label>
-        <input type="text" formControlName="productColor" class="form-control" id="color" placeholder="Product Color">
-      </div>
-      <div class="col-md-6 mb-3">
-        <label for="isAvailable">IsAvailable</label>
-        <select formControlName="isAvailable" class="custom-select form-control" id="isAvailable">
-          <option selected>Choose...</option>
-          <option value="true">yes</option>
-          <option value="false">no</option>
-        </select>
-      </div>
+  <div class="form-row">
+    <div class="col-md-6 mb-3">
+      <label for="color">Product Color</label>
+      <input
+        type="text"
+        formControlName="productColor"
+        class="form-control"
+        id="color"
+        placeholder="Product Color"
+      />
+      <small
+        class="text-danger"
+        *ngIf="
+          (isFormSubmitted || _updateProductForm['productColor'].touched) &&
+          _updateProductForm['productName'].invalid
+        "
+      >
+        <small *ngIf="_updateProductForm['productColor'].errors?.['required']"
+          >Product Name is required</small
+        >
+      </small>
     </div>
-    <div class="form-row">
-      <div class="col-md-6 mb-3">
-        <label for="price">Product Price</label>
-        <input formControlName="productPrice" type="text" class="form-control" id="price" placeholder="Product Price">
-      </div>
-      <div class="col-md-6 mb-3">
-        <label for="review">Review</label>
-        <select formControlName="review" class="custom-select form-control" id="review">
-          <option selected>Choose...</option>
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-        </select>
-      </div>
+    <div class="col-md-6 mb-3">
+      <label for="isAvailable">IsAvailable</label>
+      <select
+        formControlName="isAvailable"
+        class="custom-select form-control"
+        id="isAvailable"
+      >
+        <option selected>Choose...</option>
+        <option value="true">yes</option>
+        <option value="false">no</option>
+      </select>
+      <small
+        class="text-danger"
+        *ngIf="
+          (isFormSubmitted || _updateProductForm['isAvailable'].touched) &&
+          _updateProductForm['productName'].invalid
+        "
+      >
+        <small *ngIf="_updateProductForm['isAvailable'].errors?.['required']"
+          >Product Name is required</small
+        >
+      </small>
     </div>
-    <button type="submit" (click)="onSubmit()" class="btn btn-primary">Update</button>
-  </form>
+  </div>
+  <div class="form-row">
+    <div class="col-md-6 mb-3">
+      <label for="price">Product Price</label>
+      <input
+        formControlName="productPrice"
+        type="text"
+        class="form-control"
+        id="price"
+        placeholder="Product Price"
+      />
+      <small
+        class="text-danger"
+        *ngIf="
+          (isFormSubmitted || _updateProductForm['productPrice'].touched) &&
+          _updateProductForm['productName'].invalid
+        "
+      >
+        <small *ngIf="_updateProductForm['productPrice'].errors?.['required']"
+          >Product Name is required</small
+        >
+      </small>
+    </div>
+    <div class="col-md-6 mb-3">
+      <label for="review">Review</label>
+      <select
+        formControlName="review"
+        class="custom-select form-control"
+        id="review"
+      >
+        <option selected>Choose...</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select>
+      <small
+        class="text-danger"
+        *ngIf="
+          (isFormSubmitted || _updateProductForm['review'].touched) &&
+          _updateProductForm['productName'].invalid
+        "
+      >
+        <small *ngIf="_updateProductForm['review'].errors?.['required']"
+          >Product Name is required</small
+        >
+      </small>
+    </div>
+  </div>
+  <button type="submit" (click)="onSubmit()" class="btn btn-primary">
+    Update
+  </button>
+</form>

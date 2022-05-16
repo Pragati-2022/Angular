@@ -81,6 +81,10 @@ export class UpdateProductComponent implements OnInit {
       this.productService.updateProduct(this.productId , product).subscribe((data) => {
         console.log(data);
       });
+
+      alert('Product updated successfully!');
+      this.initializeForm();
+      this.isFormSubmitted = false;
     }
   }
 }

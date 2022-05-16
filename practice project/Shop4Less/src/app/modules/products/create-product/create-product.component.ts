@@ -56,6 +56,10 @@ export class CreateProductComponent implements OnInit {
       this.productService.createProduct(product).subscribe((data) => {
         console.log(data);
       });
+
+      alert('Product added successfully!');
+      this.initializeForm();
+      this.isFormSubmitted = false;
     }
   }
 }
