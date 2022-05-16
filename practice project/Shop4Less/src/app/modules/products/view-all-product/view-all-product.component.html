@@ -10,8 +10,36 @@
   </div>
 </section>
 
-<div class="row">
+<form #searchForm="ngForm">
+  <div class="mt-2">
+      <input type="text" required name="searchTerm" ngModel class="form-control" autocomplete="off">
+  </div>
+</form>
+
+<div class="row" *ngIf="isShowAllProduct">
   <div class="col-lg-4 col-md-6 mb-4" *ngFor="let product of productList">
+    <div class="card h-100">
+      <a href="#">
+        <img class="card-img-top" src="http://placehold.it/700x400" alt="" />
+      </a>
+      <div class="card-body">
+        <h4 class="card-title">
+          <a routerLink="../view-product/{{ product.id }}">{{ product.productName}}</a>
+        </h4>
+        <h5>{{ product.price }}</h5>
+        <p class="card-text">
+          {{ product.description}}
+        </p>
+      </div>
+      <div class="card-footer">
+        <small class="text-muted">{{ product.rating }} stars</small>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-4 col-md-6 mb-4" *ngFor="let product of filteredProductList">
     <div class="card h-100">
       <a href="#">
         <img class="card-img-top" src="http://placehold.it/700x400" alt="" />

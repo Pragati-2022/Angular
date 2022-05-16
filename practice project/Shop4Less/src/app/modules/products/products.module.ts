@@ -10,7 +10,7 @@ import { ViewAllProductComponent } from './view-all-product/view-all-product.com
 import { ViewProductComponent } from './view-product/view-product.component';
 import { ViewAllProductByCategoryComponent } from './view-all-product-by-category/view-all-product-by-category.component';
 import { ViewAllProductByDateComponent } from './view-all-product-by-date/view-all-product-by-date.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -26,7 +26,8 @@ import { ReactiveFormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     ProductsRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ]
 })
 export class ProductsModule { }
