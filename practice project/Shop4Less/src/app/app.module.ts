@@ -7,6 +7,7 @@ import { OrdersModule } from './modules/orders/orders.module';
 import { SharedModule } from './modules/shared/shared.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoggingInterceptor } from './logging.interceptor';
+import { NgxUiLoaderModule } from 'ngx-ui-loader';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { LoggingInterceptor } from './logging.interceptor';
     SharedModule,
     OrdersModule,
     AppRoutingModule,
+    NgxUiLoaderModule
   ],
   providers: [
     {provide : HTTP_INTERCEPTORS, useClass : LoggingInterceptor, multi : true}

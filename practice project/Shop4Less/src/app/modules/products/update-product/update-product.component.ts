@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { ProductService } from 'src/app/core/services/product/product.service';
 import { IProduct } from '../../shared/model/product';
 
@@ -19,11 +20,14 @@ export class UpdateProductComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private productService: ProductService,
     private formBuider: FormBuilder,
+    private loader: NgxUiLoaderService
   ) {
     this.initializeForm();
   }
 
   ngOnInit(): void {
+    this.loader.start();
+
     this.activatedRoute.params.subscribe((data) => {
       this.productId = data['id'];
   // console.log(this.productId);
@@ -31,6 +35,8 @@ export class UpdateProductComponent implements OnInit {
       this.productService
         .viewProduct(this.productId)
         .subscribe((productData) => {
+          this.loader.stop();
+
           this.productDetails = productData;
           console.log(this.productDetails);
           this.updateProductForm.get('productName')?.setValue(this.productDetails?.productName);
@@ -66,6 +72,8 @@ export class UpdateProductComponent implements OnInit {
     this.isFormSubmitted = true;
 
     if (this.updateProductForm.valid) {
+      this.loader.start();
+
       let product: IProduct = {
         id: this.productId,
         categoryId: this._updateProductForm['categoryId'].value,
@@ -80,6 +88,8 @@ export class UpdateProductComponent implements OnInit {
 
       this.productService.updateProduct(this.productId , product).subscribe((data) => {
         console.log(data);
+
+        this.loader.stop();
       });
 
       alert('Product updated successfully!');

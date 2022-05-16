@@ -2,12 +2,12 @@
   "products": [
     {
       "id": 1,
-      "productName": "Tshirt-1",
       "categoryId": 1,
+      "productName": "Tshirt-1",
       "description": "product description here",
+      "rating": 2,
       "price": 60,
       "isAvailable": true,
-      "rating": 2,
       "color": "blue",
       "reviews": 2
     },
@@ -35,12 +35,12 @@
     },
     {
       "id": 5,
-      "productName": "Tshirt-5",
       "categoryId": 2,
+      "productName": "Tshirt-5",
       "description": "product description here",
+      "rating": 2,
       "price": 60,
       "isAvailable": true,
-      "rating": 2,
       "color": "red",
       "reviews": 2
     },
@@ -59,17 +59,6 @@
       "id": 7,
       "productName": "Tshirt-7",
       "categoryId": 1,
-      "description": "product description here",
-      "price": 60,
-      "isAvailable": true,
-      "rating": 2,
-      "color": "red",
-      "reviews": 2
-    },
-    {
-      "id": 8,
-      "productName": "Tshirt-8",
-      "categoryId": 2,
       "description": "product description here",
       "price": 60,
       "isAvailable": true,
@@ -120,6 +109,61 @@
       "isAvailable": "false",
       "color": "black",
       "reviews": "5"
+    },
+    {
+      "categoryId": "3",
+      "productName": "apoo",
+      "description": "qwq",
+      "rating": "1",
+      "price": "s",
+      "isAvailable": "true",
+      "color": "black",
+      "reviews": "1",
+      "id": 13
+    },
+    {
+      "categoryId": "2",
+      "productName": "sam",
+      "description": "sdsdsdd",
+      "rating": "3",
+      "price": "3456",
+      "isAvailable": "false",
+      "color": "gray",
+      "reviews": "4",
+      "id": 14
+    },
+    {
+      "categoryId": "1",
+      "productName": "ds",
+      "description": "cds",
+      "rating": "2",
+      "price": "15.99",
+      "isAvailable": "true",
+      "color": "black",
+      "reviews": "4",
+      "id": 15
+    },
+    {
+      "categoryId": "2",
+      "productName": "sam",
+      "description": "sda",
+      "rating": "2",
+      "price": "55.99",
+      "isAvailable": "false",
+      "color": "black",
+      "reviews": "3",
+      "id": 16
+    },
+    {
+      "categoryId": "3",
+      "productName": "njnjn",
+      "description": "fd",
+      "rating": "1",
+      "price": "15.99",
+      "isAvailable": "true",
+      "color": "gray",
+      "reviews": "4",
+      "id": 19
     }
   ],
   "categories": [

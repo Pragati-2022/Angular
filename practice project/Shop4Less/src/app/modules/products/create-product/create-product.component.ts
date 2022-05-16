@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { ProductService } from 'src/app/core/services/product/product.service';
 import { IProduct } from '../../shared/model/product';
 
@@ -14,7 +15,8 @@ export class CreateProductComponent implements OnInit {
 
   constructor(
     private formBuider: FormBuilder,
-    private productService: ProductService
+    private productService: ProductService,
+    private loader: NgxUiLoaderService
   ) {}
 
   ngOnInit(): void {
@@ -42,6 +44,9 @@ export class CreateProductComponent implements OnInit {
     this.isFormSubmitted = true;
 
     if (this.addProductForm.valid) {
+
+      this.loader.start();
+
       let product: IProduct = {
         categoryId: this._addProductForm['categoryId'].value,
         productName: this._addProductForm['productName'].value,
@@ -55,6 +60,8 @@ export class CreateProductComponent implements OnInit {
 
       this.productService.createProduct(product).subscribe((data) => {
         console.log(data);
+
+        this.loader.stop();
       });
 
       alert('Product added successfully!');

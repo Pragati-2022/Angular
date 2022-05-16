@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { ProductService } from 'src/app/core/services/product/product.service';
 import { IProduct } from '../../shared/model/product';
 
@@ -14,10 +15,13 @@ export class ViewProductComponent implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private productService: ProductService
+    private productService: ProductService,
+    private loader: NgxUiLoaderService
   ) {}
 
   ngOnInit(): void {
+    this.loader.start();
+
     this.activatedRoute.params.subscribe((data) => {
       this.productId = data['id'];
   // console.log(this.productId);
@@ -26,6 +30,8 @@ export class ViewProductComponent implements OnInit {
         .viewProduct(this.productId)
         .subscribe((productData) => {
           this.productDetails = productData;
+
+          this.loader.stop();
           // console.log(this.productDetails);
         });
     });
