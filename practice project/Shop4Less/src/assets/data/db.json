@@ -1,0 +1,149 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "productName": "Tshirt-1",
+      "categoryId": 1,
+      "description": "product description here",
+      "price": 60,
+      "isAvailable": true,
+      "rating": 2,
+      "color": "blue",
+      "reviews": 2
+    },
+    {
+      "id": 3,
+      "productName": "Tshirt-3",
+      "categoryId": 3,
+      "description": "product description here",
+      "price": 60,
+      "isAvailable": true,
+      "rating": 2,
+      "color": "red",
+      "reviews": 2
+    },
+    {
+      "id": 4,
+      "categoryId": 1,
+      "productName": "Tshirt-44",
+      "description": "product description here",
+      "rating": 2,
+      "price": 60,
+      "isAvailable": true,
+      "color": "red",
+      "reviews": 2
+    },
+    {
+      "id": 5,
+      "productName": "Tshirt-5",
+      "categoryId": 2,
+      "description": "product description here",
+      "price": 60,
+      "isAvailable": true,
+      "rating": 2,
+      "color": "red",
+      "reviews": 2
+    },
+    {
+      "id": 6,
+      "productName": "Tshirt-6",
+      "categoryId": 3,
+      "description": "product description here",
+      "price": 60,
+      "isAvailable": true,
+      "rating": 2,
+      "color": "red",
+      "reviews": 2
+    },
+    {
+      "id": 7,
+      "productName": "Tshirt-7",
+      "categoryId": 1,
+      "description": "product description here",
+      "price": 60,
+      "isAvailable": true,
+      "rating": 2,
+      "color": "red",
+      "reviews": 2
+    },
+    {
+      "id": 8,
+      "productName": "Tshirt-8",
+      "categoryId": 2,
+      "description": "product description here",
+      "price": 60,
+      "isAvailable": true,
+      "rating": 2,
+      "color": "red",
+      "reviews": 2
+    },
+    {
+      "id": 9,
+      "productName": "Tshirt-9",
+      "categoryId": 3,
+      "description": "product description here",
+      "price": 60,
+      "isAvailable": true,
+      "rating": 2,
+      "color": "red",
+      "reviews": 2
+    },
+    {
+      "id": 10,
+      "categoryId": "3",
+      "productName": "Tshirt-10",
+      "description": " ccxv cmvckvmkdvm",
+      "rating": "2",
+      "price": "15.99",
+      "isAvailable": "false",
+      "color": "gray",
+      "reviews": "2"
+    },
+    {
+      "id": 11,
+      "categoryId": "2",
+      "productName": "Tshirt -11",
+      "description": "dssssssssdas",
+      "rating": "3",
+      "price": "109.95",
+      "isAvailable": "true",
+      "color": "gray",
+      "reviews": "5"
+    },
+    {
+      "id": 12,
+      "categoryId": "2",
+      "productName": "Tshirt-12",
+      "description": "ewerwwswdssewd",
+      "rating": "5",
+      "price": "109.95",
+      "isAvailable": "false",
+      "color": "black",
+      "reviews": "5"
+    }
+  ],
+  "categories": [
+    {
+      "id": 1,
+      "name": "polo Tshirts"
+    },
+    {
+      "id": 2,
+      "name": "soccer Tshirts"
+    },
+    {
+      "id": 3,
+      "name": "casual Tshirts"
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}

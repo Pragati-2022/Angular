@@ -1,0 +1,7 @@
+<a routerLink="products/create-product" class="list-group-item" style="background-color: aquamarine;">Add New Product</a>
+<a routerLink="products/list-product" class="list-group-item" style="background-color: aquamarine;">View All Products</a>
+<div class="list-group">
+  <a routerLink="products/category/{{ category.id }}" class="list-group-item" *ngFor="let category of categoryList">{{
+    category.name
+  }}</a>
+</div>

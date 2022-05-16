@@ -1,0 +1,29 @@
+<h2 class="text-center">View {{ productDetails?.productName }}</h2>
+
+<div class="card mt-4">
+  <img
+    class="card-img-top img-fluid"
+    src="http://placehold.it/700x400"
+    alt=""
+  />
+  <div class="card-body">
+    <h4 class="card-title">
+      {{ productDetails?.productName }}
+    </h4>
+    <a
+      routerLink="/products/update-product/{{ productDetails?.id }}"
+      class="me-2"
+      >Update Product</a
+    >
+    <a routerLink="/products/delete-product/{{ productDetails?.id }}"
+      >Delete Product</a
+    >
+    <h5>{{ productDetails?.price }}</h5>
+    <p class="card-text">
+      {{ productDetails?.description }}
+    </p>
+  </div>
+  <div class="card-footer">
+    <small class="text-muted">{{ productDetails?.rating }} stars</small>
+  </div>
+</div>
