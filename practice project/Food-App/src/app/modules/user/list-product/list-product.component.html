@@ -1,0 +1,28 @@
+<!-- <router-outlet></router-outlet> -->
+
+<table class="table table-bordered">
+  <thead>
+    <th>Product Name</th>
+    <th>Product Category</th>
+    <th>Product Price</th>
+    <th>Product Quantity</th>
+    <th>Product Color</th>
+    <th>Product Lot Size</th>
+    <th>Product Description</th>
+    <th>Actions</th>
+  </thead>
+  <tbody *ngFor="let product of products">
+    <td>{{ product.productName }}</td>
+    <td (click)="oncategory(product.productCategory)">{{ product.productCategory }}</td>
+    <td>{{ product.productPrice }}</td>
+    <td>{{ product.productQuantity }}</td>
+    <td>{{ product.productColor }}</td>
+    <td>{{ product.productLotSize }}</td>
+    <td>{{ product.productDescription }}</td>
+    <td>
+      <button class="btn btn-dark" [ngStyle]="{color : 'black'}" (click)="onView(product)">View</button>
+      <button class="btn btn-dark" [ngStyle]="{color : 'black'}" (click)="onDelete(product)">Delete</button>
+      <button class="btn btn-dark" [ngStyle]="{color : 'black'}" (click)="onEdit(product)">Edit</button>
+    </td>
+  </tbody>
+</table>

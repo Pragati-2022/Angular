@@ -1,0 +1,60 @@
+<nav class="navbar navbar-dark bg-dark navbar-expand-lg navbar-light bg-light">
+    <!-- <a class="navbar-brand" href="#">Navbar w/ text</a> -->
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarText"
+      aria-controls="navbarText"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarText">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            routerLink=""
+            routerLinkActive="active"
+            >Home</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link"  routerLinkActive="active"
+            >About Us</a
+          >
+        </li>
+        <li class="nav-item" *ngIf="!isAuthenticated; else authenticatedPart">
+          <a class="nav-link" routerLink="/login" routerLinkActive="active"
+            >Login/Register</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link"  routerLinkActive="active"
+            >Contact Us</a
+          >
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" routerLink="list-product" routerLinkActive="active" 
+            >List Product</a
+          >
+        </li>
+        <ng-template #authenticatedPart>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="list-product/add-product" routerLinkActive="active"
+            >Add Product</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLinkActive="active" (click)="authService.logOut()"
+            >Logout</a
+          >
+        </li>
+        </ng-template>
+      </ul>
+    </div>
+  </nav>
+  

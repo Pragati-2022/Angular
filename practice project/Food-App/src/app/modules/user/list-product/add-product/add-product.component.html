@@ -1,0 +1,77 @@
+<h1 class="text-center">{{ userService.editProduct ? 'Edit Product' : 'Add Product' }}</h1>
+<form [formGroup]="addProductForm">
+  <div class="form-group mt-3 mb-3">
+    <label for="productName">Product Name</label>
+    <input
+      type="text"
+      formControlName="productName"
+      placeholder="Product Name"
+      name="productName"
+      class="form-control"
+    />
+  </div>
+  <div class="form-group mb-3">
+    <label for="productCategory">Product Category</label>
+    <input
+      type="text"
+      formControlName="productCategory"
+      placeholder="Product Category"
+      name="productCategory"
+      class="form-control"
+    />
+  </div>
+  <div class="form-group mb-3">
+    <label for="productPrice">Product Price</label>
+    <input
+      type="text"
+      formControlName="productPrice"
+      placeholder="Product Price"
+      name="productPrice"
+      class="form-control"
+    />
+  </div>
+  <div class="form-group mb-3">
+    <label for="productQuantity">Product Quantity</label>
+    <input
+      type="text"
+      formControlName="productQuantity"
+      placeholder="Product Quantity"
+      name="productQuantity"
+      class="form-control"
+    />
+  </div>
+  <div class="form-group mb-3">
+    <label for="productColor">Product Color</label>
+    <input
+      type="text"
+      formControlName="productColor"
+      placeholder="Product Color"
+      name="productColor"
+      class="form-control"
+    />
+  </div>
+  <div class="form-group mb-3">
+    <label for="productLotSize">Product Lot Size</label>
+    <input
+      type="text"
+      formControlName="productLotSize"
+      placeholder="Product Lot Size"
+      name="productLotSize"
+      class="form-control"
+    />
+  </div>
+  <div class="form-group mb-3">
+    <label for="productPrice">Product Description</label>
+    <input
+      type="text"
+      formControlName="productDescription"
+      placeholder="Product Price"
+      name="productPrice"
+      class="form-control"
+    />
+  </div>
+
+  <div class="text-center">
+    <button class="btn btn-primary" (click)="onSubmit()">{{ userService.editProduct ? 'Edit Product' : 'Add Product'}}</button>
+  </div>
+</form>
