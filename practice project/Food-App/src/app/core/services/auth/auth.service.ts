@@ -18,7 +18,7 @@ export class AuthService {
   constructor(
     private auth: AngularFireAuth,
     private fireStore: AngularFirestore,
-    private router : Router
+    private router: Router
   ) {
     this.userCollection = this.fireStore.collection('users');
     this.isAuthenticated$ = this.auth.user;
@@ -43,13 +43,36 @@ export class AuthService {
     });
   }
 
-  async login(email : string, password : string){
+  async login(email: string, password: string, role : string) {
     await this.auth.signInWithEmailAndPassword(email, password);
+    sessionStorage.setItem('user', email);
+    sessionStorage.setItem('role', role);
+
   }
 
-  async logOut(){
+  async logOut() {
     await this.auth.signOut();
 
+    sessionStorage.removeItem('user');
+
     this.router.navigate(['login']);
+  }
+
+  haveRoleAccess(route : any){
+  
+    const role = sessionStorage.getItem('role');
+console.log(route);
+
+    if(role === 'admin'){
+      return true;
+    }
+    else{
+      if(route === 'list-product'){
+        return true
+      }
+      else{
+        return false
+      }
+    }
   }
 }

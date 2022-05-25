@@ -26,6 +26,12 @@
         </small>
       </div>
 
+      <!-- Role input -->
+      <div class="form-group mb-4">
+        <label class="form-label" for="role">Role</label>
+        <input type="password" id="role" ngModel name="role" #role="ngModel" class="form-control" />
+      </div>
+
       <!-- Submit button -->
       <button type="submit" class="btn btn-primary btn-block mb-4" (click)="onSignIn()">
         Sign in

@@ -14,7 +14,7 @@ export class LoginComponent implements OnInit {
 
   constructor(private authService: AuthService,
     private router : Router) {
-    console.log(this.loginForm);
+    // console.log(this.loginForm);
   }
   
   ngOnInit(): void {}
@@ -25,7 +25,8 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.valid) {
       this.authService.login(
         this.loginForm.controls['email'].value,
-        this.loginForm.controls['password'].value
+        this.loginForm.controls['password'].value,
+        this.loginForm.controls['role'].value
       );
 
       this.router.navigate(['']);
