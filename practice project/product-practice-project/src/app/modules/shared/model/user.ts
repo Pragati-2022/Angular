@@ -5,4 +5,5 @@ export interface IUser {
     address : string;
     city : string;
     zipCode : number;
+    role : boolean
 }

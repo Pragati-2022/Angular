@@ -5,8 +5,8 @@ import {
   AngularFirestoreCollection,
 } from '@angular/fire/compat/firestore';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { Observable, of } from 'rxjs';
-import { filter, map, switchMap } from 'rxjs/operators';
+import { from, Observable, of } from 'rxjs';
+import { filter, first, map, switchMap } from 'rxjs/operators';
 import { IUser } from 'src/app/modules/shared/model/user';
 
 @Injectable({
@@ -16,6 +16,7 @@ export class AuthService {
   userCollection: AngularFirestoreCollection<IUser>;
   isAuthenticated$!: Observable<boolean>;
   redirect = false;
+  loggedUserEmail = '';
 
   constructor(
     private auth: AngularFireAuth,
@@ -42,11 +43,13 @@ export class AuthService {
       address: userData.address,
       city: userData.city,
       zipCode: userData.zipCode,
+      role: false,
     });
   }
 
   async login(email: string, password: string) {
     await this.auth.signInWithEmailAndPassword(email, password);
+    this.loggedUserEmail = email;
 
     this.router.events
       .pipe(
@@ -65,5 +68,20 @@ export class AuthService {
     await this.auth.signOut();
 
     if (this.redirect) await this.router.navigate(['login']);
+  }
+
+  isAdminLoggedIn() {
+   
+
+    return  this.fireStore.collection('users')
+    .snapshotChanges()
+    .pipe(
+      map((snaps) =>
+        snaps.map((snap) => {
+          return ({id : snap.payload.doc.id, ...snap.payload.doc.data() as IUser});
+        }),
+      ),
+      first(),
+    );
   }
 }

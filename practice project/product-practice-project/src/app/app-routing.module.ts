@@ -9,6 +9,7 @@
   import { AngularFireAuthGuard, redirectUnauthorizedTo } from '@angular/fire/compat/auth-guard';
 import { ShowProductComponent } from './modules/product/add-product/show-product/show-product.component';
 import { ShowIndividualProductComponent } from './modules/product/add-product/show-product/show-individual-product/show-individual-product.component';
+import { RoleGuard } from './core/guard/role.guard';
 
   const redirectUnauthorizedToHome = () => redirectUnauthorizedTo('/');
   const routes: Routes = [
@@ -40,15 +41,25 @@ import { ShowIndividualProductComponent } from './modules/product/add-product/sh
         authOnly : true,
         authGuardPipe : redirectUnauthorizedToHome
       },
-      canActivate: [AngularFireAuthGuard]
+      canActivate: [AngularFireAuthGuard, RoleGuard]
     },
     {
       path: 'show-product',
       component : ShowProductComponent,
+      data : {
+        authOnly : true,
+        authGuardPipe : redirectUnauthorizedToHome
+      },
+      canActivate: [AngularFireAuthGuard, RoleGuard]
     },
     {
       path: 'show-product/:id',
       component : ShowIndividualProductComponent,
+      data : {
+        authOnly : true,
+        authGuardPipe : redirectUnauthorizedToHome
+      },
+      canActivate: [AngularFireAuthGuard, RoleGuard]
      },
       
   ];

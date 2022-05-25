@@ -12,6 +12,7 @@ import { last, switchMap } from 'rxjs';
 import firebase from 'firebase/compat/app';
 import { v4 as uuidv4 } from 'uuid';
 import { RegexUtility } from '../../shared/utility/regex-utility';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-add-product',
@@ -54,9 +55,6 @@ export class AddProductComponent implements OnInit {
       this.addProductForm
         .get('description')
         ?.setValue(this._productService.editProduct.description);
-      this.addProductForm
-        .get('image')
-        ?.setValue(this._productService.editProduct.image);
     }
   }
 
@@ -67,7 +65,7 @@ export class AddProductComponent implements OnInit {
       price: ['', [Validators.required, Validators.pattern(this._regexUtility.pattern)]],
       description: ['', [Validators.required]],
       image: ['', [Validators.required]],
-      fileName: [''],
+      fileName: ['', [Validators.required]],
     });
   }
 
@@ -146,7 +144,26 @@ export class AddProductComponent implements OnInit {
                 console.log(this.product);
 
                 await this._productService.createProduct(this.product);
-                alert('successfully added!');
+                Swal.fire({
+                  title: 'Are you sure want to add?',
+                  showCancelButton: true,
+                  confirmButtonText: 'Yes',
+                  cancelButtonText: 'No'
+                }).then((result) => {
+                  if (result.value) {
+                    Swal.fire(
+                      'Added!',
+                      'Your product has been added.',
+                      'success'
+                    )
+                  } else if (result.dismiss === Swal.DismissReason.cancel) {
+                    Swal.fire(
+                      'Cancelled',
+                      'Your product has been not added.',
+                      'error'
+                    )
+                  }
+                })
               },
               error: (error) => {
                 alert('Error occurr!');

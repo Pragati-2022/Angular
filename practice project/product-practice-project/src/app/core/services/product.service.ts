@@ -29,12 +29,11 @@ export class ProductService {
       .pipe(
         map((snaps) =>
           snaps.map((snap) => {
-            return ({id : snap.payload.doc.id, ...snap.payload.doc.data() as IProduct})
+            return ({id : snap.payload.doc.id, ...snap.payload.doc.data() as IProduct});
           }),
         ),
         first(),
       );
-
       return this.products;
     }
   
@@ -45,5 +44,4 @@ export class ProductService {
     async deleteProduct(product : IProduct): Promise<void> {      
       await this.fireStore.collection('products').doc(product.id).delete();
     }    
-
 }

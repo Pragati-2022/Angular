@@ -39,7 +39,7 @@
       <div *ngIf="_addProductForm['price'].errors?.['pattern'] ">Product price onlly allow numeric value</div>
     </div>
   </div>
-  <div class="form-group">
+  <div class="form-group mb-3">
     <label for="productDescription">Product Description : </label>
     <input
       type="text"
@@ -52,7 +52,7 @@
       <div *ngIf="_addProductForm['description'].errors?.['required'] ">Product description is required</div>
     </div>
   </div>
-  <div class="form-group">
+  <div *ngIf="!_productService.editProduct" class="form-group">
     <label for="image">Product Image : </label>
     <input type="file" accept=".jpg,.png,.jpeg" name="image" class="mt-4" formControlName="image" (change)="upload($event)">
     <div class="text-danger" *ngIf="(isFormSubmitted || _addProductForm['image'].touched) && _addProductForm['image'].invalid ">
