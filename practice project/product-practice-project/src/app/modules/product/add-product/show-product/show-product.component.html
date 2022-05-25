@@ -12,12 +12,12 @@
         <td>{{ product.price }}</td>
         <td>
           <button class="btn btn-primary" [ngStyle]="{ color: 'black' }" (click)="onView(product)">
-            View 
+            View
           </button>
-          <button class="btn btn-primary" [ngStyle]="{ color: 'black' }" (click)="onEdit(product)">
+          <button *ngIf="(userData$ | async)?.role" class="btn btn-primary" [ngStyle]="{ color: 'black' }" (click)="onEdit(product)">
             Edit 
           </button>
-          <button class="btn btn-primary" [ngStyle]="{ color: 'black' }" (click)="onDelete(product)">
+          <button  *ngIf="(userData$ | async)?.role" class="btn btn-primary" [ngStyle]="{ color: 'black' }" (click)="onDelete(product)">
             Delete 
           </button>
         </td>

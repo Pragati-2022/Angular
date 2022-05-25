@@ -1,11 +1,37 @@
-<div class="card" *ngIf="product">
-    <div class="card-body">
-      <h5 class="card-title">Product Name : {{ product.productName }}</h5>
-      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-      <p class="card-text"><small class="text-muted">Product Category : {{ product.category }}</small></p>
-      <p class="card-text"><small class="text-muted">Product Price : {{ product.price }}</small></p>
-      <p class="card-text"><small class="text-muted">Product Description : {{ product.description }}</small></p>
+<div class="container mt-5 mb-5">
+  <div class="row text-center">
+    <div class="card center" *ngIf="product">
+      <div class="row">
+        <div class="col-xs-6">
+          <img class="card-img-bottom mt-5" [src]="product.image" />
+        </div>
+        <div class="col-xs-6">
+          <div class="card-body">
+            <h5 class="card-title">Product Name : {{ product.productName }}</h5>
+            <p class="card-text">
+              This is a wider card with supporting text below as a natural
+              lead-in to additional content. This content is a little bit
+              longer.
+            </p>
+            <p class="card-text">
+              <small class="text-muted"
+                >Product Category : {{ product.category }}</small
+              >
+            </p>
+            <p class="card-text">
+              <small class="text-muted"
+                >Product Price : {{ product.price }}</small
+              >
+            </p>
+            <p class="card-text">
+              <small class="text-muted"
+                >Product Description : {{ product.description }}</small
+              >
+            </p>
+          </div>
+          <button class="btn btn-dark mb-5" (click)="goBack()">Back</button>
+        </div>
+      </div>
     </div>
-    <button (click)="goBack()">Back</button>
-    <img class="card-img-bottom" [src]="product.image">
   </div>
+</div>

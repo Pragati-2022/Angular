@@ -25,7 +25,7 @@
         >
       </li>
       <ng-template #authlinks>
-        <li class="nav-item">
+        <li *ngIf="(userData$ | async)?.role" class="nav-item">
           <a class="nav-link" routerLink="add-product" routerLinkActive="active"
             >Add Products</a
           >

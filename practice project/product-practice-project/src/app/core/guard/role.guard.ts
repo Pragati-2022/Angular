@@ -14,6 +14,8 @@ import { AuthService } from '../services/auth.service';
   providedIn: 'root',
 })
 export class RoleGuard implements CanActivate, OnInit {
+  role: boolean = false;
+
   constructor(
     private authService: AuthService,
     private auth: AngularFireAuth
@@ -22,8 +24,25 @@ export class RoleGuard implements CanActivate, OnInit {
   ngOnInit(): void {}
   canActivate(
     route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot):  boolean  {
+    state: RouterStateSnapshot
+  ):
+    | Observable<boolean | UrlTree>
+    | Promise<boolean | UrlTree>
+    | boolean
+    | UrlTree {
+    // let role = localStorage.getItem('userRole');
+    // console.log(role);
 
+    // if (role === 'true') {
+    //   return true;
+    // } else {
+    //   if (route.url[0].path === 'show-product') {
+    //     return true;
+    //   } else {
+    //     alert('you have not access');
+    //     return false;
+    //   }
+    // }
 
     let user$ = this.auth.user;
     let email: string | null | undefined = '';
@@ -31,49 +50,23 @@ export class RoleGuard implements CanActivate, OnInit {
       email = data?.email;
     });
 
-    let role: boolean = false;
-
-    if(this.authService.isAdminLoggedIn()){
-     this.authService.isAdminLoggedIn().subscribe((data) => {
+    this.authService.isAdminLoggedIn().subscribe((data) => {
       console.log(data);
       from(data)
-        .pipe(filter((user) => user.email === email)).subscribe(loggedUserData => {
-          role = loggedUserData.role;
-
-          console.log(role);// here get true
-          
-          return role;
-        })
+        .pipe(filter((user) => user.email === email))
+        .subscribe((loggedUserData) => {
+          this.role = loggedUserData.role;
+        });
     });
-    console.log(role); // here get false, i want true 
-    
-    return true
-  }
-  else
-  {
-    return false
-  }
-    //   console.log(data);
-    //   from(data)
-    //     .pipe(filter((user) => user.email === email))
-    //     .subscribe((loggedUserData) => {
 
-    //       loggedUserData.role;
-    //       role = loggedUserData.role;
-    //       console.log(role);
-
-    // if (loggedUserData.role) {
-    //   return true;
-    // } else {
-    //   if (route.url[0].path === 'show-product') {
-    //     return true;
-    //   } else {
-    //     return false;
-    //   }
-    // }
-    //     });
-    // });
-
-    // console.log(role);
+    if (this.role) return true;
+    else {
+      if (route.url[0].path === 'show-product') {
+        return true;
+      } else {
+        alert('you have not access');
+        return false;
+      }
+    }
   }
 }

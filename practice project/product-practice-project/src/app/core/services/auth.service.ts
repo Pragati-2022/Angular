@@ -49,7 +49,29 @@ export class AuthService {
 
   async login(email: string, password: string) {
     await this.auth.signInWithEmailAndPassword(email, password);
-    this.loggedUserEmail = email;
+
+    let userData$ = this.fireStore.collection('users')
+      .snapshotChanges()
+      .pipe(
+        map((snaps) =>
+          snaps.map((snap) => {
+            return ({id : snap.payload.doc.id, ...snap.payload.doc.data() as IUser});
+          }),
+        ),
+        first(),
+      );
+
+    userData$.subscribe(data => {
+      console.log(data);
+
+      from(data).pipe(filter(user => user.email === email)).subscribe(loggedUserData => {
+        console.log(loggedUserData.role);
+        
+        localStorage.setItem('userRole', String(loggedUserData.role));
+      })
+  
+    })
+
 
     this.router.events
       .pipe(
@@ -70,10 +92,8 @@ export class AuthService {
     if (this.redirect) await this.router.navigate(['login']);
   }
 
-  isAdminLoggedIn() {
-   
-
-    return  this.fireStore.collection('users')
+  isAdminLoggedIn(){
+    return this.fireStore.collection('users')
     .snapshotChanges()
     .pipe(
       map((snaps) =>
@@ -81,7 +101,6 @@ export class AuthService {
           return ({id : snap.payload.doc.id, ...snap.payload.doc.data() as IUser});
         }),
       ),
-      first(),
     );
   }
 }
