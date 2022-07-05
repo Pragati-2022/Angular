@@ -134,15 +134,23 @@ It is function for extending business logic or adding metadata.
 -> for of :  string , array
 
 const numbers = [45, 4, 9, 16, 25];
-    const numberObj = { 1: 20, 2: 39, 3: 56 };
-    const name = 'pragati';
+    const numberObj: any = { 1: 20, 2: 39, 3: 56 };
+    const name : any = 'pragati';
     let txt = '';
+
     // for (let i in numbers) {
     //   txt += numbers[i];
+    //   console.log(i);
+    // }
+
+    // for (let i in name) {
+    //   txt += name[i];
+    //   console.log(i);
     // }
 
     // for (let j in numberObj) {
     //   txt += numberObj[j];
+    //   console.log(j);
     // }
 
     // for (let i of numbers) {
@@ -156,15 +164,18 @@ const numbers = [45, 4, 9, 16, 25];
     // let i = 0;
     // for (; i < 5; ) {
     //   txt += numbers[i];
+    //   console.log(i);
     //   i++;
     // }
 
     // for (let i = 0; i < numbers.length; i++) {
     //   txt += numbers[i];
+    //   console.log(i);
     // }
 
     // for (let i = 0; i < name.length; i++) {
     //   txt += name[i];
+    //   console.log(i);
     // }
 
     // numbers.forEach(function (number) {
